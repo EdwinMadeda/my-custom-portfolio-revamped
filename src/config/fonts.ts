@@ -11,7 +11,7 @@ export const dmSans = DM_Sans({
 
 export const manrope = Manrope({
   variable: "--font-manrope",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin", "latin-ext"],
   style: "normal",
   display: "swap",

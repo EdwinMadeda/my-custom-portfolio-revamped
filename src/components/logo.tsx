@@ -10,7 +10,7 @@ export default function Logo({
     <Link
       href={href}
       className={cn(
-        "inline-flex cursor-pointer items-center justify-center pt-2 whitespace-nowrap uppercase",
+        "inline-flex cursor-pointer items-center justify-center rounded px-2 pt-2 whitespace-nowrap uppercase",
         className,
       )}
     >

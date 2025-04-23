@@ -219,13 +219,17 @@
     @apply relative container;
   }
 
+  section {
+    @apply border-border scroll-mt-nav-height-mobile lg:scroll-mt-nav-height border-b py-11;
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-manrope font-bold;
+    @apply font-manrope leading-snug font-bold tracking-normal;
   }
   a {
     @apply font-semibold active:scale-95;
@@ -236,6 +240,16 @@
 }
 
 @layer utilities {
+  .content {
+    @apply grid grid-cols-1 items-start justify-start gap-5;
+  }
+  .gradient-heading {
+    @apply bg-linear-to-br/oklab from-[#ff014f] from-20% to-[#992884] to-50% bg-[length:100%] bg-clip-text text-2xl font-extrabold text-transparent uppercase;
+  }
+  .sub-heading {
+    @apply text-xl;
+  }
+
   .h-screen-minus-nav-height-mobile {
     @apply h-[calc(100vh-var(--nav-height-mobile))];
   }
