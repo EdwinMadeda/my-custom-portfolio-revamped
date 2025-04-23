@@ -1,0 +1,41 @@
+import { IconType } from "react-icons";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaTwitter,
+  FaInstagram,
+  FaYoutube,
+  FaBehance,
+  FaDribbble,
+  FaMedium,
+  FaPinterest,
+  FaAngellist,
+  FaStackOverflow,
+  FaDiscord,
+  FaTwitch,
+  FaTiktok,
+  FaVimeo,
+} from "react-icons/fa";
+import { SiUpwork, SiFiverr, SiReddit, SiGitlab } from "react-icons/si";
+
+export const icons: Record<string, IconType> = {
+  linkedin: FaLinkedin,
+  github: FaGithub,
+  twitter: FaTwitter,
+  instagram: FaInstagram,
+  youtube: FaYoutube,
+  behance: FaBehance,
+  dribbble: FaDribbble,
+  medium: FaMedium,
+  pinterest: FaPinterest,
+  upwork: SiUpwork,
+  fiverr: SiFiverr,
+  angellist: FaAngellist,
+  stackoverflow: FaStackOverflow,
+  gitlab: SiGitlab,
+  reddit: SiReddit,
+  discord: FaDiscord,
+  twitch: FaTwitch,
+  tiktok: FaTiktok,
+  vimeo: FaVimeo,
+};
