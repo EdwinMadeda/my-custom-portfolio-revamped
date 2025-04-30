@@ -26,7 +26,9 @@ export default function Navigation() {
       >
         <nav
           className={cn(
-            "bg-background/95 relative mx-auto flex max-w-screen-xl items-center justify-between px-4 lg:space-x-8 lg:bg-transparent",
+            // "max-w-screen-xl px-4",
+            "@container",
+            "bg-background/95 relative mx-auto flex items-center justify-between lg:space-x-8 lg:bg-transparent",
             "border-border border-b lg:border-none",
           )}
         >

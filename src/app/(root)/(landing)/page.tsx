@@ -1,17 +1,17 @@
-import { navByName, navItems } from "@/config/site";
 import Home from "./home";
 import AboutMe from "./about-me";
-import Skills from "./skills";
+import SkillsAndTools from "./skills";
 import Works from "./works";
 import Testimonials from "./testimonials";
 import Contact from "./contact";
+import { ReadMore } from "./testimonials/testimonial";
 
 export default function Landing() {
   return (
     <>
       <Home />
       <AboutMe />
-      <Skills />
+      <SkillsAndTools />
       <Works />
       <Testimonials />
       <Contact />

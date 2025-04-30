@@ -145,7 +145,7 @@
   --secondary-foreground: oklch(0.985 0 0);
 
   --muted: OKLCH(0.35 0.12 243.63 / 95%);
-  --muted-foreground: oklch(0.705 0.015 286.067);
+  --muted-foreground: oklch(0.8 0.01 286.067);
 
   --accent: OKLCH(0.23 0.0719 243.63 / 85%);
   --accent-foreground: oklch(0.985 0 0);
@@ -186,23 +186,6 @@
   --neutral-foreground: oklch(0.95 0 0);
 }
 
-@utility container {
-  padding-inline: 20px;
-  margin-inline: auto;
-
-  @variant md {
-    padding-inline: 40px;
-  }
-
-  @variant lg {
-    padding-inline: 80px;
-  }
-
-  @variant xl {
-    padding-inline: 120px;
-  }
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50 box-border;
@@ -215,8 +198,13 @@
     @apply font-dmSans bg-background text-foreground bg-[url('../assets/images/banner-light.jpg')] bg-cover bg-fixed bg-center bg-no-repeat dark:bg-[url('../assets/images/banner-dark.jpg')];
   }
 
+  nav,
+  section {
+    @apply mx-auto max-w-[1100px] px-6 md:max-w-screen-md md:px-8 lg:max-w-screen-lg lg:px-10 xl:max-w-screen-xl xl:px-12;
+  }
+
   main {
-    @apply relative container;
+    @apply relative;
   }
 
   section {
@@ -229,31 +217,63 @@
   h4,
   h5,
   h6 {
-    @apply font-manrope leading-snug font-bold tracking-normal;
+    @apply font-manrope;
   }
+
+  h1 {
+    @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+  }
+
+  h2 {
+    @apply scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0;
+  }
+
+  h3 {
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+  }
+
+  h4 {
+    @apply scroll-m-20 text-xl font-semibold tracking-tight;
+  }
+
+  p {
+    @apply leading-7 [&:not(:first-child)]:mt-6;
+  }
+
+  blockquote {
+    @apply mt-6 border-l-2 pl-6 italic;
+  }
+
   a {
     @apply font-semibold active:scale-95;
   }
+
   button {
     @apply font-bold hover:cursor-pointer active:scale-95;
   }
 }
 
-@layer utilities {
-  .content {
-    @apply grid grid-cols-1 items-start justify-start gap-5;
-  }
-  .gradient-heading {
-    @apply bg-linear-to-br/oklab from-[#ff014f] from-20% to-[#992884] to-50% bg-[length:100%] bg-clip-text text-2xl font-extrabold text-transparent uppercase;
-  }
-  .sub-heading {
-    @apply text-xl;
+@layer components {
+  .prose-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
-  .h-screen-minus-nav-height-mobile {
-    @apply h-[calc(100vh-var(--nav-height-mobile))];
+  .prose-content li {
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .prose-content li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
   }
 }
 
-@layer components {
+@layer utilities {
+  .h-screen-minus-nav-height {
+    @apply h-[calc(100vh-var(--nav-height-mobile))] lg:h-[calc(100vh-var(--nav-height))];
+  }
 }

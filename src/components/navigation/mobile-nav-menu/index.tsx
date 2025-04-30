@@ -96,7 +96,7 @@ export default function MobileNavMenu() {
             <div
               onClick={() => setOpen(false)}
               className={clsx(
-                "top-nav-height-mobile h-screen-minus-nav-height-mobile absolute left-0 -z-20 w-full bg-black/50 lg:hidden",
+                "top-nav-height-mobile h-screen-minus-nav-height absolute left-0 -z-20 w-full bg-black/50 lg:hidden",
                 "data-[state=open]:fade-in-0",
               )}
               tabIndex={-1}

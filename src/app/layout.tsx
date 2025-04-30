@@ -11,6 +11,11 @@ import { ThemeProvider } from "@/components/theme-provider";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
+import {
+  PopoverDemo,
+  ReadMore,
+  SheetDemo,
+} from "./(root)/(landing)/testimonials/testimonial";
 
 const otherMetadata = {
   applicationName: siteConfig.name,
