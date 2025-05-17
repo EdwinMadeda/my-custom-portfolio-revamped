@@ -1,7 +1,7 @@
 "use client";
 
 import SectionContent from "@/components/section-content";
-import { GradientHeading, SubHeading } from "@/components/typography";
+import { GradientHeading, Muted, SubHeading } from "@/components/typography";
 import {
   Card,
   CardContent,
@@ -14,14 +14,20 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+} from "@/components/ui/custom-carousel";
 import { navByName } from "@/config/site";
 import useResponsive from "@/hooks/useResponsive";
 import { chunkArray } from "@/lib/utils";
 import clsx from "clsx";
 import { useMemo } from "react";
 
-const skills_and_tools = [
+interface SkillOrTool {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
+const skills_and_tools: SkillOrTool[] = [
   {
     title: "HTML5",
     description:
@@ -202,7 +208,7 @@ export default function SkillsAndTools() {
         <SectionContent>
           <Carousel
             className={clsx("w-full", {
-              "mt-20 mb-16": isSmallDevice,
+              "mt-15 mb-20": isSmallDevice,
               "mt-8 mb-0": !isSmallDevice,
               "mt-12": isDesktop,
             })}
@@ -211,7 +217,7 @@ export default function SkillsAndTools() {
             }}
             orientation={isSmallDevice ? "vertical" : "horizontal"}
           >
-            <CarouselContent className={clsx({ "h-[650px]": isSmallDevice })}>
+            <CarouselContent className={clsx({ "h-[700px]": isSmallDevice })}>
               {chunkedSkillsAndTools.map((chunk, chunkIdx) => (
                 <CarouselItem key={chunkIdx}>
                   <div
@@ -229,23 +235,39 @@ export default function SkillsAndTools() {
                   >
                     {chunk.map((skillOrTool, idx) => (
                       <div key={idx} className="p-1">
-                        <Card className="transition-transform duration-300 ease-in-out hover:scale-105">
-                          <CardContent className="flex cursor-default flex-col items-center space-y-3 rounded-xl p-4 text-center sm:p-6">
-                            <span className="bg-primary/10 dark:bg-primary/50 text-primary inline-block rounded-full p-3 dark:text-white">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                {skillOrTool.icon}
-                              </svg>
-                            </span>
-                            <CardTitle> {skillOrTool.title}</CardTitle>
-                            <CardDescription>
+                        <Card className="h-full transition-transform duration-300 ease-in-out hover:scale-105">
+                          <CardContent
+                            className={clsx(
+                              "flex cursor-default flex-col items-center space-y-3 rounded-xl p-2 px-6 sm:p-6",
+                              { "space-y-2 text-center": !isSmallMobile },
+                            )}
+                          >
+                            <figure
+                              className={clsx(
+                                "flex w-full items-center justify-center gap-3",
+                                { "flex-col": !isSmallMobile },
+                              )}
+                            >
+                              <div>
+                                <span className="bg-primary/10 dark:bg-primary/50 text-primary inline-block rounded-full p-2 sm:p-3 dark:text-white">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-5 w-5 md:h-6 md:w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                  >
+                                    {skillOrTool.icon}
+                                  </svg>
+                                </span>
+                              </div>
+                              <figcaption className="leading-none font-semibold">
+                                {skillOrTool.title}
+                              </figcaption>
+                            </figure>
+                            <Muted className={clsx({ isSmallMobile })}>
                               {skillOrTool.description}
-                            </CardDescription>
+                            </Muted>
                           </CardContent>
                         </Card>
                       </div>

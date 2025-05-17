@@ -11,11 +11,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
-import {
-  PopoverDemo,
-  ReadMore,
-  SheetDemo,
-} from "./(root)/(landing)/testimonials/testimonial";
+import { PlatformLinksDesktop } from "@/components/platform-links";
 
 const otherMetadata = {
   applicationName: siteConfig.name,
@@ -81,6 +77,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <PlatformLinksDesktop />
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,9 @@
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/custom-button";
 import { navByName } from "@/config/site";
+import Link from "next/link";
+import { Heading1, Paragraph } from "@/components/typography";
+import { PlatformLinksMobile } from "@/components/platform-links";
 
 export default function Home() {
   const {
@@ -17,21 +20,25 @@ export default function Home() {
       aria-describedby={`${name}-desc`}
     >
       <div className="flex h-full flex-col justify-center">
-        <p className="text-primary mt-11 uppercase">
+        <Paragraph className="text-primary mt-11 uppercase">
           Let's build something together
-        </p>
-        <h1 className="mt-2">
+        </Paragraph>
+        <Heading1 className="mt-2">
           Hi, I'm Edwin Madeda <br /> A Software Developer
-        </h1>
-        <p className="mt-5 max-w-xl">
+        </Heading1>
+        <Paragraph className="mt-5 max-w-xl">
           I love tinkering, building interfaces & web applications, thus
           transforming ideas into great products.
-        </p>
+        </Paragraph>
         <div className="my-10">
-          <Button className="rounded-full">
-            View Work <BsFillArrowRightCircleFill className="size-6" />
+          <Button className="group" asChild>
+            <Link href="#works">
+              View Work
+              <BsFillArrowRightCircleFill className="size-6 transition-transform duration-300 ease-in-out group-hover:rotate-90" />
+            </Link>
           </Button>
         </div>
+        <PlatformLinksMobile className="mt-5" />
       </div>
     </section>
   );

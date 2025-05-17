@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
-import { icons } from "@/config/icons";
+import { icons, SocialPlatform } from "@/config/icons";
 import { socialPlatforms } from "../content/socialMediaPlatforms";
-import { countryCodes } from "@/config/countryCodes";
+import { countryCodes } from "@/config/country-codes";
 
 export const contactInfoType = defineType({
   name: "contact",
@@ -65,7 +65,7 @@ export const contactInfoType = defineType({
                 list: socialPlatforms.map(({ title, value }) => ({
                   title,
                   value,
-                  icon: icons[value],
+                  icon: icons[value as SocialPlatform],
                 })),
               },
               validation: (Rule) =>
@@ -92,7 +92,7 @@ export const contactInfoType = defineType({
               return {
                 title: title,
                 subtitle: link,
-                media: icons[media],
+                media: icons[media as SocialPlatform],
               };
             },
           },

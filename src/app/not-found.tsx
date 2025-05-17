@@ -1,6 +1,7 @@
 import Navigation from "@/components/navigation";
 import { NavigationProvider } from "@/components/navigation/navigation-context";
-import { Button } from "@/components/ui/button";
+import { Lead, Muted } from "@/components/typography";
+import { Button } from "@/components/ui/custom-button";
 import Link from "next/link";
 
 export default function NotFound() {
@@ -13,16 +14,18 @@ export default function NotFound() {
         <section className="flex h-full items-center">
           <div className="container mx-auto my-8 flex flex-col items-center justify-center">
             <div className="max-w-md text-center">
-              <h2 className="text-muted-foreground mb-8 text-9xl font-extrabold">
-                <span className="sr-only">Error</span>404
-              </h2>
-              <p className="text-2xl font-semibold md:text-3xl">
+              <Lead asChild>
+                <h1 className="mb-8 !text-9xl font-extrabold">
+                  <span className="sr-only">Error</span>404
+                </h1>
+              </Lead>
+              <h2 className="text-2xl font-semibold md:text-3xl">
                 Sorry, we couldn't find this page.
-              </p>
-              <p className="text-muted-foreground mt-4 mb-8">
+              </h2>
+              <Muted className="mt-4 mb-8">
                 But dont worry, you can find plenty of other things on our
                 homepage.
-              </p>
+              </Muted>
               <Button>
                 <Link href="/">Back to homepage</Link>
               </Button>

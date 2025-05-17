@@ -1,10 +1,9 @@
 import Home from "./home";
 import AboutMe from "./about-me";
-import SkillsAndTools from "./skills";
+import SkillsAndTools from "./skills-and-tools";
 import Works from "./works";
 import Testimonials from "./testimonials";
 import Contact from "./contact";
-import { ReadMore } from "./testimonials/testimonial";
 
 export default function Landing() {
   return (

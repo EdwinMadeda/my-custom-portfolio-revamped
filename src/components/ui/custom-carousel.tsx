@@ -4,10 +4,11 @@ import * as React from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Dot } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/custom-button";
+import clsx from "clsx";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -23,11 +24,17 @@ type CarouselProps = {
 
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0];
+  thumbsCarouselRef: ReturnType<typeof useEmblaCarousel>[0];
   api: ReturnType<typeof useEmblaCarousel>[1];
+  thumbsApi: ReturnType<typeof useEmblaCarousel>[1];
   scrollPrev: () => void;
   scrollNext: () => void;
+  scrollTo: (index: number) => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
+  selectedIndex: number;
+  scrollSnaps: number[];
+  onThumbClick: (index: number) => void;
 } & CarouselProps;
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
@@ -58,14 +65,37 @@ function Carousel({
     },
     plugins,
   );
+  const [thumbsCarouselRef, thumbsApi] = useEmblaCarousel({
+    containScroll: "keepSnaps",
+    dragFree: true,
+  });
+
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([]);
 
-  const onSelect = React.useCallback((api: CarouselApi) => {
-    if (!api) return;
-    setCanScrollPrev(api.canScrollPrev());
-    setCanScrollNext(api.canScrollNext());
-  }, []);
+  const onSelect = React.useCallback(
+    (api: CarouselApi) => {
+      if (!api) return;
+
+      setSelectedIndex(api.selectedScrollSnap());
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+
+      if (!thumbsApi) return;
+      thumbsApi.scrollTo(api.selectedScrollSnap());
+    },
+    [api, thumbsApi],
+  );
+
+  const onThumbClick = React.useCallback(
+    (index: number) => {
+      if (!api || !thumbsApi) return;
+      api.scrollTo(index);
+    },
+    [api, thumbsApi],
+  );
 
   const scrollPrev = React.useCallback(() => {
     api?.scrollPrev();
@@ -74,6 +104,13 @@ function Carousel({
   const scrollNext = React.useCallback(() => {
     api?.scrollNext();
   }, [api]);
+
+  const scrollTo = React.useCallback(
+    (index: number) => {
+      api?.scrollTo(index);
+    },
+    [api],
+  );
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -95,7 +132,9 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api) return;
+
     onSelect(api);
+    setScrollSnaps(api.scrollSnapList());
     api.on("reInit", onSelect);
     api.on("select", onSelect);
 
@@ -108,14 +147,20 @@ function Carousel({
     <CarouselContext.Provider
       value={{
         carouselRef,
+        thumbsCarouselRef,
         api: api,
+        thumbsApi,
         opts,
         orientation:
           orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
         scrollPrev,
         scrollNext,
+        scrollTo,
         canScrollPrev,
         canScrollNext,
+        selectedIndex,
+        scrollSnaps,
+        onThumbClick,
       }}
     >
       <div
@@ -185,10 +230,11 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 -left-12 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+        "absolute size-8",
+        {
+          "top-1/2 -left-12 -translate-y-1/2": orientation === "horizontal",
+          "-bottom-10 left-1/2 -translate-x-[125%]": orientation === "vertical",
+        },
         className,
       )}
       disabled={!canScrollPrev}
@@ -215,10 +261,11 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+        "absolute size-8",
+        {
+          "top-1/2 -right-12 -translate-y-1/2": orientation === "horizontal",
+          "right-1/2 -bottom-10 translate-x-[125%]": orientation === "vertical",
+        },
         className,
       )}
       disabled={!canScrollNext}
@@ -231,6 +278,106 @@ function CarouselNext({
   );
 }
 
+function DotButton({
+  className,
+  selected,
+  onClick,
+  children,
+}: React.ComponentProps<typeof Button> & { selected: boolean }) {
+  return (
+    <Button
+      variant="outline"
+      size="iconSm"
+      className={cn(`rounded-full`, selected ? "is-selected" : "", className)}
+      type="button"
+      onClick={onClick}
+    >
+      {children}
+    </Button>
+  );
+}
+
+function CarouselDotNavigation({ className }: React.ComponentProps<"div">) {
+  const { scrollSnaps, scrollTo } = useCarousel();
+
+  return (
+    <div
+      className={cn(
+        "mt-12 flex w-full items-center justify-center space-x-4",
+        className,
+      )}
+    >
+      {scrollSnaps.map((_, index) => (
+        <DotButton
+          key={index}
+          selected={false}
+          onClick={() => {
+            scrollTo(index);
+          }}
+        >
+          {index}
+        </DotButton>
+      ))}
+    </div>
+  );
+}
+
+interface CarouselThumbsNavigationProps<T> {
+  items: T[];
+  renderThumb: (item: T, isSelected: boolean) => React.ReactNode;
+  className?: string;
+}
+
+function CarouselThumbNavigation<T>({
+  items,
+  renderThumb,
+  className,
+}: CarouselThumbsNavigationProps<T>) {
+  const { thumbsCarouselRef, onThumbClick, selectedIndex } = useCarousel();
+
+  return (
+    <div
+      className={cn(
+        "relative container mx-auto mt-8 w-full max-w-sm px-6",
+        className,
+      )}
+      role="region"
+      aria-roledescription="thumbs carousel"
+      data-slot="carousel"
+    >
+      <div
+        ref={thumbsCarouselRef}
+        className="overflow-hidden"
+        data-slot="carousel-content"
+      >
+        <div className={clsx("-ml-4 flex py-2")}>
+          {items.map((item, index) => (
+            <div
+              key={index}
+              role="group"
+              aria-roledescription="slide"
+              data-slot="carousel-item"
+              className={cn(
+                "min-w-0 shrink-0 grow-0 basis-full",
+                "pl-4",
+                "basis-1/5 md:basis-1/6",
+              )}
+            >
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => onThumbClick(index)}
+              >
+                {renderThumb(item, index === selectedIndex)}
+              </Button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export {
   type CarouselApi,
   Carousel,
@@ -238,4 +385,6 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselDotNavigation,
+  CarouselThumbNavigation,
 };

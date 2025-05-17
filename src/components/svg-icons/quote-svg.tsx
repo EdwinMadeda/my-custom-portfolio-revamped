@@ -1,4 +1,6 @@
-export default function QuoteSvg({ className }: React.ComponentProps<"svg">) {
+import { IconBaseProps } from "react-icons";
+
+export default function QuoteSvg({ className }: IconBaseProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

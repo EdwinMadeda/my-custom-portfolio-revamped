@@ -1,6 +1,7 @@
+import ImageWithFallback from "@/components/image-with-fallback";
 import SectionContent from "@/components/section-content";
 import { GradientHeading, SubHeading } from "@/components/typography";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/custom-button";
 import {
   Card,
   CardContent,
@@ -8,11 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { navByName } from "@/config/site";
-import clsx from "clsx";
-import { DivideIcon } from "lucide-react";
-import Image from "next/image";
+
 import Link from "next/link";
-import { BsArrowRight, BsArrowRightCircleFill } from "react-icons/bs";
+import { BsArrowRight } from "react-icons/bs";
 
 export default function Works() {
   const {
@@ -140,11 +139,14 @@ export default function Works() {
           {projects.map((project, idx) => (
             <div key={idx} className="p-4 md:w-1/2 lg:w-1/3">
               <Card className="h-full overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105">
-                <img
+                <ImageWithFallback
                   className="w-full object-cover object-center md:h-36 lg:h-48"
-                  src={`https://picsum.photos/id/${idx + 15}/400/300`}
+                  src={`https://picsum.photos/id/${idx + 15}/400/225`}
                   alt={project.title}
+                  width={400}
+                  height={225}
                 />
+
                 <CardContent>
                   <CardTitle className="mb-2 text-lg">
                     {project.title}

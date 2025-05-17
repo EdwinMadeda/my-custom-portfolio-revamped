@@ -18,7 +18,7 @@ export default function Navigation() {
       <header
         ref={ref}
         className={cn(
-          "h-nav-height-mobile lg:h-nav-height bg-background/95 border-border sticky top-0 z-50 w-full border-b backdrop-blur-sm",
+          "h-nav-height-mobile lg:h-nav-height bg-background/75 border-border sticky top-0 z-50 w-full border-b backdrop-blur-sm",
           {
             "lg:bg-background/50": !isSticky,
           },
@@ -26,7 +26,6 @@ export default function Navigation() {
       >
         <nav
           className={cn(
-            // "max-w-screen-xl px-4",
             "@container",
             "bg-background/95 relative mx-auto flex items-center justify-between lg:space-x-8 lg:bg-transparent",
             "border-border border-b lg:border-none",

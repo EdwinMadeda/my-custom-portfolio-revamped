@@ -4,7 +4,7 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/custom-button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,10 +12,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { capitalize, cn } from "@/lib/utils";
+import { themeValues } from "@/config/themes";
 
 export function ModeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
-  const themes = ["light", "dark", "system"];
 
   return (
     <DropdownMenu>
@@ -23,7 +23,7 @@ export function ModeToggle({ className }: { className?: string }) {
         <Button
           variant="outline"
           size="iconSm"
-          className={cn("rounded-full bg-transparent", className)}
+          className={cn("bg-transparent", className)}
         >
           <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
@@ -31,7 +31,7 @@ export function ModeToggle({ className }: { className?: string }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {themes
+        {themeValues
           .filter((item) => item !== theme)
           .map((themeLabel, key) => (
             <DropdownMenuItem key={key} onClick={() => setTheme(themeLabel)}>

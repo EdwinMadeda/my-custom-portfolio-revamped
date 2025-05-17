@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/custom-button";
 import { cn } from "@/lib/utils";
 
 import "./hamburger-btn.css";
@@ -22,11 +22,7 @@ const HamburgerBtn = forwardRef<HTMLButtonElement, HamburgerBtnProps>(
         aria-expanded={opened ? "true" : "false"}
         data-collapse-toggle="mobile-menu"
         aria-controls="mobile-menu"
-        className={cn(
-          opened && "opened",
-          "flipped rounded-full bg-transparent",
-          className,
-        )}
+        className={cn(opened && "opened", "flipped bg-transparent", className)}
         {...props}
         ref={ref}
       >

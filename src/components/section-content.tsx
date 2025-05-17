@@ -7,7 +7,7 @@ export default function SectionContent({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("mt-8 w-full xl:mt-10", className)} {...props}>
+    <div className={cn("container mt-8 w-full xl:mt-10", className)} {...props}>
       {children}
     </div>
   );
