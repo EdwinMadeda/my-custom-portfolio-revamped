@@ -8,18 +8,16 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/custom-carousel";
+
 import { navByName } from "@/config/site";
 import useResponsive from "@/hooks/useResponsive";
 import { chunkArray } from "@/lib/utils";
 import clsx from "clsx";
 import { useMemo } from "react";
+import SkillsAndToolsCarousel from "../../../../components/my-custom-carousel";
+import { EmblaOptionsType, EmblaPluginType } from "embla-carousel";
+import Autoplay from "embla-carousel-autoplay";
+import MyCustomCarousel from "../../../../components/my-custom-carousel";
 
 interface SkillOrTool {
   title: string;
@@ -175,9 +173,14 @@ export default function SkillsAndTools() {
     desktop: { min: 1280 },
   };
 
-  const { isSmallMobile, isMobile, isTablet, isLargeTablet, isDesktop } =
-    useResponsive(breakpoints);
-  const isSmallDevice = isMobile || isSmallMobile || isTablet;
+  const {
+    isSmallMobile,
+    isMobile,
+    isTablet,
+    isLargeTablet,
+    isDesktop,
+    isSmallDevice,
+  } = useResponsive(breakpoints);
 
   const getItemsPerSlide = (): number => {
     if (isSmallMobile) return 3;
@@ -190,10 +193,74 @@ export default function SkillsAndTools() {
 
   const itemsPerSlide = getItemsPerSlide();
 
-  const chunkedSkillsAndTools = useMemo(
+  const CHUNKED_SKILLS_AND_TOOLS = useMemo(
     () => chunkArray(skills_and_tools, itemsPerSlide),
     [skills_and_tools, itemsPerSlide],
   );
+
+  const OPTIONS: EmblaOptionsType = {
+    axis: isSmallDevice ? "y" : "x",
+    align: "start",
+    slidesToScroll: "auto",
+    loop: true,
+  };
+
+  const SLIDES = CHUNKED_SKILLS_AND_TOOLS.map((chunk, chunkIdx) => (
+    <div key={chunkIdx}>
+      <div
+        className={clsx(
+          "grid",
+          {
+            "grid-cols-1 gap-2": isSmallMobile,
+          },
+          {
+            "grid-cols-2 gap-2": isMobile || isTablet || isLargeTablet,
+          },
+          { "grid-cols-3 gap-4": isDesktop },
+        )}
+      >
+        {chunk.map((skillOrTool, idx) => (
+          <div key={idx} className="p-1">
+            <Card className="h-full transition-transform duration-300 ease-in-out hover:scale-105">
+              <CardContent
+                className={clsx(
+                  "flex cursor-default flex-col items-center space-y-3 rounded-xl p-2 px-6 sm:p-6",
+                  { "space-y-2 text-center": !isSmallMobile },
+                )}
+              >
+                <figure
+                  className={clsx(
+                    "flex w-full items-center justify-center gap-3",
+                    { "flex-col": !isSmallMobile },
+                  )}
+                >
+                  <div>
+                    <span className="bg-primary/10 dark:bg-primary/50 text-primary inline-block rounded-full p-2 sm:p-3 dark:text-white">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 md:h-6 md:w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        {skillOrTool.icon}
+                      </svg>
+                    </span>
+                  </div>
+                  <figcaption className="leading-none font-semibold">
+                    {skillOrTool.title}
+                  </figcaption>
+                </figure>
+                <Muted className={clsx({ isSmallMobile })}>
+                  {skillOrTool.description}
+                </Muted>
+              </CardContent>
+            </Card>
+          </div>
+        ))}
+      </div>
+    </div>
+  ));
 
   return (
     <>
@@ -206,79 +273,14 @@ export default function SkillsAndTools() {
         <GradientHeading>{heading}</GradientHeading>
         <SubHeading>{subHeading}</SubHeading>
         <SectionContent>
-          <Carousel
-            className={clsx("w-full", {
-              "mt-15 mb-20": isSmallDevice,
-              "mt-8 mb-0": !isSmallDevice,
-              "mt-12": isDesktop,
-            })}
-            opts={{
-              align: "start",
-            }}
-            orientation={isSmallDevice ? "vertical" : "horizontal"}
-          >
-            <CarouselContent className={clsx({ "h-[700px]": isSmallDevice })}>
-              {chunkedSkillsAndTools.map((chunk, chunkIdx) => (
-                <CarouselItem key={chunkIdx}>
-                  <div
-                    className={clsx(
-                      "grid",
-                      {
-                        "grid-cols-1 gap-2": isSmallMobile,
-                      },
-                      {
-                        "grid-cols-2 gap-2":
-                          isMobile || isTablet || isLargeTablet,
-                      },
-                      { "grid-cols-3 gap-4": isDesktop },
-                    )}
-                  >
-                    {chunk.map((skillOrTool, idx) => (
-                      <div key={idx} className="p-1">
-                        <Card className="h-full transition-transform duration-300 ease-in-out hover:scale-105">
-                          <CardContent
-                            className={clsx(
-                              "flex cursor-default flex-col items-center space-y-3 rounded-xl p-2 px-6 sm:p-6",
-                              { "space-y-2 text-center": !isSmallMobile },
-                            )}
-                          >
-                            <figure
-                              className={clsx(
-                                "flex w-full items-center justify-center gap-3",
-                                { "flex-col": !isSmallMobile },
-                              )}
-                            >
-                              <div>
-                                <span className="bg-primary/10 dark:bg-primary/50 text-primary inline-block rounded-full p-2 sm:p-3 dark:text-white">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-5 w-5 md:h-6 md:w-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                  >
-                                    {skillOrTool.icon}
-                                  </svg>
-                                </span>
-                              </div>
-                              <figcaption className="leading-none font-semibold">
-                                {skillOrTool.title}
-                              </figcaption>
-                            </figure>
-                            <Muted className={clsx({ isSmallMobile })}>
-                              {skillOrTool.description}
-                            </Muted>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    ))}
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          <MyCustomCarousel
+            slides={SLIDES}
+            options={OPTIONS}
+            navigationType="arrow_plus_dot"
+            slideSize="100%"
+            slideHeight={31.4}
+            className="pt-2"
+          />
         </SectionContent>
       </section>
     </>

@@ -22,7 +22,9 @@ export default function Contact() {
       <GradientHeading>{heading}</GradientHeading>
       <SubHeading>{subHeading}</SubHeading>
       <SectionContent>
-        <ContactCard />
+        <div className="pt-2 md:pt-4">
+          <ContactCard />
+        </div>
       </SectionContent>
     </section>
   );

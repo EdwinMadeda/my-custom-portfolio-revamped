@@ -4,24 +4,19 @@ import SectionContent from "@/components/section-content";
 import { GradientHeading, SubHeading } from "@/components/typography";
 
 import { Card } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  CarouselThumbNavigation,
-} from "@/components/ui/custom-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { navByName } from "@/config/site";
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
+
 import Testimonial, { TestimonialType } from "./testimonial";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/custom-avatar";
+import MyCustomCarousel from "@/components/my-custom-carousel";
+import { EmblaOptionsType, EmblaPluginType } from "embla-carousel";
+import useResponsive from "@/hooks/useResponsive";
 
 const testimonials: TestimonialType[] = [
   {
@@ -176,50 +171,66 @@ export default function Testimonials() {
     shortDescription: subHeading,
   } = navByName("testimonials");
 
+  const breakpoints = {
+    smallMobile: { max: 639 },
+    mobile: { min: 640, max: 767 },
+    tablet: { min: 768, max: 1023 },
+    largeTablet: { min: 1024, max: 1279 },
+    desktop: { min: 1280 },
+  };
+
+  const { isSmallDevice } = useResponsive(breakpoints);
+
+  const OPTIONS: EmblaOptionsType = {
+    axis: "x",
+    align: "start",
+    slidesToScroll: "auto",
+    loop: true,
+  };
+
+  const PLUGINS: EmblaPluginType[] = [
+    Autoplay({ playOnInit: false, delay: 10000 }),
+  ];
+
+  const SLIDES = testimonials.map((testimonial, idx) => (
+    <div key={idx}>
+      <div className="p-1">
+        <Card className="min-h-[380px]">
+          <Testimonial testimonial={testimonial} />
+        </Card>
+      </div>
+    </div>
+  ));
+
+  const ThumbContent = (index: number, isSelected: boolean) => {
+    const testimonial = testimonials.find((_, itemIdx) => itemIdx === index);
+    return (
+      <Avatar
+        className={cn("ring-accent !size-10 ring-4", {
+          "ring-primary/80": isSelected,
+        })}
+      >
+        <AvatarImage src={testimonial?.photoUrl} />
+        <AvatarFallback name={testimonial?.name} />
+      </Avatar>
+    );
+  };
+
   return (
     <section id={name} aria-labelledby={name} aria-describedby={`${name}-desc`}>
       <GradientHeading>{heading}</GradientHeading>
       <SubHeading>{subHeading}</SubHeading>
       <SectionContent>
-        <Carousel
-          className={clsx("w-full", {})}
-          opts={{
-            align: "start",
-          }}
-          plugins={[
-            Autoplay({
-              delay: 10000,
-            }),
-          ]}
-        >
-          <CarouselContent className={clsx("md:h-full")}>
-            {testimonials.map((testimonial, idx) => (
-              <CarouselItem key={idx} className="md:basis-1/2">
-                <div className="p-1">
-                  <Card className="min-h-[380px]">
-                    <Testimonial testimonial={testimonial} />
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="hidden xl:flex" />
-          <CarouselNext className="hidden xl:flex" />
-          <CarouselThumbNavigation<TestimonialType>
-            items={testimonials}
-            renderThumb={(testimonial, isSelected) => (
-              <Avatar
-                className={cn("ring-accent !size-10 ring-4", {
-                  "ring-primary/80": isSelected,
-                })}
-              >
-                <AvatarImage src={testimonial.photoUrl} />
-                <AvatarFallback name={testimonial.name} />
-              </Avatar>
-            )}
-            className="xl:hidden"
-          />
-        </Carousel>
+        <MyCustomCarousel
+          slides={SLIDES}
+          options={OPTIONS}
+          plugins={PLUGINS}
+          navigationType={isSmallDevice ? "thumbnail" : "arrow_plus_thumbnail"}
+          slideSize={isSmallDevice ? "100%" : "50%"}
+          renderThumbContent={ThumbContent}
+          enableAutoplay
+          className="pt-2 md:pt-5"
+        />
       </SectionContent>
     </section>
   );

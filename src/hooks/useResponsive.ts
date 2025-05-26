@@ -8,7 +8,18 @@ interface Breakpoints {
   desktop: { min: number };
 }
 
-export default function useResponsive(breakpoints: Breakpoints) {
+interface useResponsiveReturnType {
+  isSmallMobile: boolean;
+  isMobile: boolean;
+  isTablet: boolean;
+  isLargeTablet: boolean;
+  isDesktop: boolean;
+  isSmallDevice: boolean;
+}
+
+export default function useResponsive(
+  breakpoints: Breakpoints,
+): useResponsiveReturnType {
   const isSmallMobile = useMediaQuery(
     `(max-width: ${breakpoints.smallMobile.max}px)`,
   );
@@ -23,5 +34,14 @@ export default function useResponsive(breakpoints: Breakpoints) {
   );
   const isDesktop = useMediaQuery(`(min-width: ${breakpoints.desktop.min}px`);
 
-  return { isSmallMobile, isMobile, isTablet, isLargeTablet, isDesktop };
+  const isSmallDevice = isMobile || isSmallMobile || isTablet;
+
+  return {
+    isSmallMobile,
+    isMobile,
+    isTablet,
+    isLargeTablet,
+    isDesktop,
+    isSmallDevice,
+  };
 }

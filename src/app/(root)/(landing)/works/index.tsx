@@ -137,7 +137,7 @@ export default function Works() {
       <SectionContent className="container">
         <div className="-m-4 mx-auto mt-4 flex flex-wrap">
           {projects.map((project, idx) => (
-            <div key={idx} className="p-4 md:w-1/2 lg:w-1/3">
+            <div key={idx} className="py-4 md:w-1/2 md:p-4 lg:w-1/3">
               <Card className="h-full overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105">
                 <ImageWithFallback
                   className="w-full object-cover object-center md:h-36 lg:h-48"

@@ -128,6 +128,8 @@
   --neutral-foreground: oklch(0.3 0 0);
 
   --background-image-fallback: oklch(0.97 0.0069 247.9);
+
+  --detail-contrast: oklch(0.85 0.02 0);
 }
 
 .dark {
@@ -191,6 +193,8 @@
   --neutral-foreground: oklch(0.95 0 0);
 
   --background-image-fallback: oklch(0.33 0.0709 242.95 / 98.04%);
+
+  --detail-contrast: oklch(0.29 0.07 243);
 }
 
 @layer base {
@@ -260,7 +264,21 @@
   }
 
   button {
-    @apply font-bold hover:cursor-pointer active:scale-95;
+    @apply cursor-pointer font-bold;
+
+    &:disabled {
+      @apply scale-100 cursor-not-allowed opacity-50;
+    }
+
+    &:not(:disabled) {
+      &:hover {
+        @apply scale-95;
+      }
+
+      &:active {
+        @apply scale-95;
+      }
+    }
   }
 }
 

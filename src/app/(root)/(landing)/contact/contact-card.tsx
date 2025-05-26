@@ -31,29 +31,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-const formSchema = z.object({
-  fullName: z.string().min(2, {
-    message: "Full name must be at least 2 characters.",
-  }),
-  email: z.string().min(2, {
-    message: "Email must be at least 2 characters.",
-  }),
-  phone: z.string().min(2, {
-    message: "Phone number must be valid.",
-  }),
-  message: z.string().min(2, {
-    message: "Message must be at least 2 characters.",
-  }),
-});
+import formSchema, { ContactFormInputsType } from "./form-schema";
 
 export default function ContactCard() {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<ContactFormInputsType>({
     resolver: zodResolver(formSchema),
     defaultValues: { fullName: "", email: "", phone: "", message: "" },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: ContactFormInputsType) {
     // Handle the form submission (e.g., send an email, save to a database, etc.)
   }
 
