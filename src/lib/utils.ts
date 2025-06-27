@@ -1,7 +1,12 @@
 import { navItems } from "@/config/site";
 import { NavHref, NavItem } from "@/types";
 import { clsx, type ClassValue } from "clsx";
+import { CountryCode, getExampleNumber } from "libphonenumber-js";
 import { twMerge } from "tailwind-merge";
+import countries from "i18n-iso-countries";
+import enLocale from "i18n-iso-countries/langs/en.json";
+import examples from "libphonenumber-js/mobile/examples";
+import { CountryName } from "@/config/country-names";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -91,4 +96,12 @@ export function getLuminance(r: number, g: number, b: number): number {
 
 export function getTextColorFromLuminance(luminance: number): string {
   return luminance > 128 ? "#000000" : "#FFFFFF";
+}
+
+export function getCountryDetails(countryCode: CountryCode) {
+  countries.registerLocale(enLocale);
+  const countryName = countries.getName(countryCode, "en") as CountryName;
+  const exampleNumber =
+    getExampleNumber(countryCode, examples)?.formatNational() ?? "";
+  return { countryName, exampleNumber };
 }

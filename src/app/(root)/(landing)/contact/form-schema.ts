@@ -1,13 +1,9 @@
-import {
-  CountryCode,
-  getExampleNumber,
-  parsePhoneNumberFromString,
-} from "libphonenumber-js";
+import { CountryCode, parsePhoneNumberFromString } from "libphonenumber-js";
 import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
 
 import { z } from "zod";
-import examples from "libphonenumber-js/mobile/examples";
+import { getCountryDetails } from "@/lib/utils";
 
 countries.registerLocale(enLocale);
 
@@ -106,9 +102,7 @@ const formSchema = z
       phoneNumber?.isValid() && phoneNumber.country === phoneCountry;
 
     if (!valid) {
-      const countryName = countries.getName(countryCode, "en");
-      const exampleNumber =
-        getExampleNumber(countryCode, examples)?.formatNational() ?? "";
+      const { countryName, exampleNumber } = getCountryDetails(countryCode);
 
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

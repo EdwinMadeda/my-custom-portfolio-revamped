@@ -29,6 +29,8 @@ import { VercelPhoneInput } from "@/components/vercel-phone-input";
 import { EAST_AFRICA_COUNTRIES } from "@/config/countries";
 import { SpinnerCircularFixed } from "spinners-react/lib/esm/SpinnerCircularFixed";
 import { toast } from "sonner";
+import { getCountryDetails } from "@/lib/utils";
+import { CountryCode } from "libphonenumber-js";
 
 export default function ContactCard() {
   const form = useForm<ContactFormInputsType>({
@@ -44,13 +46,19 @@ export default function ContactCard() {
   });
 
   async function onSubmit(values: ContactFormInputsType) {
+    const formdata = {
+      ...values,
+      country: getCountryDetails(values.phoneCountry as CountryCode)
+        .countryName,
+    };
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(formdata),
       });
       const result = await res.json();
       if (result.success) {
@@ -66,7 +74,6 @@ export default function ContactCard() {
         );
       }
     } catch (error) {
-      console.error(`I'm getting this error: ${error}`);
       toast.error("Unable to send message. Please check your connection.", {
         duration: 3000,
       });

@@ -25,7 +25,7 @@ export default function useContentOverFlow<T extends HTMLElement>({
       const isOverflowing = contentHeight > maxHeight + tolerance;
 
       // Debugging logs
-      // console.log("lineHeight:", lineHeight); // Log the lineHeight to see what value you're getting
+      // ("lineHeight:", lineHeight); // Log the lineHeight to see what value you're getting
       // console.log("maxHeight:", maxHeight); // Log maxHeight to see how it's being calculated
 
       setIsOverflowing(isOverflowing);

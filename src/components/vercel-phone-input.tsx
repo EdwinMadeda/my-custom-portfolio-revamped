@@ -21,7 +21,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils";
+import { cn, getCountryDetails } from "@/lib/utils";
 import { useFormContext } from "react-hook-form";
 
 type PhoneInputProps = Omit<
@@ -43,8 +43,7 @@ const VercelPhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
     );
 
     const placeholder = React.useMemo(() => {
-      const exampleNumber = getExampleNumber(selectedCountry, examples);
-      return exampleNumber?.formatNational() ?? "";
+      return getCountryDetails(selectedCountry).exampleNumber;
     }, [selectedCountry]);
 
     const getCountryList = React.useMemo(() => {

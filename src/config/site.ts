@@ -2,7 +2,7 @@ import { getNavItemsByHref } from "@/lib/utils";
 import { NavItem, NavName } from "@/types";
 
 export const siteConfig = {
-  name: "Custom Portfolio",
+  name: "My Custom Portfolio Revamped",
   title: "Edwin Madeda | Web Developer",
   description:
     "Explore the portfolio of Edwin Madeda, showcasing web development skills, projects, and technical expertise.",
