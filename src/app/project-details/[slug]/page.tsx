@@ -159,8 +159,8 @@ export default async function ProjectDetails({
       </section>
 
       <section>
-        <div className="container flex w-full flex-col items-center md:flex-row-reverse">
-          <aside className="top-20 mb-8 w-full self-start pt-8 md:sticky md:ml-8 md:w-fit md:min-w-[18rem] md:flex-1 lg:ml-32 lg:max-w-[20rem] lg:shrink-0 2xl:w-full">
+        <div className="flex w-full flex-col md:flex-row-reverse md:items-start">
+          <aside className="top-20 mb-8 pt-8 md:sticky md:ml-8 md:max-w-[20rem] md:min-w-[18rem] md:self-start lg:ml-32">
             <Card className="border-border flex flex-col py-6 md:py-8">
               <div className="mb-2.5 px-6 leading-7 font-semibold capitalize">
                 Technologies used for portfolio website

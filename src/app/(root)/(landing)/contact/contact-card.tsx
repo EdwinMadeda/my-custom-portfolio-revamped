@@ -31,6 +31,7 @@ import { SpinnerCircularFixed } from "spinners-react/lib/esm/SpinnerCircularFixe
 import { toast } from "sonner";
 import { getCountryDetails } from "@/lib/utils";
 import { CountryCode } from "libphonenumber-js";
+import useAutoFocusIfVisible from "@/hooks/useAutoFocusIfVisible";
 
 export default function ContactCard() {
   const form = useForm<ContactFormInputsType>({
@@ -45,6 +46,8 @@ export default function ContactCard() {
     },
   });
 
+  const inputRef = useAutoFocusIfVisible<HTMLInputElement>();
+
   async function onSubmit(values: ContactFormInputsType) {
     const formdata = {
       ...values,
@@ -53,30 +56,34 @@ export default function ContactCard() {
     };
 
     try {
-      const res = await fetch("/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formdata),
       });
-      const result = await res.json();
-      if (result.success) {
-        toast.success("Message sent successfully", { duration: 3000 });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        toast.success("Message sent successfully!", { duration: 3000 });
         form.reset();
       } else {
-        toast.error(
-          JSON.stringify(result.error) ||
-            "Something went wrong. Please try again.",
-          {
-            duration: 3000,
-          },
-        );
+        const errorMessage =
+          result?.error?.message ||
+          result?.error ||
+          "Something went wrong. Please try again.";
+        toast.error(errorMessage, { duration: 3000 });
       }
-    } catch (error) {
-      toast.error("Unable to send message. Please check your connection.", {
-        duration: 3000,
-      });
+    } catch (error: any) {
+      toast.error(
+        error?.message ||
+          "Unable to send message. Please check your connection.",
+        {
+          duration: 3000,
+        },
+      );
     }
   }
 
@@ -110,7 +117,11 @@ export default function ContactCard() {
                   <FormItem className="col-span-2">
                     <FormLabel>Full Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Jane Doe" {...field} autoFocus />
+                      <Input
+                        placeholder="e.g. Jane Doe"
+                        {...field}
+                        ref={inputRef}
+                      />
                     </FormControl>
                     <FormDescription>
                       Let me know how you'd like to be addressed!
