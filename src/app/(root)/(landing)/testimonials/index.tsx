@@ -55,6 +55,7 @@ const testimonials: TestimonialType[] = [
     feedback: `
       <p>Their UX thinking transformed our platform. I appreciated the clear process and insightful recommendations.</p>
       <p>They were able to pinpoint areas of improvement and offered practical, effective solutions that aligned perfectly with our goals.</p>
+       <p>Thanks to their commitment and expertise, the project was delivered on time and exceeded our expectations. I would highly recommend them to anyone looking for a reliable and skilled partner.</p>
     `,
     positionTitle: "Lead UX Researcher",
     affiliationName: "Stech",
@@ -69,6 +70,8 @@ const testimonials: TestimonialType[] = [
     feedback: `
       <p>The collaboration felt seamless and efficient. Their team truly understood our needs.</p>
       <p>They were incredibly flexible, responding to our feedback quickly and adapting to changes in our requirements without missing a beat.</p>
+       <p>Thanks to their commitment and expertise, the project was delivered on time and exceeded our expectations. I would highly recommend them to anyone looking for a reliable and skilled partner.</p>
+        <p>Thanks to their commitment and expertise, the project was delivered on time and exceeded our expectations. I would highly recommend them to anyone looking for a reliable and skilled partner.</p>
     `,
     positionTitle: "Product Manager",
     affiliationName: "InnoTech",
@@ -193,13 +196,9 @@ export default function Testimonials() {
   ];
 
   const SLIDES = testimonials.map((testimonial, idx) => (
-    <div key={idx}>
-      <div className="p-1">
-        <Card className="min-h-[380px]">
-          <Testimonial testimonial={testimonial} />
-        </Card>
-      </div>
-    </div>
+    <Card className="m-1 h-full" key={idx}>
+      <Testimonial testimonial={testimonial} />
+    </Card>
   ));
 
   const ThumbContent = (index: number, isSelected: boolean) => {
@@ -227,6 +226,7 @@ export default function Testimonials() {
           plugins={PLUGINS}
           navigationType={isSmallDevice ? "thumbnail" : "arrow_plus_thumbnail"}
           slideSize={isSmallDevice ? "100%" : "50%"}
+          slideHeight={19}
           renderThumbContent={ThumbContent}
           enableAutoplay
           className="pt-2 md:pt-5"

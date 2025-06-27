@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
+import { forwardRef } from "react";
+import { boolean } from "zod";
 
 // Gradient-styled heading (usually for splash or hero titles)
 export function GradientHeading({
@@ -158,18 +160,17 @@ export function Quote({
   );
 }
 
-export function ProseContent({
-  className,
-  maxWidth = "prose",
-  asChild = false,
-  ...props
-}: React.ComponentProps<"div"> & {
-  asChild?: boolean;
-  maxWidth: "prose" | "none";
-}) {
+export const ProseContent = forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<"div"> & {
+    asChild?: boolean;
+    maxWidth: "prose" | "none";
+  }
+>(({ className, maxWidth = "prose", asChild = false, ...props }, ref) => {
   const Comp = asChild ? Slot : "div";
   return (
     <Comp
+      ref={ref}
       className={cn(
         "prose prose-base dark:prose-invert",
         "prose-a:px-2 prose-a:underline-offset-4 hover:prose-a:underline",
@@ -201,4 +202,4 @@ export function ProseContent({
       {...props}
     />
   );
-}
+});

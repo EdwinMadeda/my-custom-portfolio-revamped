@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from "react";
 
 export default function useContentOverFlow<T extends HTMLElement>({
-  lineClamp = 4,
+  lineClamp = 5,
   tolerance = 5,
   contentRef,
 }: {
@@ -17,9 +17,18 @@ export default function useContentOverFlow<T extends HTMLElement>({
 
     const updateOverflowStatus = () => {
       const lineHeight = parseFloat(getComputedStyle(el).lineHeight || "24");
+
       if (isNaN(lineHeight) || !lineHeight) return;
+
       const maxHeight = lineHeight * lineClamp;
-      setIsOverflowing(el.scrollHeight > maxHeight + tolerance);
+      const contentHeight = el.scrollHeight || 0;
+      const isOverflowing = contentHeight > maxHeight + tolerance;
+
+      // Debugging logs
+      // console.log("lineHeight:", lineHeight); // Log the lineHeight to see what value you're getting
+      // console.log("maxHeight:", maxHeight); // Log maxHeight to see how it's being calculated
+
+      setIsOverflowing(isOverflowing);
     };
 
     updateOverflowStatus();
@@ -27,7 +36,7 @@ export default function useContentOverFlow<T extends HTMLElement>({
     resizeObserver.observe(el);
 
     return () => resizeObserver.disconnect();
-  }, [lineClamp, tolerance]);
+  }, [lineClamp, tolerance, contentRef]);
 
   return isOverflowing;
 }

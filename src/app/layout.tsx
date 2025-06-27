@@ -12,6 +12,7 @@ import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { PlatformLinksDesktop } from "@/components/platform-links";
+import { Toaster } from "@/components/ui/sonner";
 
 const otherMetadata = {
   applicationName: siteConfig.name,
@@ -77,6 +78,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster position="top-center" richColors />
           <PlatformLinksDesktop />
         </ThemeProvider>
       </body>

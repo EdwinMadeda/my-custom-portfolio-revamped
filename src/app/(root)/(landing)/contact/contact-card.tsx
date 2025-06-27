@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Heading3,
-  Heading6,
-  Lead,
-  Muted,
-  Paragraph,
-} from "@/components/typography";
+import { Heading3, Paragraph } from "@/components/typography";
 import { Button } from "@/components/ui/custom-button";
 import {
   Card,
@@ -30,17 +24,53 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import formSchema, { ContactFormInputsType } from "./form-schema";
+import { VercelPhoneInput } from "@/components/vercel-phone-input";
+import { EAST_AFRICA_COUNTRIES } from "@/config/countries";
+import { SpinnerCircularFixed } from "spinners-react/lib/esm/SpinnerCircularFixed";
+import { toast } from "sonner";
 
 export default function ContactCard() {
   const form = useForm<ContactFormInputsType>({
     resolver: zodResolver(formSchema),
-    defaultValues: { fullName: "", email: "", phone: "", message: "" },
+    defaultValues: {
+      fullName: "",
+      email: "",
+      phone: "",
+      phoneCountry: "KE",
+      message: "",
+      _honeypot: "",
+    },
   });
 
-  function onSubmit(values: ContactFormInputsType) {
-    // Handle the form submission (e.g., send an email, save to a database, etc.)
+  async function onSubmit(values: ContactFormInputsType) {
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      const result = await res.json();
+      if (result.success) {
+        toast.success("Message sent successfully", { duration: 3000 });
+        form.reset();
+      } else {
+        toast.error(
+          JSON.stringify(result.error) ||
+            "Something went wrong. Please try again.",
+          {
+            duration: 3000,
+          },
+        );
+      }
+    } catch (error) {
+      console.error(`I'm getting this error: ${error}`);
+      toast.error("Unable to send message. Please check your connection.", {
+        duration: 3000,
+      });
+    }
   }
 
   return (
@@ -60,6 +90,12 @@ export default function ContactCard() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardContent className="grid grid-cols-2 items-start justify-stretch gap-4">
+              <input
+                type="hidden"
+                {...form.register("_honeypot")}
+                autoComplete="off"
+                tabIndex={-1}
+              />
               <FormField
                 control={form.control}
                 name="fullName"
@@ -67,7 +103,7 @@ export default function ContactCard() {
                   <FormItem className="col-span-2">
                     <FormLabel>Full Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Jane Doe" {...field} />
+                      <Input placeholder="e.g. Jane Doe" {...field} autoFocus />
                     </FormControl>
                     <FormDescription>
                       Let me know how you'd like to be addressed!
@@ -102,7 +138,11 @@ export default function ContactCard() {
                   <FormItem className="col-span-2 sm:col-span-1">
                     <FormLabel>Phone Number (Optional)</FormLabel>
                     <FormControl>
-                      <Input placeholder="+1 (555) 123-4567" {...field} />
+                      <VercelPhoneInput
+                        defaultCountry="KE"
+                        priorityCountries={EAST_AFRICA_COUNTRIES}
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription>
                       This is optional, but feel free to share if you'd prefer a
@@ -137,10 +177,22 @@ export default function ContactCard() {
             <CardFooter>
               <Button
                 type="submit"
+                disabled={form.formState.isSubmitting}
                 className="mt-4 flex items-center space-x-2"
               >
                 <span>Let's Connect!</span>
-                <MessageCircle className="h-5 w-5" />
+                {form.formState.isSubmitting ? (
+                  <SpinnerCircularFixed
+                    size={80}
+                    thickness={200}
+                    speed={120}
+                    color="#fff"
+                    secondaryColor={"rgba(0,0,0,0.44)"}
+                    className="!h-5 !w-5"
+                  />
+                ) : (
+                  <MessageCircle className="!h-5 !w-5" aria-hidden="true" />
+                )}
               </Button>
             </CardFooter>
           </form>

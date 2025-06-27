@@ -107,7 +107,11 @@ const Blockquote = forwardRef<
   { feedback: string; isClamped: boolean }
 >(({ feedback, isClamped }, ref) => {
   return (
-    <Quote className={clsx("mt-4", { "h-40": isClamped })}>
+    <Quote
+      className={clsx("mt-4 transition-all duration-300 ease-out", {
+        "h-40": isClamped,
+      })}
+    >
       <QuoteSvg className="text-muted-foreground mb-2 block h-3 w-3" />
       <ProseContent
         ref={ref}
@@ -115,7 +119,9 @@ const Blockquote = forwardRef<
           "line-clamp-3 md:line-clamp-4": isClamped,
         })}
         maxWidth="prose"
-        dangerouslySetInnerHTML={{ __html: feedback }}
+        dangerouslySetInnerHTML={{
+          __html: feedback || "No feedback provided.",
+        }}
       />
     </Quote>
   );
