@@ -1,6 +1,6 @@
 "use client";
 
-import SectionContent from "@/components/section-content";
+import SectionInnerContent from "@/components/section-inner-content";
 import { GradientHeading, Muted, SubHeading } from "@/components/typography";
 import {
   Card,
@@ -14,9 +14,7 @@ import useResponsive from "@/hooks/useResponsive";
 import { chunkArray } from "@/lib/utils";
 import clsx from "clsx";
 import { useMemo } from "react";
-import SkillsAndToolsCarousel from "../../../../components/my-custom-carousel";
-import { EmblaOptionsType, EmblaPluginType } from "embla-carousel";
-import Autoplay from "embla-carousel-autoplay";
+import { EmblaOptionsType } from "embla-carousel";
 import MyCustomCarousel from "../../../../components/my-custom-carousel";
 
 interface SkillOrTool {
@@ -272,7 +270,7 @@ export default function SkillsAndTools() {
       >
         <GradientHeading>{heading}</GradientHeading>
         <SubHeading>{subHeading}</SubHeading>
-        <SectionContent>
+        <SectionInnerContent>
           <MyCustomCarousel
             slides={SLIDES}
             options={OPTIONS}
@@ -281,7 +279,7 @@ export default function SkillsAndTools() {
             slideHeight={31.4}
             className="pt-2"
           />
-        </SectionContent>
+        </SectionInnerContent>
       </section>
     </>
   );

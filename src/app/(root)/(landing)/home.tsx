@@ -4,6 +4,7 @@ import { navByName } from "@/config/site";
 import Link from "next/link";
 import { Heading1, Paragraph } from "@/components/typography";
 import { PlatformLinksMobile } from "@/components/platform-links";
+import SectionInnerContent from "@/components/section-inner-content";
 
 export default function Home() {
   const {
@@ -19,8 +20,8 @@ export default function Home() {
       aria-labelledby={name}
       aria-describedby={`${name}-desc`}
     >
-      <div className="flex h-full flex-col justify-center">
-        <Paragraph className="text-primary mt-11 uppercase">
+      <SectionInnerContent className="flex h-full flex-col justify-center">
+        <Paragraph className="text-primary uppercase">
           Let's build something together
         </Paragraph>
         <Heading1 className="mt-2">
@@ -39,7 +40,7 @@ export default function Home() {
           </Button>
         </div>
         <PlatformLinksMobile className="mt-5" />
-      </div>
+      </SectionInnerContent>
     </section>
   );
 }

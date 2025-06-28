@@ -1,7 +1,7 @@
 import BackButton from "@/components/back-button";
 import Divider from "@/components/divider";
 import ImageWithFallback from "@/components/image-with-fallback";
-import SectionContent from "@/components/section-content";
+import SectionInnerContent from "@/components/section-inner-content";
 import { Heading1, Paragraph, ProseContent } from "@/components/typography";
 import { Button } from "@/components/ui/custom-button";
 import { Card } from "@/components/ui/card";
@@ -90,7 +90,7 @@ export default async function ProjectDetails({
             piece.
           </Paragraph>
 
-          <SectionContent className="container">
+          <SectionInnerContent>
             <div className="flex flex-wrap gap-8">
               <figure className="flex flex-col items-center justify-end">
                 <div className="flex w-[225px] items-end justify-center md:w-[270px]">
@@ -128,7 +128,7 @@ export default async function ProjectDetails({
                 </figcaption>
               </figure>
               <figure className="flex flex-col items-center justify-end">
-                <div className="flex w-[480px] items-end justify-center md:w-[576px]">
+                <div className="flex w-full items-end justify-center sm:w-[480px] md:w-[576px]">
                   <ImageWithFallback
                     className="h-auto w-full rounded-lg"
                     src="https://picsum.photos/id/15/960/540"
@@ -142,7 +142,7 @@ export default async function ProjectDetails({
                 </figcaption>
               </figure>
             </div>
-          </SectionContent>
+          </SectionInnerContent>
 
           <div className="my-10 flex gap-4">
             <BackButton href="/#works">Back to Works</BackButton>
@@ -159,8 +159,8 @@ export default async function ProjectDetails({
       </section>
 
       <section>
-        <div className="flex w-full flex-col md:flex-row-reverse md:items-start">
-          <aside className="top-20 mb-8 pt-8 md:sticky md:ml-8 md:max-w-[20rem] md:min-w-[18rem] md:self-start lg:ml-32">
+        <div className="flex w-full flex-col md:flex-row-reverse md:items-start md:justify-center md:gap-x-16 lg:gap-x-24">
+          <aside className="top-20 mb-8 pt-8 md:sticky md:max-w-[20rem] md:min-w-[18rem] md:self-start">
             <Card className="border-border flex flex-col py-6 md:py-8">
               <div className="mb-2.5 px-6 leading-7 font-semibold capitalize">
                 Technologies used for portfolio website
@@ -189,82 +189,89 @@ export default async function ProjectDetails({
               ))}
             </Card>
           </aside>
-          <ProseContent maxWidth="prose" asChild>
-            <article className="mx-auto pt-8">
-              <h1>Technologies Behind Our Project</h1>
-              <p>
-                Building a modern web application requires a robust set of tools
-                and technologies. This project leverages a carefully chosen
-                stack to ensure optimal performance, scalability, and a great
-                user experience.
-              </p>
-              <h2>Frontend Frameworks</h2>
-              <p>
-                The frontend of this project is powered by{" "}
-                <strong>Next.js</strong>, a React-based framework designed for
-                server-side rendering and static site generation. This ensures
-                that our pages load quickly and are SEO-friendly, which is
-                essential for a modern portfolio website.
-              </p>
-              <p>
-                Additionally, we utilize <strong>React</strong> to build user
-                interfaces efficiently. Its component-based architecture makes
-                it easy to manage complex UIs and keeps the development process
-                smooth and maintainable.
-              </p>
-              <p>
-                Styling is done with <strong>Tailwind CSS</strong>, a
-                utility-first CSS framework that helps us rapidly build custom
-                designs. Tailwind's approach allows for a more efficient and
-                streamlined workflow when crafting a responsive layout for our
-                site.
-              </p>
-              <p>
-                For the user interface, we use <strong>Shadcn/ui</strong>, a
-                component library built with Tailwind CSS and React. This helps
-                to maintain a consistent UI while allowing for customization and
-                flexibility in design.
-              </p>
-              <h2>Content Management System (CMS)</h2>
-              <p>
-                To handle content management, we rely on{" "}
-                <strong>Sanity.io</strong>, a powerful headless CMS. With its
-                flexible and structured content model, it provides an excellent
-                backend solution for creating, managing, and delivering content
-                seamlessly to our frontend.
-              </p>
-              <h2>Development Tools</h2>
-              <p>
-                Development is streamlined through the use of{" "}
-                <strong>Git</strong> for version control and{" "}
-                <strong>GitHub</strong> for collaboration. Git allows us to keep
-                track of code changes efficiently, while GitHub provides a
-                platform for hosting, reviewing, and collaborating on our code.
-              </p>
-              <h2>Why This Tech Stack?</h2>
-              <p>
-                This tech stack was selected with performance, scalability, and
-                maintainability in mind. <strong>Next.js</strong> provides an
-                ideal foundation for building fast and SEO-friendly websites.{" "}
-                <strong>React</strong> allows for dynamic user interfaces, while{" "}
-                <strong>Tailwind CSS</strong> and <strong>Shadcn/ui</strong>{" "}
-                enable rapid styling and UI development.
-              </p>
-              <p>
-                Additionally, <strong>Sanity.io</strong> ensures that we can
-                easily manage and scale content, while <strong>GitHub</strong>{" "}
-                and <strong>Git</strong> make collaboration and version control
-                easy and efficient.
-              </p>
-              <p>
-                In conclusion, this stack empowers us to create modern,
-                scalable, and maintainable web applications. The combination of
-                frontend and backend technologies ensures a seamless development
-                experience while delivering excellent performance and user
-                experience.
-              </p>
-            </article>
-          </ProseContent>
+
+          <div
+          // className="md:flex md:flex-grow"
+          >
+            <ProseContent maxWidth="prose" asChild>
+              <article className="pt-8">
+                <h1>Technologies Behind Our Project</h1>
+                <p>
+                  Building a modern web application requires a robust set of
+                  tools and technologies. This project leverages a carefully
+                  chosen stack to ensure optimal performance, scalability, and a
+                  great user experience.
+                </p>
+                <h2>Frontend Frameworks</h2>
+                <p>
+                  The frontend of this project is powered by{" "}
+                  <strong>Next.js</strong>, a React-based framework designed for
+                  server-side rendering and static site generation. This ensures
+                  that our pages load quickly and are SEO-friendly, which is
+                  essential for a modern portfolio website.
+                </p>
+                <p>
+                  Additionally, we utilize <strong>React</strong> to build user
+                  interfaces efficiently. Its component-based architecture makes
+                  it easy to manage complex UIs and keeps the development
+                  process smooth and maintainable.
+                </p>
+                <p>
+                  Styling is done with <strong>Tailwind CSS</strong>, a
+                  utility-first CSS framework that helps us rapidly build custom
+                  designs. Tailwind's approach allows for a more efficient and
+                  streamlined workflow when crafting a responsive layout for our
+                  site.
+                </p>
+                <p>
+                  For the user interface, we use <strong>Shadcn/ui</strong>, a
+                  component library built with Tailwind CSS and React. This
+                  helps to maintain a consistent UI while allowing for
+                  customization and flexibility in design.
+                </p>
+                <h2>Content Management System (CMS)</h2>
+                <p>
+                  To handle content management, we rely on{" "}
+                  <strong>Sanity.io</strong>, a powerful headless CMS. With its
+                  flexible and structured content model, it provides an
+                  excellent backend solution for creating, managing, and
+                  delivering content seamlessly to our frontend.
+                </p>
+                <h2>Development Tools</h2>
+                <p>
+                  Development is streamlined through the use of{" "}
+                  <strong>Git</strong> for version control and{" "}
+                  <strong>GitHub</strong> for collaboration. Git allows us to
+                  keep track of code changes efficiently, while GitHub provides
+                  a platform for hosting, reviewing, and collaborating on our
+                  code.
+                </p>
+                <h2>Why This Tech Stack?</h2>
+                <p>
+                  This tech stack was selected with performance, scalability,
+                  and maintainability in mind. <strong>Next.js</strong> provides
+                  an ideal foundation for building fast and SEO-friendly
+                  websites. <strong>React</strong> allows for dynamic user
+                  interfaces, while <strong>Tailwind CSS</strong> and{" "}
+                  <strong>Shadcn/ui</strong> enable rapid styling and UI
+                  development.
+                </p>
+                <p>
+                  Additionally, <strong>Sanity.io</strong> ensures that we can
+                  easily manage and scale content, while <strong>GitHub</strong>{" "}
+                  and <strong>Git</strong> make collaboration and version
+                  control easy and efficient.
+                </p>
+                <p>
+                  In conclusion, this stack empowers us to create modern,
+                  scalable, and maintainable web applications. The combination
+                  of frontend and backend technologies ensures a seamless
+                  development experience while delivering excellent performance
+                  and user experience.
+                </p>
+              </article>
+            </ProseContent>
+          </div>
         </div>
       </section>
     </>

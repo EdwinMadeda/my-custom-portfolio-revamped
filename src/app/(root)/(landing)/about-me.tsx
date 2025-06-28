@@ -1,4 +1,4 @@
-import SectionContent from "@/components/section-content";
+import SectionInnerContent from "@/components/section-inner-content";
 import {
   GradientHeading,
   ProseContent,
@@ -22,7 +22,7 @@ export default function AboutMe() {
     >
       <GradientHeading>{heading}</GradientHeading>
       <SubHeading>{subHeading}</SubHeading>
-      <SectionContent>
+      <SectionInnerContent>
         <ProseContent maxWidth="none">
           <p>
             Expedita sed doloremque quod fuga minima rem aperiam! Dolorem
@@ -52,7 +52,7 @@ export default function AboutMe() {
             esse ullam quisquam nemo atque, dolorum officiis voluptas impedit.
           </p>
         </ProseContent>
-      </SectionContent>
+      </SectionInnerContent>
     </section>
   );
 }

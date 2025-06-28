@@ -1,6 +1,6 @@
 "use client";
 
-import SectionContent from "@/components/section-content";
+import SectionInnerContent from "@/components/section-inner-content";
 import { GradientHeading, SubHeading } from "@/components/typography";
 
 import { Card } from "@/components/ui/card";
@@ -219,7 +219,7 @@ export default function Testimonials() {
     <section id={name} aria-labelledby={name} aria-describedby={`${name}-desc`}>
       <GradientHeading>{heading}</GradientHeading>
       <SubHeading>{subHeading}</SubHeading>
-      <SectionContent>
+      <SectionInnerContent>
         <MyCustomCarousel
           slides={SLIDES}
           options={OPTIONS}
@@ -231,7 +231,7 @@ export default function Testimonials() {
           enableAutoplay
           className="pt-2 md:pt-5"
         />
-      </SectionContent>
+      </SectionInnerContent>
     </section>
   );
 }

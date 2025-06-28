@@ -1,6 +1,6 @@
 "use client";
 
-import SectionContent from "@/components/section-content";
+import SectionInnerContent from "@/components/section-inner-content";
 import { GradientHeading, SubHeading } from "@/components/typography";
 import { navByName } from "@/config/site";
 import ContactCard from "./contact-card";
@@ -21,11 +21,11 @@ export default function Contact() {
     >
       <GradientHeading>{heading}</GradientHeading>
       <SubHeading>{subHeading}</SubHeading>
-      <SectionContent>
+      <SectionInnerContent>
         <div className="pt-2 md:pt-4">
           <ContactCard />
         </div>
-      </SectionContent>
+      </SectionInnerContent>
     </section>
   );
 }

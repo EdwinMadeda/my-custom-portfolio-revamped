@@ -26,9 +26,8 @@ export default function Navigation() {
       >
         <nav
           className={cn(
-            "@container",
-            "bg-background/95 relative mx-auto flex items-center justify-between lg:space-x-8 lg:bg-transparent",
-            "border-border border-b lg:border-none",
+            "bg-background/95 lg:bg-transparent",
+            "relative mx-auto flex h-full items-center justify-between lg:space-x-8",
           )}
         >
           <Logo />

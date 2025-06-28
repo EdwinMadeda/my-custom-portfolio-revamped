@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigation } from "../navigation-context";
+import { useRef } from "react";
 import HamburgerBtn from "../hamburger/hamburger-btn";
 import clsx from "clsx";
 import Link from "next/link";

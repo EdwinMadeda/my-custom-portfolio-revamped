@@ -1,5 +1,5 @@
 import ImageWithFallback from "@/components/image-with-fallback";
-import SectionContent from "@/components/section-content";
+import SectionInnerContent from "@/components/section-inner-content";
 import { GradientHeading, SubHeading } from "@/components/typography";
 import { Button } from "@/components/ui/custom-button";
 import {
@@ -134,7 +134,7 @@ export default function Works() {
     >
       <GradientHeading>{heading}</GradientHeading>
       <SubHeading>{subHeading}</SubHeading>
-      <SectionContent className="container">
+      <SectionInnerContent>
         <div className="-m-4 mx-auto mt-4 flex flex-wrap">
           {projects.map((project, idx) => (
             <div key={idx} className="py-4 md:w-1/2 md:p-4 lg:w-1/3">
@@ -171,7 +171,7 @@ export default function Works() {
             </div>
           ))}
         </div>
-      </SectionContent>
+      </SectionInnerContent>
     </section>
   );
 }

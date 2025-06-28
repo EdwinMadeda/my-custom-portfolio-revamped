@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 import { forwardRef } from "react";
-import { boolean } from "zod";
 
 // Gradient-styled heading (usually for splash or hero titles)
 export function GradientHeading({
