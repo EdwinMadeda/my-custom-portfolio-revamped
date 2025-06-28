@@ -16,7 +16,7 @@ import {
 import clsx from "clsx";
 import React, { forwardRef, useRef } from "react";
 import useContentOverFlow from "@/hooks/useContentOverFlow";
-import { CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Avatar,
   AvatarFallback,
@@ -24,54 +24,47 @@ import {
 } from "@/components/ui/custom-avatar";
 
 import { ProseContent, Quote } from "@/components/typography";
-
-export interface TestimonialType {
-  name: string;
-  feedback: string; // HTML content in string form
-  positionTitle: string;
-  affiliationName: string;
-  affiliationLink: string;
-  photoUrl: string;
-  isPinned: boolean;
-  category: "topRated" | "clientsFavorite" | "mostPopular" | "other"; // You can expand categories as needed
-}
+import { TestimonialType } from "./testimonials-constants";
+import { Skeleton } from "@/components/ui/custom-skeleton";
 
 interface TestimonialProps {
   testimonial: TestimonialType;
 }
 
-export default function Testimonial({ testimonial }: TestimonialProps) {
+export function TestimonialCard({ testimonial }: TestimonialProps) {
   const blockquoteContentRef = useRef<HTMLDivElement>(null);
   const isOverflowing = useContentOverFlow({
     contentRef: blockquoteContentRef,
   });
 
   return (
-    <TestimonialTemplate testimonial={testimonial}>
-      <Blockquote
-        ref={blockquoteContentRef}
-        isClamped
-        feedback={testimonial.feedback}
-      />
-      {isOverflowing && (
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="link">Read More</Button>
-          </DialogTrigger>
-          <DialogContent className="max-h-[80vh] overflow-y-auto">
-            <VisuallyHidden>
-              <DialogTitle>Full Testimonial</DialogTitle>
-              <DialogDescription>
-                Read the full text of this testimonial.
-              </DialogDescription>
-            </VisuallyHidden>
-            <TestimonialTemplate testimonial={testimonial}>
-              <Blockquote isClamped={false} feedback={testimonial.feedback} />
-            </TestimonialTemplate>
-          </DialogContent>
-        </Dialog>
-      )}
-    </TestimonialTemplate>
+    <Card className="m-1 h-full w-full">
+      <TestimonialTemplate testimonial={testimonial}>
+        <Blockquote
+          ref={blockquoteContentRef}
+          isClamped
+          feedback={testimonial.feedback}
+        />
+        {isOverflowing && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="link">Read More</Button>
+            </DialogTrigger>
+            <DialogContent className="max-h-[80vh] overflow-y-auto">
+              <VisuallyHidden>
+                <DialogTitle>Full Testimonial</DialogTitle>
+                <DialogDescription>
+                  Read the full text of this testimonial.
+                </DialogDescription>
+              </VisuallyHidden>
+              <TestimonialTemplate testimonial={testimonial}>
+                <Blockquote isClamped={false} feedback={testimonial.feedback} />
+              </TestimonialTemplate>
+            </DialogContent>
+          </Dialog>
+        )}
+      </TestimonialTemplate>
+    </Card>
   );
 }
 
@@ -126,3 +119,41 @@ const Blockquote = forwardRef<
     </Quote>
   );
 });
+
+export function TestimonialSkeleton() {
+  return (
+    <Card className="m-1 h-full w-full">
+      <CardContent>
+        <div className="mx-auto max-w-2xl lg:max-w-4xl">
+          <figure>
+            {/* Avatar and Name Info */}
+            <figcaption className="mb-4 flex items-center gap-4">
+              <Skeleton className="h-12 w-12 rounded-full" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-32" />
+                <Skeleton className="h-3 w-40" />
+              </div>
+            </figcaption>
+
+            {/* Quote Block */}
+            <div className="mt-4">
+              <Skeleton className="mb-2 h-3 w-4" /> {/* For the quote icon */}
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-4 w-3/4" />
+              </div>
+            </div>
+
+            {/* Read More Button */}
+            <div className="mt-3">
+              <Skeleton className="h-4 w-24" />
+            </div>
+          </figure>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

@@ -14,6 +14,11 @@ import useThumbNavigation from "./useThumbNavigation";
 import { FaPlay, FaStop } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 
+interface LayoutStable {
+  condition: boolean;
+  fallback?: React.ReactNode;
+}
+
 interface CarouselProps {
   slides: React.ReactNode[];
   options?: EmblaOptionsType;
@@ -25,6 +30,7 @@ interface CarouselProps {
   slideSpacing?: number;
   renderThumbContent?: (index: number, isSelected: boolean) => React.ReactNode;
   className?: string;
+  layoutStable?: LayoutStable;
 }
 
 type NavigationType =
@@ -52,6 +58,7 @@ export default function MyCustomCarousel<T>({
   slideSpacing = 1,
   renderThumbContent,
   className,
+  layoutStable = { condition: true },
 }: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options, plugins);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
@@ -128,33 +135,38 @@ export default function MyCustomCarousel<T>({
             height: "calc(var(--slide-spacing) + var(--slide-height))",
           }}
         >
-          {slides.map((slide, index) => (
-            <div
-              className={clsx(
-                "flex-[0_0_var(--slide-size)] [transform:translate3d(0,0,0)] transform",
-                {
-                  "min-w-0 pl-[var(--slide-spacing)]": isHorizontal,
-                  "min-h-0 pt-[var(--slide-spacing)]": isVertical,
-                },
-              )}
-              key={index}
-            >
-              <div
-                className={clsx(
-                  "flex items-center justify-center rounded-lg select-none",
-                  {
-                    "h-[var(--slide-height)]": isHorizontal,
-                    "h-full": isVertical,
-                  },
-                  // "shadow-[inset_0_0_0_0.12rem_var(--detail-contrast)]",
-                )}
-                onMouseEnter={pauseOnMouseEnter}
-                onMouseLeave={resumeOnMouseLeave}
-              >
-                {slide}
-              </div>
-            </div>
-          ))}
+          {!layoutStable || layoutStable?.condition ? (
+            <>
+              {slides.map((slide, index) => (
+                <div
+                  className={clsx(
+                    "flex-[0_0_var(--slide-size)] [transform:translate3d(0,0,0)] transform",
+                    {
+                      "min-w-0 pl-[var(--slide-spacing)]": isHorizontal,
+                      "min-h-0 pt-[var(--slide-spacing)]": isVertical,
+                    },
+                  )}
+                  key={index}
+                >
+                  <div
+                    className={clsx(
+                      "flex items-center justify-center rounded-lg select-none",
+                      {
+                        "h-[var(--slide-height)]": isHorizontal,
+                        "h-full": isVertical,
+                      },
+                    )}
+                    onMouseEnter={pauseOnMouseEnter}
+                    onMouseLeave={resumeOnMouseLeave}
+                  >
+                    {slide}
+                  </div>
+                </div>
+              ))}
+            </>
+          ) : (
+            <>{layoutStable?.fallback && layoutStable.fallback}</>
+          )}
         </div>
       </div>
 

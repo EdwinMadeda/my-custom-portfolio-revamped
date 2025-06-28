@@ -171,6 +171,7 @@ export const ProseContent = forwardRef<
     <Comp
       ref={ref}
       className={cn(
+        "w-full",
         "prose prose-base dark:prose-invert",
         "prose-a:px-2 prose-a:underline-offset-4 hover:prose-a:underline",
         "prose-blockquote:border-foreground",

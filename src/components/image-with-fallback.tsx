@@ -2,7 +2,10 @@
 
 import Image, { ImageProps } from "next/image";
 import { useEffect, useState } from "react";
-import { Muted, Paragraph } from "./typography";
+import { Muted } from "./typography";
+import { Skeleton } from "./ui/custom-skeleton";
+import { ImageOff } from "lucide-react";
+import { SpinnerCircularFixed, SpinnerInfinity } from "spinners-react";
 
 export default function ImageWithFallback({
   src,
@@ -20,18 +23,25 @@ export default function ImageWithFallback({
     setIsLoaded(false);
   }, [src]);
 
+  if (!isLoaded) {
+    <ImageFallbackSkeleton width={width} height={height}>
+      <SpinnerCircularFixed
+        size={80}
+        thickness={100}
+        speed={120}
+        color="#fff"
+        secondaryColor="rgba(0,0,0,0.44)"
+        className="h-10 w-10"
+      />
+    </ImageFallbackSkeleton>;
+  }
+
   if (hasError) {
     return (
-      <div
-        role="img"
-        aria-live="assertive"
-        className="text-muted-foreground bg-image-bg-fallback relative flex w-full items-center justify-center rounded text-center text-sm font-bold"
-        style={{
-          aspectRatio: width && height ? `${width}/${height}` : "16/9",
-        }}
-      >
-        <Muted className="leading-5">{fallbackMsg}</Muted>
-      </div>
+      <ImageFallbackSkeleton width={width} height={height}>
+        <ImageOff className="text-muted-foreground mb-2 h-6 w-6" />
+        <Muted className="leading-5 font-bold">{fallbackMsg}</Muted>
+      </ImageFallbackSkeleton>
     );
   }
 
@@ -50,5 +60,29 @@ export default function ImageWithFallback({
         ...props.style,
       }}
     />
+  );
+}
+
+function ImageFallbackSkeleton({
+  width,
+  height,
+  children,
+}: Pick<ImageProps, "width" | "height" | "children">) {
+  return (
+    <div
+      role="img"
+      aria-live="assertive"
+      className="relative w-full"
+      style={{
+        aspectRatio: width && height ? `${width}/${height}` : "16/9",
+      }}
+    >
+      <Skeleton
+        animate={false}
+        className="flex h-full w-full flex-wrap items-center justify-center gap-4 rounded"
+      >
+        {children}
+      </Skeleton>
+    </div>
   );
 }
