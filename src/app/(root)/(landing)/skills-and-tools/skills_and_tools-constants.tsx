@@ -1,3 +1,5 @@
+import { Breakpoints } from "@/hooks/useResponsive";
+
 export interface SkillOrTool {
   title: string;
   description: string;
@@ -31,32 +33,32 @@ export const skills_and_tools: SkillOrTool[] = [
       />
     ),
   },
-  {
-    title: "JavaScript (ES6+)",
-    description:
-      "Dynamic and powerful scripting for interactivity and application logic.",
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M11 17l-5-5 5-5m2 10l5-5-5-5"
-      />
-    ),
-  },
-  {
-    title: "TypeScript",
-    description:
-      "A typed superset of JavaScript that enhances reliability and productivity.",
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M4 4h16v16H4z"
-      />
-    ),
-  },
+  // {
+  //   title: "JavaScript (ES6+)",
+  //   description:
+  //     "Dynamic and powerful scripting for interactivity and application logic.",
+  //   icon: (
+  //     <path
+  //       strokeLinecap="round"
+  //       strokeLinejoin="round"
+  //       strokeWidth={2}
+  //       d="M11 17l-5-5 5-5m2 10l5-5-5-5"
+  //     />
+  //   ),
+  // },
+  // {
+  //   title: "TypeScript",
+  //   description:
+  //     "A typed superset of JavaScript that enhances reliability and productivity.",
+  //   icon: (
+  //     <path
+  //       strokeLinecap="round"
+  //       strokeLinejoin="round"
+  //       strokeWidth={2}
+  //       d="M4 4h16v16H4z"
+  //     />
+  //   ),
+  // },
   {
     title: "React & Next.js",
     description:
@@ -136,11 +138,3 @@ export const skills_and_tools: SkillOrTool[] = [
     ),
   },
 ];
-
-export const skills_and_tools_breakpoints = {
-  smallMobile: { max: 639 },
-  mobile: { min: 640, max: 767 },
-  tablet: { min: 768, max: 1023 },
-  largeTablet: { min: 1024, max: 1279 },
-  desktop: { min: 1280 },
-};

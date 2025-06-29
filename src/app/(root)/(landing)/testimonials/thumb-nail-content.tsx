@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/custom-avatar";
 
 import { testimonials } from "./testimonials-constants";
-import { Skeleton } from "@/components/ui/custom-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ImageOff } from "lucide-react";
 
 export function ThumbContent(index: number, isSelected: boolean) {

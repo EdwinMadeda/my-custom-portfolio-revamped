@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 import { Project } from "./works-constants";
-import { Skeleton } from "@/components/ui/custom-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface WorkCardProps {
   project: Project;

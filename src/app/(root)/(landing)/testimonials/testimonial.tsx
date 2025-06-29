@@ -25,7 +25,7 @@ import {
 
 import { ProseContent, Quote } from "@/components/typography";
 import { TestimonialType } from "./testimonials-constants";
-import { Skeleton } from "@/components/ui/custom-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface TestimonialProps {
   testimonial: TestimonialType;

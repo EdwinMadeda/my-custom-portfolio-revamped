@@ -1,6 +1,6 @@
 import useMediaQuery from "./useMediaQuery";
 
-interface Breakpoints {
+export interface Breakpoints {
   smallMobile: { max: number };
   mobile: { min: number; max: number };
   tablet: { min: number; max: number };

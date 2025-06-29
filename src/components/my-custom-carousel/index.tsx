@@ -127,10 +127,14 @@ export default function MyCustomCarousel<T>({
     >
       <div className="overflow-hidden" ref={emblaRef}>
         <div
-          className={clsx("flex touch-pinch-zoom", {
-            "ml-[calc(var(--slide-spacing)_*__-1)] flex-row": isHorizontal,
-            "mt-[calc(var(--slide-spacing)_*__-1)] flex-col": isVertical,
-          })}
+          className={clsx(
+            "flex touch-pinch-zoom",
+            {
+              "ml-[calc(var(--slide-spacing)_*__-1)] flex-row": isHorizontal,
+              "mt-[calc(var(--slide-spacing)_*__-1)] flex-col": isVertical,
+            },
+            "@container/carousel-viewport",
+          )}
           style={{
             height: "calc(var(--slide-spacing) + var(--slide-height))",
           }}
@@ -150,7 +154,7 @@ export default function MyCustomCarousel<T>({
                 >
                   <div
                     className={clsx(
-                      "flex items-center justify-center rounded-lg select-none",
+                      "flex items-center justify-start rounded-lg select-none",
                       {
                         "h-[var(--slide-height)]": isHorizontal,
                         "h-full": isVertical,

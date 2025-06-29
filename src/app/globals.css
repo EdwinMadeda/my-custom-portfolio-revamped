@@ -60,6 +60,12 @@
 
   --spacing-nav-height: var(--nav-height);
   --spacing-nav-height-mobile: var(--nav-height-mobile);
+
+  --container-carousel-mobile: 640px;
+  --container-carousel-tablet: 768px;
+  --container-carousel-lg-tablet: 1024px;
+  --container-carousel-sm-desktop: 1180px;
+  --container-carousel-desktop: 1280px;
 }
 
 :root {

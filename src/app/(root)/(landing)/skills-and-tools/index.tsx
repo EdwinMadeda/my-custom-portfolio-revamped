@@ -4,17 +4,15 @@ import SectionInnerContent from "@/components/section-inner-content";
 import { GradientHeading, SubHeading } from "@/components/typography";
 
 import { navByName } from "@/config/site";
-import useResponsive from "@/hooks/useResponsive";
+import useResponsive, { Breakpoints } from "@/hooks/useResponsive";
 import { chunkArray } from "@/lib/utils";
 import clsx from "clsx";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { EmblaOptionsType } from "embla-carousel";
 import MyCustomCarousel from "../../../../components/my-custom-carousel";
-import {
-  skills_and_tools,
-  skills_and_tools_breakpoints,
-} from "./skills_and_tools-constants";
+import { skills_and_tools } from "./skills_and_tools-constants";
 import { SkillOrToolCard, SkillOrToolCardSkeleton } from "./skill-or-tool-card";
+import { carouselBreakpoints } from "@/components/my-custom-carousel/carousel-breakpoints";
 
 export default function SkillsAndTools() {
   const {
@@ -30,21 +28,29 @@ export default function SkillsAndTools() {
     isLargeTablet,
     isDesktop,
     isSmallDevice,
-  } = useResponsive(skills_and_tools_breakpoints);
+  } = useResponsive(carouselBreakpoints);
 
   const getItemsPerSlide = (): number => {
     if (isSmallMobile) return 3;
-    if (isMobile) return 4;
+    if (isMobile) return 2;
     if (isTablet) return 4;
     if (isLargeTablet) return 4;
     if (isDesktop) return 6;
     return 3;
   };
 
+  const isLayoutStable =
+    isSmallMobile ||
+    isMobile ||
+    isTablet ||
+    isLargeTablet ||
+    isDesktop ||
+    isSmallDevice;
+
   const itemsPerSlide = getItemsPerSlide();
 
   const CHUNKED_SKILLS_AND_TOOLS = useMemo(
-    () => chunkArray(skills_and_tools, itemsPerSlide),
+    () => chunkArray(skills_and_tools.slice(0, 8), itemsPerSlide),
     [skills_and_tools, itemsPerSlide],
   );
 
@@ -52,48 +58,31 @@ export default function SkillsAndTools() {
     axis: isSmallDevice ? "y" : "x",
     align: "start",
     slidesToScroll: "auto",
-    loop: true,
+    loop: false,
   };
 
-  const SLIDES = CHUNKED_SKILLS_AND_TOOLS.map((chunk, chunkIdx) => (
-    <div
-      key={chunkIdx}
-      className={clsx("grid w-full", {
-        "gap-2": isSmallMobile || isMobile || isTablet || isLargeTablet,
-        "gap-4": isDesktop,
-        "grid-cols-1": isSmallMobile,
-        "grid-cols-2": isMobile || isTablet || isLargeTablet,
-        "grid-cols-3": isDesktop,
-      })}
-    >
+  const SLIDES = CHUNKED_SKILLS_AND_TOOLS.map((chunk, chunkIndex) => (
+    <WorkSlide key={chunkIndex}>
       {chunk.map((skillOrTool, index) => (
         <SkillOrToolCard key={index} skillOrTool={skillOrTool} />
       ))}
-    </div>
+    </WorkSlide>
   ));
 
   const SlidesSkeleton = (
-    <div
-      className={clsx(
-        "grid w-full gap-2",
-        "[@media(max-width:639px)]:grid-cols-1",
-        "[@media(min-width:640px)_and_(max-width:1279px)]:grid-cols-2",
-        "[@media(min-width:640px)_and_(max-width:1279px)]:gap-2",
-        "[@media(min-width:1280px)]:grid-cols-3",
-        "[@media(min-width:1280px)]:gap-4",
-      )}
-    >
+    <WorkSlide>
       {Array.from({ length: 6 }).map((_, index) => (
         <SkillOrToolCardSkeleton
           key={index}
-          className={clsx(
-            index >= 3 && "[@media(max-width:639px)]:hidden",
-            index >= 4 &&
-              "[@media(min-width:640px)_and_(max-width:1279px)]:hidden",
-          )}
+          className={clsx({
+            "@max-carousel-mobile/carousel-viewport:hidden": index >= 3,
+            "@min-carousel-mobile/carousel-viewport:@max-carousel-desktop/carousel-viewport:hidden":
+              index >= 4,
+            "@min-carousel-desktop/carousel-viewport:hidden": index >= 6,
+          })}
         />
       ))}
-    </div>
+    </WorkSlide>
   );
 
   return (
@@ -115,12 +104,7 @@ export default function SkillsAndTools() {
             slideHeight={31.4}
             className="pt-2"
             layoutStable={{
-              condition:
-                isSmallMobile ||
-                isMobile ||
-                isTablet ||
-                isLargeTablet ||
-                isDesktop,
+              condition: isLayoutStable,
               fallback: SlidesSkeleton,
             }}
           />
@@ -128,4 +112,23 @@ export default function SkillsAndTools() {
       </section>
     </>
   );
+
+  function WorkSlide({ children }: { children: React.ReactNode }) {
+    return (
+      <div
+        className={clsx("w-fit", [
+          "grid gap-2",
+
+          "@max-carousel-mobile/carousel-viewport:w-full",
+          "@max-carousel-mobile/carousel-viewport:grid-cols-1",
+          "@min-carousel-mobile/carousel-viewport:@max-carousel-desktop/carousel-viewport:grid-cols-2",
+          "@min-carousel-mobile/carousel-viewport:h-full",
+          "@min-carousel-sm-desktop/carousel-viewport:grid-cols-3",
+          "@min-carousel-sm-desktop/carousel-viewport:gap-4",
+        ])}
+      >
+        {children}
+      </div>
+    );
+  }
 }

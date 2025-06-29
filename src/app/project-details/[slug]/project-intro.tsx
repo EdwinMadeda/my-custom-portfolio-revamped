@@ -1,5 +1,5 @@
 import { Heading1, Paragraph } from "@/components/typography";
-import { Skeleton } from "@/components/ui/custom-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function ProjectIntro() {
   return (

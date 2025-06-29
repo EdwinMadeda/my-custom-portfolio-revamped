@@ -1,5 +1,5 @@
 import { ProseContent } from "@/components/typography";
-import { Skeleton } from "@/components/ui/custom-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
 export function AboutMeContent() {

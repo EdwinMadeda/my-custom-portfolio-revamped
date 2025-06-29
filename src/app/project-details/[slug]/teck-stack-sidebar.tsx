@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import { techStackInfo } from "./project-details-constants";
 import Divider from "@/components/divider";
 import clsx from "clsx";
-import { Skeleton } from "@/components/ui/custom-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function TechStackSidebar() {
   return (

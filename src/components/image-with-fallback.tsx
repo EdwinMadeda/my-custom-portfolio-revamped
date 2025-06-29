@@ -3,9 +3,10 @@
 import Image, { ImageProps } from "next/image";
 import { useEffect, useState } from "react";
 import { Muted } from "./typography";
-import { Skeleton } from "./ui/custom-skeleton";
+import { Skeleton } from "./ui/skeleton";
 import { ImageOff } from "lucide-react";
 import { SpinnerCircularFixed, SpinnerInfinity } from "spinners-react";
+import { cn } from "@/lib/utils";
 
 export default function ImageWithFallback({
   src,
@@ -38,7 +39,11 @@ export default function ImageWithFallback({
 
   if (hasError) {
     return (
-      <ImageFallbackSkeleton width={width} height={height}>
+      <ImageFallbackSkeleton
+        width={width}
+        height={height}
+        className="animate-none"
+      >
         <ImageOff className="text-muted-foreground mb-2 h-6 w-6" />
         <Muted className="leading-5 font-bold">{fallbackMsg}</Muted>
       </ImageFallbackSkeleton>
@@ -67,7 +72,8 @@ function ImageFallbackSkeleton({
   width,
   height,
   children,
-}: Pick<ImageProps, "width" | "height" | "children">) {
+  className,
+}: Pick<ImageProps, "width" | "height" | "children"> & { className?: string }) {
   return (
     <div
       role="img"
@@ -78,8 +84,10 @@ function ImageFallbackSkeleton({
       }}
     >
       <Skeleton
-        animate={false}
-        className="flex h-full w-full flex-wrap items-center justify-center gap-4 rounded"
+        className={cn(
+          "flex h-full w-full flex-wrap items-center justify-center gap-4 rounded",
+          className,
+        )}
       >
         {children}
       </Skeleton>

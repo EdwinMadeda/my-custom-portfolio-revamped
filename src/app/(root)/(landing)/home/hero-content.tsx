@@ -1,7 +1,7 @@
 import { PlatformLinksMobile } from "@/components/platform-links";
 import { Heading1, Paragraph } from "@/components/typography";
 import { Button } from "@/components/ui/custom-button";
-import { Skeleton } from "@/components/ui/custom-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 

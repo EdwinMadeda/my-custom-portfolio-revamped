@@ -4,7 +4,7 @@ import SkillsAndTools from "./skills-and-tools";
 import Works from "./works";
 import Testimonials from "./testimonials";
 import Contact from "./contact";
-import { Skeleton } from "@/components/ui/custom-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Landing() {
   return (

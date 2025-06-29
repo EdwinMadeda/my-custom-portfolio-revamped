@@ -13,6 +13,7 @@ import { EmblaOptionsType, EmblaPluginType } from "embla-carousel";
 import useResponsive from "@/hooks/useResponsive";
 import { testimonials } from "./testimonials-constants";
 import { ThumbContent, ThumbContentSkeleton } from "./thumb-nail-content";
+import { carouselBreakpoints } from "@/components/my-custom-carousel/carousel-breakpoints";
 
 export default function Testimonials() {
   const {
@@ -21,15 +22,7 @@ export default function Testimonials() {
     shortDescription: subHeading,
   } = navByName("testimonials");
 
-  const breakpoints = {
-    smallMobile: { max: 639 },
-    mobile: { min: 640, max: 767 },
-    tablet: { min: 768, max: 1023 },
-    largeTablet: { min: 1024, max: 1279 },
-    desktop: { min: 1280 },
-  };
-
-  const { isSmallDevice } = useResponsive(breakpoints);
+  const { isSmallDevice } = useResponsive(carouselBreakpoints);
 
   const OPTIONS: EmblaOptionsType = {
     axis: "x",
