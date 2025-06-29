@@ -4,7 +4,7 @@ import SectionInnerContent from "@/components/section-inner-content";
 import { GradientHeading, SubHeading } from "@/components/typography";
 
 import { navByName } from "@/config/site";
-import useResponsive, { Breakpoints } from "@/hooks/useResponsive";
+import useResponsive from "@/hooks/useResponsive";
 import { chunkArray } from "@/lib/utils";
 import clsx from "clsx";
 import React, { useMemo } from "react";

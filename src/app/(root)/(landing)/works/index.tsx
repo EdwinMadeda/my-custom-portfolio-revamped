@@ -24,10 +24,19 @@ export default function Works() {
       <SubHeading>{subHeading}</SubHeading>
       <SectionInnerContent>
         <div className="-m-4 mx-auto mt-4 flex flex-wrap">
-          {projects.map((project, index) => (
-            <WorkCard key={index} project={project} index={index} />
-            // <WorkCardSkeleton key={index} />
-          ))}
+          {projects ? (
+            <>
+              {projects.map((project, index) => (
+                <WorkCard key={index} project={project} index={index} />
+              ))}
+            </>
+          ) : (
+            <>
+              {Array.from({ length: 6 }).map((_, index) => (
+                <WorkCardSkeleton key={index} />
+              ))}
+            </>
+          )}
         </div>
       </SectionInnerContent>
     </section>
