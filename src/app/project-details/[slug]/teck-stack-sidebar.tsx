@@ -4,15 +4,15 @@ import { techStackInfo } from "./project-details-constants";
 import Divider from "@/components/divider";
 import clsx from "clsx";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
 export function TechStackSidebar() {
   return (
-    <aside className="top-20 mb-8 pt-8 md:sticky md:max-w-[20rem] md:min-w-[18rem] md:self-start">
-      <Card className="border-border flex flex-col py-6 md:py-8">
+    <TechStackSidebarTemplate>
+      <>
         <div className="mb-2.5 px-6 leading-7 font-semibold capitalize">
           Technologies used for portfolio website
         </div>
-
         {techStackInfo.map(({ category, items }, categoryIndex) => (
           <div key={categoryIndex}>
             {items.map(({ label, content }, index) => (
@@ -32,20 +32,19 @@ export function TechStackSidebar() {
             ))}
           </div>
         ))}
-      </Card>
-    </aside>
+      </>
+    </TechStackSidebarTemplate>
   );
 }
 
 export function TechStackSidebarSkeleton() {
   return (
-    <aside className="top-20 mb-8 pt-8 md:sticky md:max-w-[20rem] md:min-w-[20rem] md:self-start">
-      <Card className="border-border flex flex-col py-6 md:py-8">
+    <TechStackSidebarTemplate className="md:max-w-[20rem]">
+      <>
         {/* Heading */}
         <div className="mb-4 px-6">
           <Skeleton className="h-4 w-3/4" />
         </div>
-
         {/* Simulated categories */}
         {[...Array(3)].map((_, catIdx) => (
           <div key={catIdx} className="px-6 pt-5">
@@ -61,6 +60,27 @@ export function TechStackSidebarSkeleton() {
             ))}
           </div>
         ))}
+      </>
+    </TechStackSidebarTemplate>
+  );
+}
+
+function TechStackSidebarTemplate({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <aside
+      className={cn(
+        "top-20 mb-8 pt-8 md:sticky md:max-w-[20rem] md:min-w-[18rem] md:self-start",
+        className,
+      )}
+    >
+      <Card className="border-border flex flex-col py-6 md:py-8">
+        {children}
       </Card>
     </aside>
   );

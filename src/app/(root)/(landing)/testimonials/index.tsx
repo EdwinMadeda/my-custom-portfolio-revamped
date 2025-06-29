@@ -3,7 +3,6 @@
 import SectionInnerContent from "@/components/section-inner-content";
 import { GradientHeading, SubHeading } from "@/components/typography";
 
-import { Card } from "@/components/ui/card";
 import Autoplay from "embla-carousel-autoplay";
 import { navByName } from "@/config/site";
 
@@ -35,10 +34,15 @@ export default function Testimonials() {
     Autoplay({ playOnInit: false, delay: 10000 }),
   ];
 
-  const SLIDES = testimonials.map((testimonial, index) => (
-    // <TestimonialCard key={index} testimonial={testimonial} />
-    <TestimonialSkeleton key={index} />
-  ));
+  const SLIDES = testimonials
+    ? testimonials.map((testimonial, index) => (
+        <TestimonialCard key={index} testimonial={testimonial} />
+      ))
+    : Array.from({ length: 2 }).map((_, index) => (
+        <TestimonialSkeleton key={index} />
+      ));
+
+  const renderThumbContent = testimonials ? ThumbContent : ThumbContentSkeleton;
 
   return (
     <section id={name} aria-labelledby={name} aria-describedby={`${name}-desc`}>
@@ -52,7 +56,7 @@ export default function Testimonials() {
           navigationType={isSmallDevice ? "thumbnail" : "arrow_plus_thumbnail"}
           slideSize={isSmallDevice ? "100%" : "50%"}
           slideHeight={19}
-          renderThumbContent={ThumbContentSkeleton}
+          renderThumbContent={renderThumbContent}
           enableAutoplay
           className="pt-2 md:pt-5"
         />

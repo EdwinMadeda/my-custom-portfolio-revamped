@@ -32,7 +32,7 @@ export default function SkillsAndTools() {
 
   const getItemsPerSlide = (): number => {
     if (isSmallMobile) return 3;
-    if (isMobile) return 2;
+    if (isMobile) return 4;
     if (isTablet) return 4;
     if (isLargeTablet) return 4;
     if (isDesktop) return 6;
@@ -116,11 +116,12 @@ export default function SkillsAndTools() {
   function WorkSlide({ children }: { children: React.ReactNode }) {
     return (
       <div
-        className={clsx("w-fit", [
+        className={clsx("h-fit w-fit", [
           "grid gap-2",
 
           "@max-carousel-mobile/carousel-viewport:w-full",
           "@max-carousel-mobile/carousel-viewport:grid-cols-1",
+          "@min-carousel-sm-mobile/carousel-viewport:@max-carousel-tablet/carousel-viewport:grid-cols-2",
           "@min-carousel-mobile/carousel-viewport:@max-carousel-desktop/carousel-viewport:grid-cols-2",
           "@min-carousel-mobile/carousel-viewport:h-full",
           "@min-carousel-sm-desktop/carousel-viewport:grid-cols-3",

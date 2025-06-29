@@ -1,9 +1,5 @@
 import SectionInnerContent from "@/components/section-inner-content";
-import {
-  GradientHeading,
-  ProseContent,
-  SubHeading,
-} from "@/components/typography";
+import { GradientHeading, SubHeading } from "@/components/typography";
 import { navByName } from "@/config/site";
 import { AboutMeContent, AboutMeContentSkeleton } from "./about-me-content";
 

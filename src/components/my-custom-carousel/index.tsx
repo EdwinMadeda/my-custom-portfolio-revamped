@@ -154,7 +154,7 @@ export default function MyCustomCarousel<T>({
                 >
                   <div
                     className={clsx(
-                      "flex items-center justify-start rounded-lg select-none",
+                      "flex items-start justify-start rounded-lg select-none",
                       {
                         "h-[var(--slide-height)]": isHorizontal,
                         "h-full": isVertical,

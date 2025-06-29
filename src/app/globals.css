@@ -61,6 +61,7 @@
   --spacing-nav-height: var(--nav-height);
   --spacing-nav-height-mobile: var(--nav-height-mobile);
 
+  --container-carousel-sm-mobile: 570px;
   --container-carousel-mobile: 640px;
   --container-carousel-tablet: 768px;
   --container-carousel-lg-tablet: 1024px;

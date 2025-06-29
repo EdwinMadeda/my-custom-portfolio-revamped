@@ -80,6 +80,7 @@ export function SkillOrToolCardTemplate({
       <Card
         className={clsx(
           "h-fit w-full max-w-sm transition-transform duration-300 ease-in-out hover:scale-105",
+          "@min-carousel-mobile/carousel-viewport:@max-carousel-tablet/carousel-viewport:min-w-xs",
           "@min-carousel-mobile/carousel-viewport:min-w-sm",
         )}
       >
