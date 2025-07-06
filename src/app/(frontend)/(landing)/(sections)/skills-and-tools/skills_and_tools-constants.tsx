@@ -33,32 +33,32 @@ export const skills_and_tools: SkillOrTool[] = [
       />
     ),
   },
-  // {
-  //   title: "JavaScript (ES6+)",
-  //   description:
-  //     "Dynamic and powerful scripting for interactivity and application logic.",
-  //   icon: (
-  //     <path
-  //       strokeLinecap="round"
-  //       strokeLinejoin="round"
-  //       strokeWidth={2}
-  //       d="M11 17l-5-5 5-5m2 10l5-5-5-5"
-  //     />
-  //   ),
-  // },
-  // {
-  //   title: "TypeScript",
-  //   description:
-  //     "A typed superset of JavaScript that enhances reliability and productivity.",
-  //   icon: (
-  //     <path
-  //       strokeLinecap="round"
-  //       strokeLinejoin="round"
-  //       strokeWidth={2}
-  //       d="M4 4h16v16H4z"
-  //     />
-  //   ),
-  // },
+  {
+    title: "JavaScript (ES6+)",
+    description:
+      "Dynamic and powerful scripting for interactivity and application logic.",
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M11 17l-5-5 5-5m2 10l5-5-5-5"
+      />
+    ),
+  },
+  {
+    title: "TypeScript",
+    description:
+      "A typed superset of JavaScript that enhances reliability and productivity.",
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4 4h16v16H4z"
+      />
+    ),
+  },
   {
     title: "React & Next.js",
     description:

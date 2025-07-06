@@ -11,7 +11,7 @@ export default function NotFound() {
         <Navigation />
       </NavigationProvider>
       <main>
-        <section className="h-screen-minus-nav-height flex h-full items-center">
+        <section className="min-h-screen-minus-nav-height flex h-full items-center">
           <div className="mx-auto my-8 flex flex-col items-center justify-center">
             <div className="max-w-md text-center">
               <Lead asChild>

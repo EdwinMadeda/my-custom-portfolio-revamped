@@ -6,5 +6,6 @@
     "Shadcn",
     "skillset",
     "textalign"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

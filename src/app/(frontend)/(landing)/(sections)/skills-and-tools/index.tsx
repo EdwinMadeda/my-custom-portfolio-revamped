@@ -9,7 +9,7 @@ import { chunkArray } from "@/lib/utils";
 import clsx from "clsx";
 import React, { useMemo } from "react";
 import { EmblaOptionsType } from "embla-carousel";
-import MyCustomCarousel from "../../../../components/my-custom-carousel";
+import MyCustomCarousel from "@/components/my-custom-carousel";
 import { skills_and_tools } from "./skills_and_tools-constants";
 import { SkillOrToolCard, SkillOrToolCardSkeleton } from "./skill-or-tool-card";
 import { carouselBreakpoints } from "@/components/my-custom-carousel/carousel-breakpoints";

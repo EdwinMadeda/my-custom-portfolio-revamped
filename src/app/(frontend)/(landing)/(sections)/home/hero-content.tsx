@@ -7,7 +7,7 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
 export function HeroContent() {
   return (
-    <>
+    <div className="flex h-full max-w-2xl flex-1 flex-col justify-center">
       <Paragraph className="text-primary uppercase">
         Let's build something together
       </Paragraph>
@@ -26,13 +26,13 @@ export function HeroContent() {
           </Link>
         </Button>
       </div>
-    </>
+    </div>
   );
 }
 
 export function HeroSkeleton() {
   return (
-    <div className="max-w-2xl">
+    <div className="flex h-full max-w-2xl flex-1 flex-col justify-center">
       {/* Small uppercase intro text */}
       <Skeleton className="bg-primary/20 mb-4 h-4 w-60" />
 

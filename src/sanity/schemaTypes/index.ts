@@ -1,14 +1,18 @@
-import { type SchemaTypeDefinition } from 'sanity';
-
-import { brandingImageType } from './documentTypes/brandingImageType';
-import { profileType } from './documentTypes/profileType';
-import { technologyOrToolType } from './documentTypes/technologyOrToolType';
-import { projectType } from './documentTypes/projectType';
-import { serviceType } from './documentTypes/serviceType';
-import { testimonialType } from './documentTypes/testimonialsType';
-import { contactInfoType } from './documentTypes/contactInfoType';
-import { resumeType } from './documentTypes/resumeType';
-import { techCategoryType } from './documentTypes/techCategoryType ';
+import { type SchemaTypeDefinition } from "sanity";
+import { brandingImageType } from "./documentTypes/brandingImageType";
+import { profileType } from "./documentTypes/profileType";
+import { technologyOrToolType } from "./documentTypes/technologyOrToolType";
+import { projectType } from "./documentTypes/projectType";
+import { serviceType } from "./documentTypes/serviceType";
+import { testimonialType } from "./documentTypes/testimonialsType";
+import { resumeType } from "./documentTypes/resumeType";
+import { techCategoryType } from "./documentTypes/techCategoryType";
+import { otherWorkType } from "./documentTypes/otherWorkType";
+import { contactEmailType } from "./documentTypes/contactEmailType";
+import { socialMediaLinksType } from "./documentTypes/socialMediaLinksType";
+import { phoneNumberType } from "./documentTypes/phoneNumberType";
+import { screenshotViewItemDescType } from "./documentTypes/screenshotViewItemDescType";
+import { affiliationType } from "./documentTypes/affiliationType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -16,9 +20,14 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     profileType,
     technologyOrToolType,
     projectType,
+    otherWorkType,
+    screenshotViewItemDescType,
     serviceType,
     testimonialType,
-    contactInfoType,
+    affiliationType,
+    contactEmailType,
+    phoneNumberType,
+    socialMediaLinksType,
     resumeType,
     techCategoryType,
   ],

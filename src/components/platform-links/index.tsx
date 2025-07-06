@@ -50,7 +50,7 @@ export function PlatformLinksMobile({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "mx-auto flex w-min items-center justify-center space-x-9 xl:hidden",
+        "mx-auto flex w-min items-center justify-center space-x-6 xl:hidden", // w-min makes the div only as wide as its content
         className,
       )}
     >
@@ -59,7 +59,11 @@ export function PlatformLinksMobile({ className }: { className?: string }) {
         return (
           <Button
             asChild
-            className={clsx("size-12 transition-all duration-200 ease-in-out")}
+            className={clsx(
+              "size-10",
+              "transition-all duration-200 ease-in-out",
+              "hover:scale-110 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+            )}
             style={{
               backgroundColor: bgColor,
               color: textColor,
@@ -67,7 +71,7 @@ export function PlatformLinksMobile({ className }: { className?: string }) {
             key={label}
           >
             <ExternalLink href={url}>
-              <Icon />
+              <Icon className="!h-5 !w-5" />{" "}
             </ExternalLink>
           </Button>
         );

@@ -69,6 +69,7 @@ export const landingNavItems = () =>
     "#home",
     "#about-me",
     "#skills",
+    "#works",
     "#testimonials",
     "#contact",
   ]);

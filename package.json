@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "pre-dev": "pnpm run typegen",
     "dev": "next dev --turbopack",
+    "pre-build": "pnpm run typegen",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "reset": "rm -rf .next && pnpm run dev"
+    "typegen": "sanity schema extract --path=src/sanity/extract.json && sanity typegen generate",
+    "reset": "pnpm prune && pnpm cache delete &&  rm -rf node_modules && rm pnpm-lock.yaml && rm -rf .next && pnpm install"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -24,9 +27,10 @@
     "@react-email/components": "0.1.1",
     "@react-email/preview": "^0.0.13",
     "@react-email/render": "1.1.3",
-    "@sanity/asset-utils": "^2.2.1",
-    "@sanity/image-url": "1",
-    "@sanity/vision": "3",
+    "@sanity/client": "^7.6.0",
+    "@sanity/icons": "^3.7.4",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^3.96.0",
     "blurhash": "^2.0.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -38,8 +42,8 @@
     "i18n-iso-countries": "^7.14.0",
     "libphonenumber-js": "^1.12.6",
     "lucide-react": "^0.487.0",
-    "next": "15.2.4",
-    "next-sanity": "9",
+    "next": "15.3.4",
+    "next-sanity": "^9.12.0",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -49,10 +53,10 @@
     "react-phone-number-input": "^3.4.12",
     "react-spinners": "^0.17.0",
     "resend": "^4.6.0",
-    "sanity": "3",
+    "sanity": "^3.96.0",
     "sonner": "^2.0.5",
     "spinners-react": "^1.0.11",
-    "styled-components": "6",
+    "styled-components": "^6.1.19",
     "tailwind-merge": "^3.1.0",
     "tw-animate-css": "^1.2.5",
     "zod": "^3.24.3"
@@ -65,10 +69,24 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.2.4",
+    "eslint-config-next": "15.3.4",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@sanity/cli": "3.96.0",
+    "@sanity/codegen": "3.96.0",
+    "@sanity/types": "^3.96.0"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowAny": [
+        "react",
+        "react-dom"
+      ]
+    },
+    "overrides": {
+      "@babel/types": "7.27.7"
+    }
   }
 }

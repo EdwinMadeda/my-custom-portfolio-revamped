@@ -39,7 +39,7 @@ export function WorkCard({ project, index }: WorkCardProps) {
             variant="link"
             asChild
           >
-            <Link href={`project-details/${project.slug}`}>
+            <Link href={`/project-details/${project.slug}`}>
               Learn More
               <BsArrowRight className="ml-2 size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
             </Link>

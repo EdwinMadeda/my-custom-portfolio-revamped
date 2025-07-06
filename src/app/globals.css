@@ -221,13 +221,17 @@
     @apply relative;
   }
 
+  nav {
+    @apply container;
+  }
+
   nav,
   section {
-    @apply container mx-auto max-w-[1536px] px-6 md:px-8 lg:px-10 xl:px-12;
+    @apply mx-auto max-w-[1536px] px-6 md:px-8 lg:px-10 xl:px-12;
   }
 
   section {
-    @apply border-border scroll-mt-nav-height-mobile lg:scroll-mt-nav-height border-b py-11;
+    @apply border-border scroll-mt-nav-height-mobile lg:scroll-mt-nav-height container border-b py-11;
   }
 
   a {
@@ -260,9 +264,7 @@
   .h-screen-minus-nav-height {
     @apply h-[calc(100vh-var(--nav-height-mobile))] lg:h-[calc(100vh-var(--nav-height))];
   }
+  .min-h-screen-minus-nav-height {
+    @apply min-h-[calc(100vh-var(--nav-height-mobile))] lg:min-h-[calc(100vh-var(--nav-height))];
+  }
 }
-
-/* @custom-variant sm @media (width >= 640px);
-@custom-variant md @media (width >= 768px);
-@custom-variant lg @media (width >= 1024px);
-@custom-variant xl @media (width >= 1280px); */

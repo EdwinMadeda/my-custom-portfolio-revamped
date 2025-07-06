@@ -1,18 +1,18 @@
-import { SanityClient, SlugIsUniqueValidator } from 'sanity';
-import { apiVersion } from '../env';
+import { SanityClient, SlugIsUniqueValidator } from "sanity";
+import { apiVersion } from "../env";
 
 export const isUniqueAcrossAllDocuments: SlugIsUniqueValidator = async (
   slug,
-  context
+  context,
 ) => {
   const { document, getClient } = context;
   if (!document || !document._id) {
-    console.warn('Validation context missing document or _id');
+    console.warn("Validation context missing document or _id");
     return true;
   }
 
   const client: SanityClient = getClient({ apiVersion });
-  const id = document._id.replace(/^drafts\./, '');
+  const id = document._id.replace(/^drafts\./, "");
   const params = {
     draft: `drafts.${id}`,
     published: id,

@@ -1,12 +1,16 @@
-import Home from "./home";
-import AboutMe from "./about-me";
-import SkillsAndTools from "./skills-and-tools";
-import Works from "./works";
-import Testimonials from "./testimonials";
-import Contact from "./contact";
-import { Skeleton } from "@/components/ui/skeleton";
+import Home from "./(sections)/home";
+import AboutMe from "./(sections)/about-me";
+import SkillsAndTools from "./(sections)/skills-and-tools";
+import Works from "./(sections)/works";
+import Testimonials from "./(sections)/testimonials";
+import Contact from "./(sections)/contact";
+import { getDefaultProfile } from "@/lib/sanity";
 
-export default function Landing() {
+export default async function Landing() {
+  const profile = await getDefaultProfile();
+
+  console.log(profile);
+
   return (
     <>
       <Home />

@@ -20,8 +20,8 @@ export default function AboutMe() {
       <GradientHeading>{heading}</GradientHeading>
       <SubHeading>{subHeading}</SubHeading>
       <SectionInnerContent>
-        {/* <AboutMeContent /> */}
-        <AboutMeContentSkeleton />
+        <AboutMeContent />
+        {/* <AboutMeContentSkeleton /> */}
       </SectionInnerContent>
     </section>
   );

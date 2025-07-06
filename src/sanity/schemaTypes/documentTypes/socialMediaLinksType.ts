@@ -1,55 +1,25 @@
-import { defineField, defineType } from "sanity";
 import { icons, SocialPlatform } from "@/config/icons";
+import { defineField, defineType } from "sanity";
 import { socialPlatforms } from "../content/socialMediaPlatforms";
-import { countryCodes } from "@/config/country-codes";
+import { Link } from "lucide-react";
 
-export const contactInfoType = defineType({
-  name: "contact",
-  title: "Contact Information",
+export const socialMediaLinksType = defineType({
+  name: "socialMediaLinks",
+  title: "Social Media Links",
   type: "document",
+  icon: Link,
   fields: [
     defineField({
-      name: "email",
-      title: "Email Address",
+      name: "title",
+      title: "Social Links Set Name",
+      description:
+        "A descriptive name for this group of social links (e.g., 'Primary Socials', 'Dev Portfolio Socials').",
       type: "string",
-      validation: (Rule) =>
-        Rule.required().email().error("Please provide a valid email address."),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "phoneNumber",
-      title: "Phone Number",
-      type: "object",
-      fields: [
-        defineField({
-          name: "countryCode",
-          title: "Country Code",
-          type: "string",
-          options: {
-            list: countryCodes.map(({ code, country, flag }) => ({
-              title: `${flag} ${country} (+${code})`,
-              value: String(code),
-            })),
-          },
-          validation: (Rule) =>
-            Rule.required().error("Please select a country code."),
-        }),
-        defineField({
-          name: "phoneNumberValue",
-          title: "Phone Number (Local)",
-          type: "string",
-          validation: (Rule) =>
-            Rule.regex(
-              /^\d{1,14}$/,
-              "Please enter a valid phone number (e.g., 555123456).",
-            ),
-          description:
-            "Enter your local phone number, excluding the country code (e.g., 555123456).",
-        }),
-      ],
-    }),
-    defineField({
-      name: "socialLinks",
-      title: "Social Media Links",
+      name: "links",
+      title: "Links",
       type: "array",
       description:
         "Provide links to your social media profiles (e.g., LinkedIn, Twitter, GitHub). Select the appropriate platform using the icons.",
@@ -76,9 +46,11 @@ export const contactInfoType = defineType({
               title: "Platform Link",
               type: "url",
               validation: (Rule) =>
-                Rule.uri({ scheme: ["http", "https"] }).error(
-                  "Please provide a valid URL for your social media platform.",
-                ),
+                Rule.required()
+                  .uri({ scheme: ["http", "https"] })
+                  .error(
+                    "Please provide a valid URL for your social media platform (i.e., starting with http:// or https://).",
+                  ),
             }),
           ],
           preview: {
@@ -98,11 +70,24 @@ export const contactInfoType = defineType({
           },
         },
       ],
+      validation: (Rule) =>
+        Rule.unique().error(
+          "Duplicate social media platforms are not allowed in one set. Each platform should be unique.",
+        ),
     }),
   ],
   preview: {
     select: {
-      title: "email",
+      title: "title",
+      allLinks: "links",
+    },
+    prepare(selection) {
+      const { title, allLinks } = selection;
+      const linkCount = allLinks ? allLinks.length : 0;
+      return {
+        title: title,
+        subtitle: `${linkCount} links`,
+      };
     },
   },
 });

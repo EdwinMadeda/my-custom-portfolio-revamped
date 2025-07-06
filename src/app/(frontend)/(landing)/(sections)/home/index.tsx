@@ -3,7 +3,7 @@ import SectionInnerContent from "@/components/section-inner-content";
 import { HeroContent, HeroSkeleton } from "./hero-content";
 import { PlatformLinksMobile } from "@/components/platform-links";
 
-export default function Home() {
+export default async function Home() {
   const {
     name,
     label: heading,
@@ -13,13 +13,13 @@ export default function Home() {
   return (
     <section
       id={name}
-      className="h-screen-minus-nav-height"
+      className="min-h-screen-minus-nav-height flex h-full flex-col justify-between"
       aria-labelledby={name}
       aria-describedby={`${name}-desc`}
     >
-      <SectionInnerContent className="flex h-full flex-col justify-center">
-        {/* <HeroContent /> */}
-        <HeroSkeleton />
+      <SectionInnerContent className="flex h-full flex-1 flex-col justify-between">
+        <HeroContent />
+        {/* <HeroSkeleton /> */}
         <PlatformLinksMobile className="mt-5" />
       </SectionInnerContent>
     </section>

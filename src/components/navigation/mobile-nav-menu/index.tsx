@@ -27,7 +27,7 @@ export default function MobileNavMenu() {
         <>
           <HamburgerBtn
             ref={hamburgerBtnRef}
-            className="order-2 ml-5 lg:hidden"
+            className="order-2 ml-3 sm:ml-4 lg:hidden"
             state={[open, setOpen]}
             onClick={toggleMobileMenu}
             aria-expanded={open ? "true" : "false"}
@@ -95,7 +95,7 @@ export default function MobileNavMenu() {
             <div
               onClick={() => setOpen(false)}
               className={clsx(
-                "top-nav-height-mobile h-screen-minus-nav-height absolute left-0 -z-20 w-full bg-black/50 lg:hidden",
+                "top-nav-height-mobile min-h-screen-minus-nav-height absolute left-0 -z-20 w-full bg-black/70 lg:hidden",
                 "data-[state=open]:fade-in-0",
               )}
               tabIndex={-1}
