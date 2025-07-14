@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "typegen": "sanity schema extract --path=src/sanity/extract.json && sanity typegen generate",
-    "reset": "pnpm prune && pnpm cache delete &&  rm -rf node_modules && rm pnpm-lock.yaml && rm -rf .next && pnpm install"
+    "reset": "pnpm prune && pnpm cache delete &&  rm -rf node_modules && rm pnpm-lock.yaml && rm -rf .next && pnpm install",
+    "generate:countries": "node scripts/extract-country-info.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -63,6 +64,9 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@sanity/cli": "3.96.0",
+    "@sanity/codegen": "3.96.0",
+    "@sanity/types": "^3.96.0",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
@@ -73,10 +77,8 @@
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "@sanity/cli": "3.96.0",
-    "@sanity/codegen": "3.96.0",
-    "@sanity/types": "^3.96.0"
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
   },
   "pnpm": {
     "peerDependencyRules": {

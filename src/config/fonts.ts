@@ -31,7 +31,7 @@ export const lemonJelly = localFont({
 export const roadBlast = localFont({
   src: [
     {
-      path: "../assets/fonts/RoadBlast/Road Blast!.woff",
+      path: "../assets/fonts/RoadBlast/Road Blast.woff",
       weight: "800",
       style: "normal",
     },

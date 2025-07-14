@@ -51,7 +51,7 @@ export default function SkillsAndTools() {
 
   const CHUNKED_SKILLS_AND_TOOLS = useMemo(
     () => chunkArray(skills_and_tools.slice(0, 8), itemsPerSlide),
-    [skills_and_tools, itemsPerSlide],
+    [itemsPerSlide],
   );
 
   const OPTIONS: EmblaOptionsType = {

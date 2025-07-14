@@ -13,6 +13,8 @@ import { socialMediaLinksType } from "./documentTypes/socialMediaLinksType";
 import { phoneNumberType } from "./documentTypes/phoneNumberType";
 import { screenshotViewItemDescType } from "./documentTypes/screenshotViewItemDescType";
 import { affiliationType } from "./documentTypes/affiliationType";
+import { metaKeywordType } from "./documentTypes/metaKeywordType";
+import { metaImageType } from "./documentTypes/metaImageType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -30,5 +32,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     socialMediaLinksType,
     resumeType,
     techCategoryType,
+    metaImageType,
+    metaKeywordType,
   ],
 };

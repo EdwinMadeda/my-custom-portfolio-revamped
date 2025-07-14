@@ -1,11 +1,12 @@
 import { navItems } from "@/config/site";
-import { CountryName, NavHref, NavItem } from "@/types";
+import { NavHref, NavItem } from "@/types";
 import { clsx, type ClassValue } from "clsx";
 import { CountryCode, getExampleNumber } from "libphonenumber-js";
 import { twMerge } from "tailwind-merge";
 import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
 import examples from "libphonenumber-js/mobile/examples";
+import { CountryName } from "./generated-countries";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -70,9 +71,9 @@ export function generateBgFromName(
   //   bgColor += `00${value.toString(16)}`.slice(-2);
   // }
 
-  let r = (hash >> 16) & 0xff;
-  let g = (hash >> 8) & 0xff;
-  let b = hash & 0xff;
+  const r = (hash >> 16) & 0xff;
+  const g = (hash >> 8) & 0xff;
+  const b = hash & 0xff;
 
   const luminance = getLuminance(r, g, b);
   const bgColor = `rgba(${r},${g},${b},${alpha})`;

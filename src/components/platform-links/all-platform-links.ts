@@ -1,5 +1,4 @@
 import { icons } from "@/config/icons";
-import { IconType } from "react-icons";
 
 export const allPlatformLinks = [
   {

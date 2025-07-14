@@ -26,9 +26,9 @@ export function TechArticle() {
         </p>
         <p>
           Styling is done with <strong>Tailwind CSS</strong>, a utility-first
-          CSS framework that helps us rapidly build custom designs. Tailwind's
-          approach allows for a more efficient and streamlined workflow when
-          crafting a responsive layout for our site.
+          CSS framework that helps us rapidly build custom designs.
+          Tailwind&apos;s approach allows for a more efficient and streamlined
+          workflow when crafting a responsive layout for our site.
         </p>
         <p>
           For the user interface, we use <strong>Shadcn/ui</strong>, a component

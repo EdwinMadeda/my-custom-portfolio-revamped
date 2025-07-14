@@ -9,10 +9,10 @@ export function HeroContent() {
   return (
     <div className="flex h-full max-w-2xl flex-1 flex-col justify-center">
       <Paragraph className="text-primary uppercase">
-        Let's build something together
+        Let&apos;s build something together
       </Paragraph>
       <Heading1 className="mt-2">
-        Hi, I'm Edwin Madeda <br /> A Software Developer
+        Hi, I&apos;m Edwin Madeda <br /> A Software Developer
       </Heading1>
       <Paragraph className="mt-5 max-w-xl">
         I love tinkering, building interfaces & web applications, thus

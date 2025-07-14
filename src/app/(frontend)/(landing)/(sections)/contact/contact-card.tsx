@@ -26,7 +26,7 @@ import { MessageCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import formSchema, { ContactFormInputsType } from "./form-schema";
 import { VercelPhoneInput } from "@/components/vercel-phone-input";
-import { EAST_AFRICA_COUNTRIES } from "@/config/countries";
+import { EAST_AFRICA_COUNTRY_CODES } from "@/lib/generated-countries";
 import { SpinnerCircularFixed } from "spinners-react/lib/esm/SpinnerCircularFixed";
 import { toast } from "sonner";
 import { getCountryDetails } from "@/lib/utils";
@@ -76,14 +76,17 @@ export default function ContactCard() {
           "Something went wrong. Please try again.";
         toast.error(errorMessage, { duration: 3000 });
       }
-    } catch (error: any) {
-      toast.error(
-        error?.message ||
-          "Unable to send message. Please check your connection.",
-        {
-          duration: 3000,
-        },
-      );
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : typeof error === "object" && error !== null && "message" in error
+            ? (error as { message: string })?.message
+            : "Unable to send message. Please check your connection.";
+
+      toast.error(errorMessage, {
+        duration: 3000,
+      });
     }
   }
 
@@ -96,8 +99,8 @@ export default function ContactCard() {
           </CardTitle>
           <CardDescription>
             <Paragraph>
-              I’m always open to new opportunities and conversations. Fill out
-              the form below, and I’ll get back to you soon!
+              I&apos;m always open to new opportunities and conversations. Fill
+              out the form below, and I&apos;ll get back to you soon!
             </Paragraph>
           </CardDescription>
         </CardHeader>
@@ -124,7 +127,7 @@ export default function ContactCard() {
                       />
                     </FormControl>
                     <FormDescription>
-                      Let me know how you'd like to be addressed!
+                      Let me know how you&apos;d like to be addressed!
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -143,7 +146,8 @@ export default function ContactCard() {
                       />
                     </FormControl>
                     <FormDescription>
-                      I'll get back to you here, so make sure it’s correct.
+                      I&apos;ll get back to you here, so make sure it&apos;s
+                      correct.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -158,13 +162,13 @@ export default function ContactCard() {
                     <FormControl>
                       <VercelPhoneInput
                         defaultCountry="KE"
-                        priorityCountries={EAST_AFRICA_COUNTRIES}
+                        priorityCountries={EAST_AFRICA_COUNTRY_CODES}
                         {...field}
                       />
                     </FormControl>
                     <FormDescription>
-                      This is optional, but feel free to share if you'd prefer a
-                      call.
+                      This is optional, but feel free to share if you&apos;d
+                      prefer a call.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -184,8 +188,8 @@ export default function ContactCard() {
                       />
                     </FormControl>
                     <FormDescription>
-                      Let me know how I can assist you, whether it's about a
-                      project, collaboration, or anything else.
+                      Let me know how I can assist you, whether it&apos;s about
+                      a project, collaboration, or anything else.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -198,7 +202,7 @@ export default function ContactCard() {
                 disabled={form.formState.isSubmitting}
                 className="mt-4 flex items-center space-x-2"
               >
-                <span>Let's Connect!</span>
+                <span>Let&apos;s Connect!</span>
                 {form.formState.isSubmitting ? (
                   <SpinnerCircularFixed
                     size={80}

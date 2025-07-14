@@ -76,13 +76,15 @@ const VercelPhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
       );
     };
 
-    const form = (() => {
-      try {
-        return useFormContext();
-      } catch {
-        return null;
-      }
-    })();
+    // const form = (() => {
+    //   try {
+    //     return useFormContext();
+    //   } catch {
+    //     return null;
+    //   }
+    // })();
+
+    const form = useFormContext();
 
     React.useEffect(() => {
       if (form && selectedCountry) {
@@ -91,7 +93,7 @@ const VercelPhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
           shouldDirty: false,
         });
       }
-    }, []);
+    }, [form, selectedCountry]);
 
     const handleCountryChange = (country: CountryCode) => {
       if (country) setSelectedCountry(country);

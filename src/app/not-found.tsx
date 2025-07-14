@@ -20,7 +20,7 @@ export default function NotFound() {
                 </h1>
               </Lead>
               <h2 className="text-2xl font-semibold md:text-3xl">
-                Sorry, we couldn't find this page.
+                Sorry, we couldn&apos;t find this page.
               </h2>
               <Muted className="mt-4 mb-8">
                 But dont worry, you can find plenty of other things on our

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { Muted } from "./typography";
 import { Skeleton } from "./ui/skeleton";
 import { ImageOff } from "lucide-react";
-import { SpinnerCircularFixed } from "spinners-react";
 import { cn } from "@/lib/utils";
 
 export default function ImageWithFallback({

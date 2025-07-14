@@ -1,7 +1,6 @@
 import BackButton from "@/components/back-button";
 import ImageWithFallback from "@/components/image-with-fallback";
 import SectionInnerContent from "@/components/section-inner-content";
-import { ProseContent } from "@/components/typography";
 import { Button } from "@/components/ui/custom-button";
 
 import { ExternalLink } from "react-external-link";

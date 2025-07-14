@@ -1,7 +1,7 @@
 import SectionInnerContent from "@/components/section-inner-content";
 import { GradientHeading, SubHeading } from "@/components/typography";
 import { navByName } from "@/config/site";
-import { AboutMeContent, AboutMeContentSkeleton } from "./about-me-content";
+import { AboutMeContent } from "./about-me-content";
 
 export default function AboutMe() {
   const {

@@ -22,9 +22,12 @@ export function useDotNavigation(
   const onInit = useCallback((emblaApi: EmblaCarouselType) => {
     setScrollSnaps(emblaApi.scrollSnapList());
   }, []);
-  const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, []);
+  const onSelect = useCallback(
+    (emblaApi: EmblaCarouselType) => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    },
+    [setSelectedIndex],
+  );
 
   useEffect(() => {
     if (!emblaApi) return;

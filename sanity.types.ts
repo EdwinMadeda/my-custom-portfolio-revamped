@@ -846,30 +846,19 @@ export type PROFILES_QUERYResult = Array<{
   };
 }>;
 // Variable: PROFILE_QUERY
-// Query: *[_type == "profile" && slug.current == $slug][0]
+// Query: *[_type == "profile" && slug.current == $slug][0]{      hero {    greeting,    tagline,    subHeadline,    ctaButtonText,    ctaButtonLink  },      about {    shortIntro,    longIntro,    personalStory  },      technologiesAndTools {    shortIntro,    longIntro,    featuredTechnologiesAndTools[]->{      _id,      techName,      techDescription,      proficiencyLevel,      techLogo {        asset->{          _id,          url,          ...         }      },      websiteUrl,      techCategory->{         _id,        categoryName,        categoryDescription,        "categorySlug": categorySlug.current      }    }  },      works {    shortIntro,    longIntro,    "featuredProjects": featuredProjects[]->{      _id,      title,      description,      "slug": slug.current,      thumbnail {        asset->{          _id,          url,          ... // Includes all other asset fields        }      },      technologiesUsed[]->{        _id,        techName,        techDescription,        proficiencyLevel,        techLogo {           asset->{            _id,            url,            ...          }        },        websiteUrl,        techCategory->{           _id,          categoryName,          categoryDescription,          "categorySlug":categorySlug.current,        }      },      liveDemoLink,      repoLink,      detailedDescription,      developmentStatus,      date    },    "otherWorks": otherWorks[]->{      _id,      title,      "slug" : slug.current,      thumbnail{        asset->{          _id,          url,          ... // Includes all other asset fields        }      },      description,      technologiesUsed[]->{        _id,        techName,        techDescription,        proficiencyLevel,        techLogo {           asset->{            _id,            url,            ...          }        },        websiteUrl,        techCategory->{           _id,          categoryName,          categoryDescription,          "categorySlug": categorySlug.current        }      },      contributionLink,      detailedDescription,      date    }  },      services {    shortIntro,    longIntro,    featuredServices[]->{       _id,      serviceIcon{        asset->{          _id,          url,          ... // All other asset fields        }      },      serviceName,      shortDescription,      longDescription    }  },      testimonials {    shortIntro,    longIntro,    featuredTestimonials[]->{       _id,      name,      feedback,      position{        "title": select(           positionTitle == "Other" => customPositionTitle,          positionTitle        ),        affiliation->{          _id,          name,          type,          link,          logo{            asset->{              _id,              url,              ...             }          },          description,          location,          ...,         }      },      photo {        asset->{          _id,          url,          ...,         }      },      isPinned,      category          }  },      contact {    email->{      title,      "value": address     },    phoneNumber->{      title,      "value": numberDetails.dialCode + numberDetails.phoneNumberValue     },    "socialMedia": socialMediaLinks->{      title,      links[]{        platform,        link      }    }  },      metadata {    metaTitle,    metaDescription,    metaKeywords[]->{      _id,      keywordName,     "keywordSlug" : keywordSlug.current    },    metaImage->{       "asset": image.asset->,      altText     },    metaURL,    metaType  },  }
 export type PROFILE_QUERYResult = {
-  _id: string;
-  _type: "profile";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  profileName?: string;
-  slug?: Slug;
-  brandingImage?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "brandingImage";
-  };
-  hero?: {
-    greeting?: string;
-    tagline?: string;
-    subHeadline?: string;
-    ctaButtonText?: string;
-  };
-  about?: {
-    intro?: string;
-    personalStory?: Array<
+  hero: {
+    greeting: string | null;
+    tagline: string | null;
+    subHeadline: string | null;
+    ctaButtonText: string | null;
+    ctaButtonLink: null;
+  } | null;
+  about: {
+    shortIntro: null;
+    longIntro: null;
+    personalStory: Array<
       | {
           children?: Array<{
             marks?: Array<string>;
@@ -901,79 +890,209 @@ export type PROFILE_QUERYResult = {
           _type: "image";
           _key: string;
         }
-    >;
-  };
-  technologiesAndTools?: {
-    intro?: string;
-    technologiesAndTools?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "technologyOrTool";
-    }>;
-  };
-  works?: {
-    intro?: string;
-    featuredProjects?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "project";
-    }>;
-  };
-  services?: {
-    intro?: string;
-    featuredServices?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "service";
-    }>;
-  };
-  testimonials?: {
-    intro?: string;
-    featuredTestimonials?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "testimonial";
-    }>;
-  };
-  contact?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "contact";
-  };
-  resume?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "resume";
-  };
-  metadata?: {
-    metaTitle?: string;
-    metaDescription?: string;
-    metaKeywords?: Array<string>;
-    metaImage?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    metaURL?: string;
-    metaType?: "portfolio" | "profile" | "website";
-  };
+    > | null;
+  } | null;
+  technologiesAndTools: {
+    shortIntro: null;
+    longIntro: null;
+    featuredTechnologiesAndTools: null;
+  } | null;
+  works: {
+    shortIntro: null;
+    longIntro: null;
+    featuredProjects: Array<{
+      _id: string;
+      title: string | null;
+      description: string | null;
+      slug: string | null;
+      thumbnail: {
+        asset: {
+          _id: string;
+          url?: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+      } | null;
+      technologiesUsed: Array<null> | null;
+      liveDemoLink: string | null;
+      repoLink: string | null;
+      detailedDescription: Array<
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "h2" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      > | null;
+      developmentStatus: null;
+      date: string | null;
+    }> | null;
+    otherWorks: null;
+  } | null;
+  services: {
+    shortIntro: null;
+    longIntro: null;
+    featuredServices: Array<{
+      _id: string;
+      serviceIcon: {
+        asset: {
+          _id: string;
+          url?: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+      } | null;
+      serviceName: string | null;
+      shortDescription: null;
+      longDescription: null;
+    }> | null;
+  } | null;
+  testimonials: {
+    shortIntro: null;
+    longIntro: null;
+    featuredTestimonials: Array<{
+      _id: string;
+      name: string | null;
+      feedback: string | null;
+      position: {
+        title:
+          | "Advocate"
+          | "Backend Developer"
+          | "CEO"
+          | "Cloud Architect"
+          | "Co-founder"
+          | "Consultant"
+          | "Content Strategist"
+          | "CTO"
+          | "Data Engineer"
+          | "Design Lead"
+          | "DevOps Engineer"
+          | "Director of Engineering"
+          | "Engineering Manager"
+          | "Freelancer"
+          | "Frontend Developer"
+          | "Full Stack Developer"
+          | "Graphic Designer"
+          | "Growth Marketer"
+          | "Head of Design"
+          | "Instructor"
+          | "Lead Developer"
+          | "Machine Learning Engineer"
+          | "Marketing Director"
+          | "Mentor"
+          | "Mobile Developer"
+          | "Open Source Contributor"
+          | "Product Designer"
+          | "Product Manager"
+          | "Product Owner"
+          | "QA Engineer"
+          | "Site Reliability Engineer"
+          | "Software Engineer"
+          | "Tech Lead"
+          | "UI Designer"
+          | "UX Designer"
+          | "Volunteer"
+          | null;
+        affiliation: null;
+      } | null;
+      photo: {
+        asset: {
+          _id: string;
+          url?: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+      } | null;
+      isPinned: boolean | null;
+      category: "clientsFavorite" | "mostPopular" | "other" | "topRated" | null;
+    }> | null;
+  } | null;
+  contact: {
+    email: null;
+    phoneNumber: null;
+    socialMedia: null;
+  } | null;
+  metadata: {
+    metaTitle: string | null;
+    metaDescription: string | null;
+    metaKeywords: Array<null> | null;
+    metaImage: null;
+    metaURL: string | null;
+    metaType: "portfolio" | "profile" | "website" | null;
+  } | null;
 } | null;
 // Variable: PROFILE_SLUGS
 // Query: *[_type == "profile"]{    "slug": slug.current  }
@@ -986,7 +1105,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "profile" && defined(slug.current)]': PROFILES_QUERYResult;
-    '*[_type == "profile" && slug.current == $slug][0]': PROFILE_QUERYResult;
+    '*[_type == "profile" && slug.current == $slug][0]{\n    \n  hero {\n    greeting,\n    tagline,\n    subHeadline,\n    ctaButtonText,\n    ctaButtonLink\n  }\n,\n    \n  about {\n    shortIntro,\n    longIntro,\n    personalStory\n  }\n,\n    \n  technologiesAndTools {\n    shortIntro,\n    longIntro,\n    featuredTechnologiesAndTools[]->{\n      _id,\n      techName,\n      techDescription,\n      proficiencyLevel,\n      techLogo {\n        asset->{\n          _id,\n          url,\n          ... \n        }\n      },\n      websiteUrl,\n      techCategory->{ \n        _id,\n        categoryName,\n        categoryDescription,\n        "categorySlug": categorySlug.current\n      }\n    }\n  }\n,\n    \n  works {\n    shortIntro,\n    longIntro,\n    "featuredProjects": featuredProjects[]->{\n      _id,\n      title,\n      description,\n      "slug": slug.current,\n      thumbnail {\n        asset->{\n          _id,\n          url,\n          ... // Includes all other asset fields\n        }\n      },\n      technologiesUsed[]->{\n        _id,\n        techName,\n        techDescription,\n        proficiencyLevel,\n        techLogo { \n          asset->{\n            _id,\n            url,\n            ...\n          }\n        },\n        websiteUrl,\n        techCategory->{\n           _id,\n          categoryName,\n          categoryDescription,\n          "categorySlug":categorySlug.current,\n        }\n      },\n      liveDemoLink,\n      repoLink,\n      detailedDescription,\n      developmentStatus,\n      date\n    },\n    "otherWorks": otherWorks[]->{\n      _id,\n      title,\n      "slug" : slug.current,\n      thumbnail{\n        asset->{\n          _id,\n          url,\n          ... // Includes all other asset fields\n        }\n      },\n      description,\n      technologiesUsed[]->{\n        _id,\n        techName,\n        techDescription,\n        proficiencyLevel,\n        techLogo { \n          asset->{\n            _id,\n            url,\n            ...\n          }\n        },\n        websiteUrl,\n        techCategory->{\n           _id,\n          categoryName,\n          categoryDescription,\n          "categorySlug": categorySlug.current\n        }\n      },\n      contributionLink,\n      detailedDescription,\n      date\n    }\n  }\n,\n    \n  services {\n    shortIntro,\n    longIntro,\n    featuredServices[]->{ \n      _id,\n      serviceIcon{\n        asset->{\n          _id,\n          url,\n          ... // All other asset fields\n        }\n      },\n      serviceName,\n      shortDescription,\n      longDescription\n    }\n  }\n,\n    \n  testimonials {\n    shortIntro,\n    longIntro,\n    featuredTestimonials[]->{ \n      _id,\n      name,\n      feedback,\n      position{\n        "title": select( \n          positionTitle == "Other" => customPositionTitle,\n          positionTitle\n        ),\n        affiliation->{\n          _id,\n          name,\n          type,\n          link,\n          logo{\n            asset->{\n              _id,\n              url,\n              ... \n            }\n          },\n          description,\n          location,\n          ..., \n        }\n      },\n      photo {\n        asset->{\n          _id,\n          url,\n          ..., \n        }\n      },\n      isPinned,\n      category\n      \n    }\n  }\n,\n    \n  contact {\n    email->{\n      title,\n      "value": address \n    },\n    phoneNumber->{\n      title,\n      "value": numberDetails.dialCode + numberDetails.phoneNumberValue \n    },\n    "socialMedia": socialMediaLinks->{\n      title,\n      links[]{\n        platform,\n        link\n      }\n    }\n  }\n,\n    \n  metadata {\n    metaTitle,\n    metaDescription,\n    metaKeywords[]->{\n      _id,\n      keywordName,\n     "keywordSlug" : keywordSlug.current\n    },\n    metaImage->{ \n      "asset": image.asset->,\n      altText \n    },\n    metaURL,\n    metaType\n  }\n,\n  }': PROFILE_QUERYResult;
     ' *[_type == "profile"]{\n    "slug": slug.current\n  }': PROFILE_SLUGSResult;
   }
 }

@@ -47,7 +47,7 @@ const sizeMultipliers = new Map<string, number>([
   ["100%", 1],
 ]);
 
-export default function MyCustomCarousel<T>({
+export default function MyCustomCarousel({
   slides,
   options,
   plugins = [Autoplay({ playOnInit: false, delay: 10000 })],
