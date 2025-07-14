@@ -41,13 +41,13 @@ export const projectType = defineType({
         hotspot: true,
       },
       description: `
-        Upload an image that represents the project for use in project cards, listings, and previews.
+         Upload an image to represent the project in cards, listings, and previews.
 
         **Recommended Guidelines:**
-        - **Aspect Ratio:** Ideally, provide an image with a **16:9 aspect ratio** (e.g., 1280x720px, 1920x1080px). While the 'hotspot' feature will help adapt to different crops, starting with 16:9 ensures a good default.
-        - **Resolution:** Upload a high-resolution image (e.g., **at least 1920px wide**) to ensure sharpness on various screen sizes.
-        - **Content Focus:** Ensure the most important visual elements or the main subject of the project is **centered** within the image. This is crucial for how the 'hotspot' intelligent cropping will work across different UI components.
-        - **File Type & Size:** Use JPG for photographic images and PNG for images with transparency. Aim for a reasonable file size (e.g., under 500KB-1MB) for optimal web performance.
+        * **Aspect Ratio:** Aim for **16:9** (e.g., 1280x720px,1920x1080px). Hotspot helps with crops, but 16:9 ensures a good default.
+        * **Resolution:** Use high-resolution (**at least 1920px wide**) for sharpness on all screens.
+        * **Content Focus:** Keep the main subject **centered**. This is key for intelligent cropping (hotspot).
+        * **File Type/Size:** Use JPG for photos, PNG for transparency. Keep file size reasonable (e.g., under 1MB) for web performance.
       `,
       validation: (Rule) => Rule.required(),
     }),
@@ -65,7 +65,7 @@ export const projectType = defineType({
       title: "Technologies Used",
       type: "array",
       description:
-        "Technologies, tools, and frameworks used to build the project.",
+        "List technologies, tools, and frameworks used for the project.",
       of: [
         {
           type: "reference",

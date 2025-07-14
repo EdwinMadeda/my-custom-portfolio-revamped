@@ -23,7 +23,7 @@ export const affiliationType = defineType({
       title: "Affiliation Type",
       type: "string",
       description:
-        "Specify the kind of organization or group this person represents.",
+        "Select the type of organization or group this person represents.",
       options: {
         list: [
           { title: "Company", value: "company" },
@@ -46,7 +46,7 @@ export const affiliationType = defineType({
       title: "Official Website/Link",
       type: "url",
       description:
-        "Link to the official website or project page for this affiliation (optional)",
+        "Link to the official website or project page for this affiliation (optional).",
       validation: (Rule) =>
         Rule.uri({ scheme: ["http", "https"] }).error(
           "Please provide a valid URL (starting with http:// or https://).",

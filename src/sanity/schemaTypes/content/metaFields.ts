@@ -38,7 +38,7 @@ export const metadataFields = [
     name: "metaKeywords",
     title: "Meta Keywords",
     type: "array",
-    of: [{ type: "string" }],
+    of: [{ type: "reference", to: [{ type: "metaKeyword" }] }],
     description: `
       **Purpose:** Words or phrases that describe the content of the page, helping search engines understand your topic.
       **Guidelines:**
@@ -46,11 +46,13 @@ export const metadataFields = [
       - Use **commas to separate** keywords (e.g., "web development, portfolio, UI/UX design").
       - This field is **optional** and its impact on SEO varies, but it can still be useful.
     `,
+    validation: (Rule) => Rule.unique(),
   }),
   defineField({
     name: "metaImage",
     title: "Meta Image (Social Sharing Image)",
-    type: "image",
+    type: "reference",
+    to: [{ type: "metaImage" }, { type: "brandingImage" }],
     description: `
       **Purpose:** The image displayed when this page is shared on social media (e.g., Twitter, Facebook, LinkedIn).
       **Guidelines:**
@@ -59,6 +61,7 @@ export const metadataFields = [
       - **Default:** If left empty, your **main Branding Image** will typically be used as a fallback.
     `,
   }),
+
   defineField({
     name: "metaURL",
     title: "Meta URL (Canonical URL)",

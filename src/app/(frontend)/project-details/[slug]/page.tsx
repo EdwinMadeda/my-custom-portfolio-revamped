@@ -1,7 +1,6 @@
 import BackButton from "@/components/back-button";
 import ImageWithFallback from "@/components/image-with-fallback";
 import SectionInnerContent from "@/components/section-inner-content";
-import { ProseContent } from "@/components/typography";
 import { Button } from "@/components/ui/custom-button";
 
 import { ExternalLink } from "react-external-link";
@@ -13,18 +12,20 @@ export const metadata = {
   title: "Project Details",
 };
 
-export default async function ProjectDetails({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const slug = (await params).slug;
+export default async function ProjectDetails(
+  {
+    // params,
+  }: {
+    params: Promise<{ slug: string }>;
+  },
+) {
+  // const slug = (await params).slug;
 
   return (
     <>
       <section>
         <div className="flex h-full flex-col justify-center">
-          {/* <ProjectIntro /> */}
+         
           <ProjectIntroSkeleton />
 
           <SectionInnerContent>
@@ -173,7 +174,7 @@ export default async function ProjectDetails({
 
       <section>
         <div className="flex w-full flex-col md:flex-row-reverse md:items-start md:justify-center md:gap-x-16 lg:gap-x-24">
-          {/* <TechStackSidebar /> */}
+         
           <TechStackSidebarSkeleton />
           <div className="md:flex md:flex-grow">
             <TechArticleSkeleton />

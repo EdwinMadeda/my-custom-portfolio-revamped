@@ -21,6 +21,7 @@ export const contactEmailType = defineType({
       name: "address",
       title: "Email Address",
       type: "string",
+      description: "The actual email address. It must be a valid email format.",
       validation: (Rule) =>
         Rule.required().email().error("Please provide a valid email address."),
     }),

@@ -18,7 +18,8 @@ export const otherWorkType = defineType({
           .error(
             "Work Title must be between 5 and 150 characters and cannot be empty or just whitespace",
           ),
-      description: "The title of this contribution, article, or smaller work.",
+      description:
+        "The main title for this contribution, article, or smaller work.",
     }),
     defineField({
       name: "slug",
@@ -29,7 +30,8 @@ export const otherWorkType = defineType({
         maxLength: 96,
       },
       validation: (Rule) => Rule.required().error("Slug is required"),
-      description: "A unique identifier for this work, used in URLs.",
+      description:
+        "A unique, URL-friendly identifier for this work (e.g., 'my-open-source-project'). Auto-generated from the title.",
     }),
 
     defineField({
@@ -39,8 +41,12 @@ export const otherWorkType = defineType({
       options: {
         hotspot: true,
       },
-      description: `Upload an optional image, icon, or screenshot to represent this work. 
-      For best results in cards, aim for a 16:9 aspect ratio (e.g., 1280x720px) and ensure key elements are centered.`,
+      description: `
+        Upload an optional image, icon, or screenshot to represent this work.
+        **Guidelines:**
+        - For best results in cards, aim for a **16:9 aspect ratio** (e.g., 1280x720px, 1920x1080px).
+        - Ensure key visual elements are **centered** for optimal cropping across different layouts.
+      `,
     }),
 
     defineField({
@@ -49,6 +55,8 @@ export const otherWorkType = defineType({
       type: "text",
       rows: 3,
       validation: (Rule) => Rule.required().min(10).max(300),
+      description:
+        "A brief summary of this work, appearing in listings and previews. Aim for 10-300 characters.",
     }),
 
     defineField({
@@ -56,7 +64,7 @@ export const otherWorkType = defineType({
       title: "Technologies Used",
       type: "array",
       description:
-        "Technologies, tools, and frameworks relevant to this work (optional).",
+        "List relevant technologies, tools, and frameworks used in this work (optional, max 5).",
       of: [
         {
           type: "reference",
@@ -75,7 +83,7 @@ export const otherWorkType = defineType({
       title: "Contribution Link",
       type: "url",
       description:
-        "Link to the GitHub repository, article, live demo, or relevant URL for this work.",
+        "Provide the primary link for this work (e.g., GitHub repo, live demo, published article URL). This is required.",
       validation: (Rule) =>
         Rule.required()
           .uri({ allowRelative: true, scheme: ["http", "https"] })
@@ -107,6 +115,8 @@ export const otherWorkType = defineType({
           options: { hotspot: true },
         },
       ],
+      description:
+        "Provide a comprehensive overview of the work, its purpose, and any key features or challenges. You can include text and images.",
     }),
 
     defineField({
@@ -114,7 +124,7 @@ export const otherWorkType = defineType({
       title: "Date of Contribution / Completion",
       type: "date",
       description:
-        "The date this work was contributed, completed, or published (optional).",
+        "The date this work was completed, published, or last significantly updated (optional).",
     }),
   ],
   preview: {

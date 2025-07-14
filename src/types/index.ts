@@ -15,3 +15,5 @@ export interface CountryInfo {
 }
 
 export type CountryName = (typeof allCountryCodes)[number]["name"];
+
+export type CountryDialCode = (typeof allCountryCodes)[number]["dial_code"];

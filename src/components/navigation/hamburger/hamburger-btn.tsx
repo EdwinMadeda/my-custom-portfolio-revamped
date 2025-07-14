@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/custom-button";
 import { cn } from "@/lib/utils";
 
 import "./hamburger-btn.css";
-import { FC, forwardRef } from "react";
+import { forwardRef } from "react";
 import { StateTuple } from "@/types";
 
 type HamburgerBtnProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -46,5 +46,7 @@ const HamburgerBtn = forwardRef<HTMLButtonElement, HamburgerBtnProps>(
     );
   },
 );
+
+HamburgerBtn.displayName = "HamburgerBtn";
 
 export default HamburgerBtn;

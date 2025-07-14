@@ -14,72 +14,72 @@ export default function useAutoplay(
   emblaApi: EmblaCarouselType | undefined,
   enableAutoplay: boolean,
 ): UseAutoPlayReturnType {
-  if (enableAutoplay) {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [wasPlaying, setWasPlaying] = useState(false);
-    const autoplay = emblaApi?.plugins()?.autoplay;
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [wasPlaying, setWasPlaying] = useState(false);
+  const autoplay = emblaApi?.plugins()?.autoplay;
 
-    const onNavigation = useCallback(
-      (callback: () => void) => {
-        if (!autoplay) return;
-        const resetOrStop =
-          autoplay.options.stopOnInteraction === false
-            ? autoplay.reset
-            : autoplay.stop;
-        resetOrStop();
-        callback();
-      },
-      [autoplay],
-    );
-
-    const toggleAutoPlay = useCallback(() => {
+  const onNavigation = useCallback(
+    (callback: () => void) => {
       if (!autoplay) return;
-      const shouldPlay = !autoplay.isPlaying();
-      autoplay[shouldPlay ? "play" : "stop"]();
-      setIsPlaying(shouldPlay);
-      setWasPlaying(shouldPlay);
-    }, [autoplay]);
+      const resetOrStop =
+        autoplay.options.stopOnInteraction === false
+          ? autoplay.reset
+          : autoplay.stop;
+      resetOrStop();
+      callback();
+    },
+    [autoplay],
+  );
 
-    const pauseOnMouseEnter = useCallback(() => {
-      if (autoplay && autoplay?.isPlaying()) {
-        autoplay.stop();
-        setWasPlaying(true);
-        setIsPlaying(false);
-      } else {
-        setWasPlaying(false);
-      }
-    }, [autoplay]);
+  const toggleAutoPlay = useCallback(() => {
+    if (!autoplay) return;
+    const shouldPlay = !autoplay.isPlaying();
+    autoplay[shouldPlay ? "play" : "stop"]();
+    setIsPlaying(shouldPlay);
+    setWasPlaying(shouldPlay);
+  }, [autoplay]);
 
-    const resumeOnMouseLeave = useCallback(() => {
-      if (autoplay && !autoplay?.isPlaying() && wasPlaying) {
-        autoplay.play();
-        setIsPlaying(true);
-      }
-    }, [autoplay, wasPlaying]);
+  const pauseOnMouseEnter = useCallback(() => {
+    if (autoplay && autoplay?.isPlaying()) {
+      autoplay.stop();
+      setWasPlaying(true);
+      setIsPlaying(false);
+    } else {
+      setWasPlaying(false);
+    }
+  }, [autoplay]);
 
-    useEffect(() => {
-      if (!autoplay) return;
+  const resumeOnMouseLeave = useCallback(() => {
+    if (autoplay && !autoplay?.isPlaying() && wasPlaying) {
+      autoplay.play();
+      setIsPlaying(true);
+    }
+  }, [autoplay, wasPlaying]);
 
-      setIsPlaying(autoplay.isPlaying());
-      setWasPlaying(autoplay.isPlaying());
+  useEffect(() => {
+    if (!autoplay) return;
 
-      const handlePlay = () => setIsPlaying(true);
-      const handleStop = () => setIsPlaying(false);
+    setIsPlaying(autoplay.isPlaying());
+    setWasPlaying(autoplay.isPlaying());
 
-      emblaApi
-        .on("autoplay:play", handlePlay)
-        .on("autoplay:stop", handleStop)
-        .on("reInit", () => {
-          setIsPlaying(autoplay.isPlaying());
-          setWasPlaying(autoplay.isPlaying());
-        });
+    const handlePlay = () => setIsPlaying(true);
+    const handleStop = () => setIsPlaying(false);
 
-      return () => {
-        emblaApi.off("autoplay:play", handlePlay);
-        emblaApi.off("autoplay:stop", handleStop);
-      };
-    }, [emblaApi]);
+    emblaApi
+      .on("autoplay:play", handlePlay)
+      .on("autoplay:stop", handleStop)
+      .on("reInit", () => {
+        setIsPlaying(autoplay.isPlaying());
+        setWasPlaying(autoplay.isPlaying());
+      });
 
+    return () => {
+      emblaApi.off("autoplay:play", handlePlay);
+      emblaApi.off("autoplay:stop", handleStop);
+    };
+  }, [emblaApi, autoplay]);
+
+  if (!enableAutoplay) {
     return {
       isPlaying,
       wasPlaying,

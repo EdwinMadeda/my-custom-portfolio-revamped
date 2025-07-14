@@ -31,7 +31,7 @@ interface TestimonialProps {
   testimonial: TestimonialType;
 }
 
-export function TestimonialCard({ testimonial }: TestimonialProps) {
+function TestimonialCard({ testimonial }: TestimonialProps) {
   const blockquoteContentRef = useRef<HTMLDivElement>(null);
   const isOverflowing = useContentOverFlow({
     contentRef: blockquoteContentRef,
@@ -120,7 +120,7 @@ const Blockquote = forwardRef<
   );
 });
 
-export function TestimonialSkeleton() {
+function TestimonialSkeleton() {
   return (
     <Card className="m-1 h-full w-full">
       <CardContent>
@@ -157,3 +157,8 @@ export function TestimonialSkeleton() {
     </Card>
   );
 }
+
+TestimonialCard.displayName = "TestimonialCard";
+TestimonialSkeleton.displayName = "TestimonialSkeleton";
+
+export { TestimonialCard, TestimonialSkeleton };

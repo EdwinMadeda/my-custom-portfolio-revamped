@@ -18,11 +18,12 @@ export async function POST(req: Request) {
 
     if (error) {
       console.error("Resend send error:", error);
+
       return NextResponse.json(
         {
           success: false,
-          message: "Failed to send email.",
-          resendError: error.message,
+          message: "Failed to send message.",
+          resendError: error.name,
         },
         { status: 500 },
       );

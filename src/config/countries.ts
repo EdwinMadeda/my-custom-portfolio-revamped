@@ -15,7 +15,10 @@ export const allCountryCodes = [
   { name: "Andorra", flag: "🇦🇩", code: "AD", dial_code: "+376" },
   { name: "Angola", flag: "🇦🇴", code: "AO", dial_code: "+244" },
   { name: "Anguilla", flag: "🇦🇮", code: "AI", dial_code: "+1264" },
-  { name: "Antarctica", flag: "🇦🇶", code: "AQ", dial_code: "+672" },
+
+  // Removed Antarctica; Not supported by libphonenumber-js:
+  // { name: "Antarctica", flag: "🇦🇶", code: "AQ", dial_code: "+672" },
+
   {
     name: "Antigua and Barbuda",
     flag: "🇦🇬",
@@ -51,7 +54,10 @@ export const allCountryCodes = [
     dial_code: "+387",
   },
   { name: "Botswana", flag: "🇧🇼", code: "BW", dial_code: "+267" },
-  { name: "Bouvet Island", flag: "🇧🇻", code: "BV", dial_code: "+47" },
+
+  // Removed Bouvet Island; Not supported by libphonenumber-js:
+  // { name: "Bouvet Island", flag: "🇧🇻", code: "BV", dial_code: "+47" },
+
   { name: "Brazil", flag: "🇧🇷", code: "BR", dial_code: "+55" },
   {
     name: "British Indian Ocean Territory",
@@ -148,12 +154,15 @@ export const allCountryCodes = [
     code: "PF",
     dial_code: "+689",
   },
-  {
-    name: "French Southern Territories",
-    flag: "🇹🇫",
-    code: "TF",
-    dial_code: "+262",
-  },
+
+  // Removed French Southern Territories; Not supported by libphonenumber-js:
+  // {
+  //   name: "French Southern Territories",
+  //   flag: "🇹🇫",
+  //   code: "TF",
+  //   dial_code: "+262",
+  // },
+
   { name: "Gabon", flag: "🇬🇦", code: "GA", dial_code: "+241" },
   { name: "Gambia", flag: "🇬🇲", code: "GM", dial_code: "+220" },
   { name: "Georgia", flag: "🇬🇪", code: "GE", dial_code: "+995" },
@@ -171,12 +180,14 @@ export const allCountryCodes = [
   { name: "Guinea-Bissau", flag: "🇬🇼", code: "GW", dial_code: "+245" },
   { name: "Guyana", flag: "🇬🇾", code: "GY", dial_code: "+592" },
   { name: "Haiti", flag: "🇭🇹", code: "HT", dial_code: "+509" },
-  {
-    name: "Heard Island and Mcdonald Islands",
-    flag: "🇭🇲",
-    code: "HM",
-    dial_code: "+672",
-  },
+
+  // Removed Heard Island and Mcdonald Islands; Not supported by libphonenumber-js:
+  // {
+  //   name: "Heard Island and Mcdonald Islands",
+  //   flag: "🇭🇲",
+  //   code: "HM",
+  //   dial_code: "+672",
+  // },
   {
     name: "Holy See (Vatican City State)",
     flag: "🇻🇦",
@@ -273,12 +284,15 @@ export const allCountryCodes = [
   { name: "Nauru", flag: "🇳🇷", code: "NR", dial_code: "+674" },
   { name: "Nepal", flag: "🇳🇵", code: "NP", dial_code: "+977" },
   { name: "Netherlands", flag: "🇳🇱", code: "NL", dial_code: "+31" },
-  {
-    name: "Netherlands Antilles",
-    flag: "",
-    code: "AN",
-    dial_code: "+599",
-  },
+
+  // Removed Netherlands Antilles; Not supported by libphonenumber-js:
+  // {
+  //   name: "Netherlands Antilles",
+  //   flag: "",
+  //   code: "AN",
+  //   dial_code: "+599",
+  // },
+
   { name: "New Caledonia", flag: "🇳🇨", code: "NC", dial_code: "+687" },
   { name: "New Zealand", flag: "🇳🇿", code: "NZ", dial_code: "+64" },
   { name: "Nicaragua", flag: "🇳🇮", code: "NI", dial_code: "+505" },
@@ -312,7 +326,10 @@ export const allCountryCodes = [
   { name: "Paraguay", flag: "🇵🇾", code: "PY", dial_code: "+595" },
   { name: "Peru", flag: "🇵🇪", code: "PE", dial_code: "+51" },
   { name: "Philippines", flag: "🇵🇭", code: "PH", dial_code: "+63" },
-  { name: "Pitcairn", flag: "🇵🇳", code: "PN", dial_code: "+64" },
+
+  // Removed Pitcairn; Not supported by libphonenumber-js:
+  // { name: "Pitcairn", flag: "🇵🇳", code: "PN", dial_code: "+64" },
+
   { name: "Poland", flag: "🇵🇱", code: "PL", dial_code: "+48" },
   { name: "Portugal", flag: "🇵🇹", code: "PT", dial_code: "+351" },
   { name: "Puerto Rico", flag: "🇵🇷", code: "PR", dial_code: "+1939" },
@@ -378,12 +395,14 @@ export const allCountryCodes = [
   { name: "Somalia", flag: "🇸🇴", code: "SO", dial_code: "+252" },
   { name: "South Africa", flag: "🇿🇦", code: "ZA", dial_code: "+27" },
   { name: "South Sudan", flag: "🇸🇸", code: "SS", dial_code: "+211" },
-  {
-    name: "South Georgia and the South Sandwich Islands",
-    flag: "🇬🇸",
-    code: "GS",
-    dial_code: "+500",
-  },
+
+  // Removed South Georgia and the South Sandwich Islands; Not supported by libphonenumber-js:
+  // {
+  //   name: "South Georgia and the South Sandwich Islands",
+  //   flag: "🇬🇸",
+  //   code: "GS",
+  //   dial_code: "+500",
+  // },
   { name: "Spain", flag: "🇪🇸", code: "ES", dial_code: "+34" },
   { name: "Sri Lanka", flag: "🇱🇰", code: "LK", dial_code: "+94" },
   { name: "Sudan", flag: "🇸🇩", code: "SD", dial_code: "+249" },
@@ -473,6 +492,10 @@ export const allCountryCodes = [
   { name: "Yemen", flag: "🇾🇪", code: "YE", dial_code: "+967" },
   { name: "Zambia", flag: "🇿🇲", code: "ZM", dial_code: "+260" },
   { name: "Zimbabwe", flag: "🇿🇼", code: "ZW", dial_code: "+263" },
+
+  // Added missing codes supported by libphonenumber-js:
+  { name: "Ascension Island", flag: "🇦🇨", code: "AC", dial_code: "+247" },
+  { name: "Tristan da Cunha", flag: "🇹🇦", code: "TA", dial_code: "+290" },
 ] as const satisfies CountryInfo[];
 
 export const EAST_AFRICA_COUNTRIES: Country[] = ["KE", "UG", "TZ", "RW", "BI"];

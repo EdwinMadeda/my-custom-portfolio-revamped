@@ -5,7 +5,6 @@ import {
   LayoutDashboardIcon,
   HammerIcon,
   MessageSquareQuoteIcon,
-  MailIcon,
   FileUser,
   CodeIcon,
   BookOpenText,
@@ -14,6 +13,8 @@ import {
   Link,
   LayoutList,
   Building2,
+  TagIcon,
+  MonitorIcon,
 } from "lucide-react";
 
 import type { StructureResolver } from "sanity/structure";
@@ -67,4 +68,8 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem("techCategory")
         .title("Technology/Tool Category")
         .icon(CodeIcon),
+
+      S.documentTypeListItem("metaImage").title("Meta Image").icon(MonitorIcon),
+
+      S.documentTypeListItem("metaKeyword").title("Meta Keyword").icon(TagIcon),
     ]);

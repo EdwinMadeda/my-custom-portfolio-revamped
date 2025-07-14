@@ -1,14 +1,10 @@
 import { navByName } from "@/config/site";
 import SectionInnerContent from "@/components/section-inner-content";
-import { HeroContent, HeroSkeleton } from "./hero-content";
+import { HeroContent } from "./hero-content";
 import { PlatformLinksMobile } from "@/components/platform-links";
 
 export default async function Home() {
-  const {
-    name,
-    label: heading,
-    longDescription: subHeading,
-  } = navByName("home");
+  const { name } = navByName("home");
 
   return (
     <section

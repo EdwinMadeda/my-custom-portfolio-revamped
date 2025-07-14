@@ -1,9 +1,7 @@
 import { PrevArrowSvg, NextArrowSvg } from "@/components/svg-icons/arrow-svgs";
 import { Button } from "@/components/ui/custom-button";
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 import { EmblaCarouselType } from "embla-carousel";
-import { ArrowLeft } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
 
 interface UseArrowNavigationReturnType {

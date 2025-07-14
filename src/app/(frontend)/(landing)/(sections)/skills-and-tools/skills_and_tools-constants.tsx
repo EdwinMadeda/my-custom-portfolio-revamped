@@ -1,5 +1,3 @@
-import { Breakpoints } from "@/hooks/useResponsive";
-
 export interface SkillOrTool {
   title: string;
   description: string;

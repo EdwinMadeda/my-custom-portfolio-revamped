@@ -82,6 +82,7 @@ export const technologyOrToolType = defineType({
       return {
         title: title,
         subtitle: `Proficiency: ${subtitle || "N/A"}`,
+        media,
       };
     },
   },

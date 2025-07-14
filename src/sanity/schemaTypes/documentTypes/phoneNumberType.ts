@@ -9,6 +9,7 @@ countries.registerLocale(enLocale);
 import { allCountryCodes } from "@/config/countries";
 import { Phone } from "lucide-react";
 import { getCountryDetails } from "@/lib/utils";
+import { CountryDialCode, CountryInfo } from "@/types";
 
 export const phoneNumberType = defineType({
   name: "phoneNumber",
@@ -19,8 +20,9 @@ export const phoneNumberType = defineType({
     defineField({
       name: "title",
       title: "Phone Number Set Name",
-      description:
-        "A descriptive name for this phone number (e.g., 'Main Mobile', 'Business Line').",
+      description: `
+        A label to identify this phone number in the Studio (e.g., "Main Mobile", "Business Line").
+      `,
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -28,11 +30,13 @@ export const phoneNumberType = defineType({
       name: "numberDetails",
       title: "Phone Number Details",
       type: "object",
-
+      description: `
+        Combine the dial code and local number for a complete international phone number.
+      `,
       fields: [
         defineField({
-          name: "countryCode",
-          title: "Country Code",
+          name: "dialCode",
+          title: "Dial Code",
           type: "string",
           options: {
             list: allCountryCodes.map(({ name, flag, code, dial_code }) => {
@@ -44,13 +48,16 @@ export const phoneNumberType = defineType({
                 : "";
               return {
                 title: `${flag} ${name} (${dial_code}) ${exampleText}`,
-                value: code,
+                value: dial_code,
               };
             }),
           },
           validation: (Rule) =>
-            Rule.required().error("Please select a country code."),
-          initialValue: "KE" as CountryCode,
+            Rule.required().error("Please select a dial code."),
+          initialValue: "+254" as CountryDialCode,
+          description: `
+            The international dialing prefix (e.g., +1, +44, +254). Select the correct country's code from the list.
+          `,
         }),
         defineField({
           name: "phoneNumberValue",
@@ -63,16 +70,19 @@ export const phoneNumberType = defineType({
             )
               .max(15)
               .error("Phone number is too long (max 15 digits)."),
-          description:
-            "Enter your local phone number, excluding the country code.",
+          description: `
+            The main digits of the phone number, excluding the international dial code. Enter digits only (0-9). Do NOT include spaces, hyphens, or the dial code. For example, for "+254 7XX XXX XXX", enter "7XX XXX XXX".
+          `,
         }),
       ],
       validation: (Rule) =>
         Rule.custom((value) => {
-          const { phoneNumberValue, countryCode } = value as {
+          const { dialCode, phoneNumberValue } = value as {
+            dialCode?: CountryDialCode;
             phoneNumberValue?: string;
-            countryCode?: CountryCode;
           };
+
+          const countryCode = getCountryInfoByDialCode(dialCode)?.code;
 
           if (!phoneNumberValue && !countryCode) {
             return "Phone number details (country code and number) are required.";
@@ -110,13 +120,14 @@ export const phoneNumberType = defineType({
   preview: {
     select: {
       title: "title",
-      countryCode: "numberDetails.countryCode",
+      dialCode: "numberDetails.dialCode",
       phoneNumberValue: "numberDetails.phoneNumberValue",
     },
-    prepare({ title, countryCode, phoneNumberValue }) {
+    prepare({ title, dialCode, phoneNumberValue }) {
       let subtitleText = "No Number Set";
+      const countryCode = getCountryInfoByDialCode(dialCode)?.code;
       try {
-        if (phoneNumberValue && countryCode) {
+        if (phoneNumberValue && dialCode) {
           const phoneNumber = parsePhoneNumberFromString(phoneNumberValue, {
             defaultCountry: countryCode as CountryCode,
           });
@@ -134,3 +145,12 @@ export const phoneNumberType = defineType({
     },
   },
 });
+
+function getCountryInfoByDialCode(
+  dialCode: CountryDialCode | undefined,
+): CountryInfo | undefined {
+  const countryCode = allCountryCodes.find(
+    (item) => item.dial_code === dialCode,
+  );
+  return countryCode;
+}
