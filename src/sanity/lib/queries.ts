@@ -34,7 +34,11 @@ export const technologiesAndToolsQueryFragment = `
         asset->{
           _id,
           url,
-          ... 
+          metadata {
+            blurHash,
+            lqip,
+            dimensions
+          }
         }
       },
       websiteUrl,
@@ -62,70 +66,30 @@ export const worksQueryFragment = `
         asset->{
           _id,
           url,
-          ... // Includes all other asset fields
-        }
-      },
-      technologiesUsed[]->{
-        _id,
-        techName,
-        techDescription,
-        proficiencyLevel,
-        techLogo { 
-          asset->{
-            _id,
-            url,
-            ...
+          metadata {
+            blurHash,
+            lqip,
+            dimensions
           }
-        },
-        websiteUrl,
-        techCategory->{
-           _id,
-          categoryName,
-          categoryDescription,
-          "categorySlug":categorySlug.current,
         }
-      },
-      liveDemoLink,
-      repoLink,
-      detailedDescription,
-      developmentStatus,
-      date
+      }
     },
     "otherWorks": otherWorks[]->{
       _id,
       title,
-      "slug" : slug.current,
-      thumbnail{
+      "slug": slug.current,
+      description,
+      thumbnail {
         asset->{
           _id,
           url,
-          ... // Includes all other asset fields
-        }
-      },
-      description,
-      technologiesUsed[]->{
-        _id,
-        techName,
-        techDescription,
-        proficiencyLevel,
-        techLogo { 
-          asset->{
-            _id,
-            url,
-            ...
+          metadata {
+            blurHash,
+            lqip,
+            dimensions
           }
-        },
-        websiteUrl,
-        techCategory->{
-           _id,
-          categoryName,
-          categoryDescription,
-          "categorySlug": categorySlug.current
         }
-      },
-      contributionLink,
-      detailedDescription,
-      date
+      }
     }
   }
 `;
@@ -141,7 +105,11 @@ export const servicesQueryFragment = `
         asset->{
           _id,
           url,
-          ... // All other asset fields
+          metadata {
+            blurHash,
+            lqip,
+            dimensions
+          }
         }
       },
       serviceName,
@@ -174,24 +142,30 @@ export const testimonialsQueryFragment = `
             asset->{
               _id,
               url,
-              ... 
+              metadata {
+                blurHash,
+                lqip,
+                dimensions
+              }
             }
           },
           description,
-          location,
-          ..., 
+          location
         }
       },
       photo {
         asset->{
           _id,
           url,
-          ..., 
+          metadata {
+            blurHash,
+            lqip,
+            dimensions
+          }
         }
       },
       isPinned,
       category
-      
     }
   }
 `;
@@ -228,7 +202,15 @@ export const metadataQueryFragment = `
      "keywordSlug" : keywordSlug.current
     },
     metaImage->{ 
-      "asset": image.asset->,
+      "asset": image.asset->{
+        _id,
+        url,
+        metadata {
+          blurHash,
+          lqip,
+          dimensions
+        }
+      },
       altText 
     },
     metaURL,
@@ -236,9 +218,9 @@ export const metadataQueryFragment = `
   }
 `;
 
-export const PROFILES_QUERY = defineQuery(
-  `*[_type == "profile" && defined(slug.current)]`,
-);
+// export const PROFILES_QUERY = defineQuery(
+//   `*[_type == "profile" && defined(slug.current)]`,
+// );
 
 export const PROFILE_QUERY = defineQuery(
   `*[_type == "profile" && slug.current == $slug][0]{
@@ -250,6 +232,118 @@ export const PROFILE_QUERY = defineQuery(
     ${testimonialsQueryFragment},
     ${contactQueryFragment},
     ${metadataQueryFragment},
+  }`,
+);
+
+const projectPreviewImageFragment = `
+   mobileView[]{
+        image{
+          asset->{
+            _id,
+            url,
+            metadata{
+              blurHash,
+              lqip,
+              dimensions
+            }
+          }
+        },
+        primaryDisplay,
+        variant,
+      screenshotViewItem->{
+        _id,
+        title,
+        "slug": value.current
+      }
+  },
+`;
+
+export const SINGLE_PROJECT_QUERY = defineQuery(
+  `*[_type == "project" && slug.current == $slug][0]{
+    _id,
+    title,
+    description,
+    "slug": slug.current,
+    technologiesUsed[]->{
+      _id,
+      techName,
+      techDescription,
+      proficiencyLevel,
+      websiteUrl,
+      techCategory->{
+        _id,
+        categoryName,
+        categoryDescription,
+        "categorySlug": categorySlug.current
+      }
+    },
+    projectPreviewImages {
+      mobileView[] {
+        image {
+          asset->{
+            _id,
+            url,
+            metadata {
+              blurHash,
+              lqip,
+              dimensions
+            }
+          }
+        },
+        primaryDisplay,
+        variant,
+        screenshotViewItem->{
+          _id,
+          title,
+          "slug": value.current
+        }
+      },
+      tabletView[] {
+        image {
+          asset->{
+            _id,
+            url,
+            metadata {
+              blurHash,
+              lqip,
+              dimensions
+            }
+          }
+        },
+        primaryDisplay,
+        variant,
+        screenshotViewItem->{
+          _id,
+          title,
+          "slug": value.current
+        }
+      },
+      desktopView[] {
+        image {
+          asset->{
+            _id,
+            url,
+            metadata {
+              blurHash,
+              lqip,
+              dimensions
+            }
+          }
+        },
+        primaryDisplay,
+        variant,
+        screenshotViewItem->{
+          _id,
+          title,
+          "slug": value.current
+        }
+      }
+    },
+    liveDemoLink,
+    repoLink,
+    detailedDescription,
+    developmentStatus,
+    date
   }`,
 );
 

@@ -8,17 +8,18 @@ import { getDefaultProfile } from "@/lib/sanity";
 
 export default async function Landing() {
   const profile = await getDefaultProfile();
-
-  console.log(profile);
-
   return (
     <>
-      <Home />
-      <AboutMe />
-      <SkillsAndTools />
-      <Works />
-      <Testimonials />
-      <Contact />
+      {profile && (
+        <>
+          <Home hero={profile.hero} />
+          <AboutMe about={profile?.about} />
+          <SkillsAndTools skillsAndTools={profile?.technologiesAndTools} />
+          <Works works={profile?.works} />
+          <Testimonials />
+          <Contact />
+        </>
+      )}
     </>
   );
 }

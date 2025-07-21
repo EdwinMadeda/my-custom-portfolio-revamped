@@ -61,6 +61,7 @@ export const affiliationType = defineType({
       options: {
         hotspot: true,
         storeOriginalFilename: false,
+        metadata: ["blurhash", "lqip", "image"],
       },
     }),
 

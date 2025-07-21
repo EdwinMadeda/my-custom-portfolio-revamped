@@ -11,6 +11,9 @@ export const serviceType = defineType({
       name: "serviceIcon",
       title: "Service / Expertise Icon",
       type: "image",
+      options: {
+        metadata: ["blurhash", "lqip", "image"],
+      },
       description:
         "An icon representing this service or area of expertise (optional).",
     }),
@@ -89,7 +92,14 @@ export const serviceType = defineType({
             ],
           },
         },
-        { type: "image", icon: ImageIcon },
+        {
+          type: "image",
+          icon: ImageIcon,
+          options: {
+            hotspot: true,
+            metadata: ["blurhash", "lqip", "image"],
+          },
+        },
       ],
     }),
   ],

@@ -2,38 +2,47 @@ import { Muted } from "@/components/typography";
 import { Card, CardContent } from "@/components/ui/card";
 import clsx from "clsx";
 import React from "react";
-import { SkillOrTool } from "./skills_and_tools-constants";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { SingleFeaturedTechnologiesAndTools } from ".";
+import { urlFor } from "@/sanity/lib/image";
+import ImageWithFallback from "@/components/image-with-fallback";
 
-interface SkillOrToolCardProps {
-  skillOrTool: SkillOrTool;
-}
-
-export function SkillOrToolCard({ skillOrTool }: SkillOrToolCardProps) {
+export function SkillOrToolCard({
+  skillOrTool,
+}: {
+  skillOrTool: SingleFeaturedTechnologiesAndTools;
+}) {
   return (
     <SkillOrToolCardTemplate
       figureInnerContent={
         <>
-          <div>
-            <span className="bg-primary/10 dark:bg-primary/50 text-primary inline-block rounded-full p-2 sm:p-3 dark:text-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 md:h-6 md:w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {skillOrTool.icon}
-              </svg>
-            </span>
+          <div className="bg-primary/10 dark:bg-primary/50 text-primary inline-block h-10 w-10 rounded-full p-1 dark:text-white">
+            {skillOrTool?.techLogo && (
+              <ImageWithFallback
+                src={`${urlFor(skillOrTool.techLogo)
+                  .width(40)
+                  .height(40)
+                  .quality(80)
+                  .auto("format")
+                  .url()}`}
+                alt={`Logo of ${skillOrTool.techName ?? ""}`}
+                width={skillOrTool.techLogo.asset.metadata?.dimensions?.width}
+                height={skillOrTool.techLogo.asset.metadata?.dimensions?.height}
+                blurHash={skillOrTool.techLogo.asset.metadata?.blurHash}
+                blurDataURL={skillOrTool.techLogo.asset.metadata?.lqip}
+              />
+            )}
           </div>
           <figcaption className="leading-none font-semibold">
-            {skillOrTool.title}
+            {skillOrTool?.techName}
           </figcaption>
         </>
       }
-      cardDescriptionContent={<Muted>{skillOrTool.description}</Muted>}
+      cardDescriptionContent={
+        <Muted className="font-normal">{skillOrTool.techDescription}</Muted>
+      }
     />
   );
 }
@@ -86,7 +95,7 @@ export function SkillOrToolCardTemplate({
       >
         <CardContent
           className={clsx(
-            "flex cursor-default flex-col items-center space-y-3 rounded-xl p-2 px-6 sm:p-6",
+            "flex flex-col items-center space-y-3 rounded-xl p-2 px-6 sm:p-6",
             "space-y-3",
             "@min-carousel-mobile/carousel-viewport:space-y-2",
             "@min-carousel-mobile/carousel-viewport:text-center",

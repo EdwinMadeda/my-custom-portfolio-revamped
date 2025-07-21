@@ -5,8 +5,15 @@ import { navByName } from "@/config/site";
 
 import { projects } from "./works-constants";
 import { WorkCard, WorkCardSkeleton } from "./work-card";
+import { ProfileType } from "@/types";
 
-export default function Works() {
+export type WorksType = ProfileType["works"];
+
+export type FeaturedProjects = NonNullable<WorksType>["featuredProjects"];
+
+export type SingleFeaturedProject = NonNullable<FeaturedProjects>[number];
+
+export default function Works({ works }: { works: WorksType }) {
   const {
     name,
     label: heading,
@@ -24,9 +31,9 @@ export default function Works() {
       <SubHeading>{subHeading}</SubHeading>
       <SectionInnerContent>
         <div className="-m-4 mx-auto mt-4 flex flex-wrap">
-          {projects ? (
+          {works?.featuredProjects ? (
             <>
-              {projects.map((project, index) => (
+              {works.featuredProjects.map((project, index) => (
                 <WorkCard key={index} project={project} index={index} />
               ))}
             </>

@@ -40,6 +40,7 @@ export const otherWorkType = defineType({
       type: "image",
       options: {
         hotspot: true,
+        metadata: ["blurhash", "lqip", "image"],
       },
       description: `
         Upload an optional image, icon, or screenshot to represent this work.
@@ -112,7 +113,10 @@ export const otherWorkType = defineType({
         },
         {
           type: "image",
-          options: { hotspot: true },
+          options: {
+            hotspot: true,
+            metadata: ["blurhash", "lqip", "image"],
+          },
         },
       ],
       description:

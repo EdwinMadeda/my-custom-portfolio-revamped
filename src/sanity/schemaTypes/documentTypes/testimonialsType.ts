@@ -181,7 +181,11 @@ export const testimonialType = defineType({
       title: "Photo",
       type: "image",
       description: "Upload a photo of the person giving the testimonial.",
-      options: { hotspot: true, storeOriginalFilename: false },
+      options: {
+        hotspot: true,
+        storeOriginalFilename: false,
+        metadata: ["blurhash", "lqip", "image"],
+      },
       validation: (Rule) =>
         Rule.required().assetRequired().error("Testimonial photo is required."),
     }),

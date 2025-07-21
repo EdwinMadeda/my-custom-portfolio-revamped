@@ -1,9 +1,12 @@
 import SectionInnerContent from "@/components/section-inner-content";
 import { GradientHeading, SubHeading } from "@/components/typography";
 import { navByName } from "@/config/site";
-import { AboutMeContent } from "./about-me-content";
+import { AboutMeContent, AboutMeContentSkeleton } from "./about-me-content";
+import { ProfileType } from "@/types";
 
-export default function AboutMe() {
+export type AboutMeType = ProfileType["about"];
+
+export default function AboutMe({ about }: { about: AboutMeType }) {
   const {
     name,
     label: heading,
@@ -20,8 +23,7 @@ export default function AboutMe() {
       <GradientHeading>{heading}</GradientHeading>
       <SubHeading>{subHeading}</SubHeading>
       <SectionInnerContent>
-        <AboutMeContent />
-        {/* <AboutMeContentSkeleton /> */}
+        {about ? <AboutMeContent about={about} /> : <AboutMeContentSkeleton />}
       </SectionInnerContent>
     </section>
   );

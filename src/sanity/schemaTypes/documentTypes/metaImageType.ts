@@ -13,6 +13,7 @@ export const metaImageType = defineType({
       type: "image",
       options: {
         hotspot: true,
+        metadata: ["blurhash", "lqip", "image"],
       },
       description: `
         **Purpose:** This is the primary image file used for social media sharing (e.g., Twitter, Facebook, LinkedIn) and sometimes in search engine results.

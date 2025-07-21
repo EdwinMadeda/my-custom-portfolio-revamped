@@ -1,5 +1,57 @@
 [
   {
+    "name": "metaKeyword",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "metaKeyword"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "keywordName": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "keywordSlug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
+        },
+        "optional": true
+      }
+    }
+  },
+  {
     "name": "testimonial",
     "type": "document",
     "attributes": {
@@ -44,7 +96,153 @@
       "feedback": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "children": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "array",
+                  "of": {
+                    "type": "object",
+                    "attributes": {
+                      "marks": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "array",
+                          "of": {
+                            "type": "string"
+                          }
+                        },
+                        "optional": true
+                      },
+                      "text": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "_type": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string",
+                          "value": "span"
+                        }
+                      }
+                    },
+                    "rest": {
+                      "type": "object",
+                      "attributes": {
+                        "_key": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "optional": true
+              },
+              "style": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": [
+                    {
+                      "type": "string",
+                      "value": "normal"
+                    },
+                    {
+                      "type": "string",
+                      "value": "blockquote"
+                    }
+                  ]
+                },
+                "optional": true
+              },
+              "listItem": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": []
+                },
+                "optional": true
+              },
+              "markDefs": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "array",
+                  "of": {
+                    "type": "object",
+                    "attributes": {
+                      "href": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        },
+                        "optional": true
+                      },
+                      "blank": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "optional": true
+                      },
+                      "_type": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string",
+                          "value": "link"
+                        }
+                      }
+                    },
+                    "rest": {
+                      "type": "object",
+                      "attributes": {
+                        "_key": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "optional": true
+              },
+              "level": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "number"
+                },
+                "optional": true
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "block"
+                }
+              }
+            },
+            "rest": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
         },
         "optional": true
       },
@@ -201,6 +399,10 @@
                   {
                     "type": "string",
                     "value": "Advocate"
+                  },
+                  {
+                    "type": "string",
+                    "value": "Other"
                   }
                 ]
               },
@@ -213,58 +415,33 @@
               },
               "optional": true
             },
-            "affiliationName": {
+            "affiliation": {
               "type": "objectAttribute",
               "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "affiliationType": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "union",
-                "of": [
-                  {
-                    "type": "string",
-                    "value": "company"
+                "type": "object",
+                "attributes": {
+                  "_ref": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
                   },
-                  {
-                    "type": "string",
-                    "value": "nonprofit"
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "reference"
+                    }
                   },
-                  {
-                    "type": "string",
-                    "value": "community"
-                  },
-                  {
-                    "type": "string",
-                    "value": "openSource"
-                  },
-                  {
-                    "type": "string",
-                    "value": "government"
-                  },
-                  {
-                    "type": "string",
-                    "value": "freelance"
-                  },
-                  {
-                    "type": "string",
-                    "value": "personalBrand"
-                  },
-                  {
-                    "type": "string",
-                    "value": "other"
+                  "_weak": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "boolean"
+                    },
+                    "optional": true
                   }
-                ]
-              },
-              "optional": true
-            },
-            "affiliationLink": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
+                },
+                "dereferencesTo": "affiliation"
               },
               "optional": true
             }
@@ -305,7 +482,7 @@
                 },
                 "dereferencesTo": "sanity.imageAsset"
               },
-              "optional": true
+              "optional": false
             },
             "media": {
               "type": "objectAttribute",
@@ -376,6 +553,181 @@
     }
   },
   {
+    "name": "affiliation",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "affiliation"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "name": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "company"
+            },
+            {
+              "type": "string",
+              "value": "nonprofit"
+            },
+            {
+              "type": "string",
+              "value": "community"
+            },
+            {
+              "type": "string",
+              "value": "openSource"
+            },
+            {
+              "type": "string",
+              "value": "government"
+            },
+            {
+              "type": "string",
+              "value": "freelance"
+            },
+            {
+              "type": "string",
+              "value": "personalBrand"
+            },
+            {
+              "type": "string",
+              "value": "other"
+            }
+          ]
+        },
+        "optional": true
+      },
+      "link": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "logo": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "asset": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "_ref": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "reference"
+                    }
+                  },
+                  "_weak": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "boolean"
+                    },
+                    "optional": true
+                  }
+                },
+                "dereferencesTo": "sanity.imageAsset"
+              },
+              "optional": true
+            },
+            "media": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "unknown"
+              },
+              "optional": true
+            },
+            "hotspot": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageHotspot"
+              },
+              "optional": true
+            },
+            "crop": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageCrop"
+              },
+              "optional": true
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "image"
+              }
+            }
+          }
+        },
+        "optional": true
+      },
+      "description": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "location": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      }
+    }
+  },
+  {
     "name": "service",
     "type": "document",
     "attributes": {
@@ -409,20 +761,6 @@
         "value": {
           "type": "string"
         }
-      },
-      "serviceName": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "serviceDescription": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
       },
       "serviceIcon": {
         "type": "objectAttribute",
@@ -492,11 +830,276 @@
           }
         },
         "optional": true
+      },
+      "serviceName": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "shortDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "longDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "union",
+            "of": [
+              {
+                "type": "object",
+                "attributes": {
+                  "children": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "array",
+                      "of": {
+                        "type": "object",
+                        "attributes": {
+                          "marks": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "array",
+                              "of": {
+                                "type": "string"
+                              }
+                            },
+                            "optional": true
+                          },
+                          "text": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string"
+                            },
+                            "optional": true
+                          },
+                          "_type": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string",
+                              "value": "span"
+                            }
+                          }
+                        },
+                        "rest": {
+                          "type": "object",
+                          "attributes": {
+                            "_key": {
+                              "type": "objectAttribute",
+                              "value": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "optional": true
+                  },
+                  "style": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "union",
+                      "of": [
+                        {
+                          "type": "string",
+                          "value": "normal"
+                        },
+                        {
+                          "type": "string",
+                          "value": "h2"
+                        },
+                        {
+                          "type": "string",
+                          "value": "h3"
+                        },
+                        {
+                          "type": "string",
+                          "value": "h4"
+                        }
+                      ]
+                    },
+                    "optional": true
+                  },
+                  "listItem": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "union",
+                      "of": [
+                        {
+                          "type": "string",
+                          "value": "bullet"
+                        },
+                        {
+                          "type": "string",
+                          "value": "number"
+                        }
+                      ]
+                    },
+                    "optional": true
+                  },
+                  "markDefs": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "array",
+                      "of": {
+                        "type": "object",
+                        "attributes": {
+                          "href": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string"
+                            },
+                            "optional": true
+                          },
+                          "blank": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "boolean"
+                            },
+                            "optional": true
+                          },
+                          "_type": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string",
+                              "value": "link"
+                            }
+                          }
+                        },
+                        "rest": {
+                          "type": "object",
+                          "attributes": {
+                            "_key": {
+                              "type": "objectAttribute",
+                              "value": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "optional": true
+                  },
+                  "level": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "number"
+                    },
+                    "optional": true
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "block"
+                    }
+                  }
+                },
+                "rest": {
+                  "type": "object",
+                  "attributes": {
+                    "_key": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "attributes": {
+                  "asset": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "object",
+                      "attributes": {
+                        "_ref": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "_type": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string",
+                            "value": "reference"
+                          }
+                        },
+                        "_weak": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "boolean"
+                          },
+                          "optional": true
+                        }
+                      },
+                      "dereferencesTo": "sanity.imageAsset"
+                    },
+                    "optional": true
+                  },
+                  "media": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "unknown"
+                    },
+                    "optional": true
+                  },
+                  "hotspot": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "sanity.imageHotspot"
+                    },
+                    "optional": true
+                  },
+                  "crop": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "sanity.imageCrop"
+                    },
+                    "optional": true
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "image"
+                    }
+                  }
+                },
+                "rest": {
+                  "type": "object",
+                  "attributes": {
+                    "_key": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "optional": true
       }
     }
   },
   {
-    "name": "project",
+    "name": "otherWork",
     "type": "document",
     "attributes": {
       "_id": {
@@ -509,7 +1112,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "project"
+          "value": "otherWork"
         }
       },
       "_createdAt": {
@@ -542,23 +1145,6 @@
         "value": {
           "type": "inline",
           "name": "slug"
-        },
-        "optional": true
-      },
-      "status": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "union",
-          "of": [
-            {
-              "type": "string",
-              "value": "draft"
-            },
-            {
-              "type": "string",
-              "value": "published"
-            }
-          ]
         },
         "optional": true
       },
@@ -645,145 +1231,450 @@
           "of": {
             "type": "object",
             "attributes": {
-              "techName": {
+              "_ref": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string"
-                },
-                "optional": true
-              },
-              "techLogo": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "object",
-                  "attributes": {
-                    "asset": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "object",
-                        "attributes": {
-                          "_ref": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "string"
-                            }
-                          },
-                          "_type": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "string",
-                              "value": "reference"
-                            }
-                          },
-                          "_weak": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "boolean"
-                            },
-                            "optional": true
-                          }
-                        },
-                        "dereferencesTo": "sanity.imageAsset"
-                      },
-                      "optional": true
-                    },
-                    "media": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "unknown"
-                      },
-                      "optional": true
-                    },
-                    "hotspot": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "inline",
-                        "name": "sanity.imageHotspot"
-                      },
-                      "optional": true
-                    },
-                    "crop": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "inline",
-                        "name": "sanity.imageCrop"
-                      },
-                      "optional": true
-                    },
-                    "_type": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "string",
-                        "value": "image"
-                      }
-                    }
-                  }
-                },
-                "optional": true
-              },
-              "proficiencyLevel": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "union",
-                  "of": [
-                    {
-                      "type": "string",
-                      "value": "Beginner"
-                    },
-                    {
-                      "type": "string",
-                      "value": "Intermediate"
-                    },
-                    {
-                      "type": "string",
-                      "value": "Advanced"
-                    },
-                    {
-                      "type": "string",
-                      "value": "Expert"
-                    }
-                  ]
-                },
-                "optional": true
-              },
-              "techCategory": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "object",
-                  "attributes": {
-                    "_ref": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "string"
-                      }
-                    },
-                    "_type": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "string",
-                        "value": "reference"
-                      }
-                    },
-                    "_weak": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "boolean"
-                      },
-                      "optional": true
-                    }
-                  },
-                  "dereferencesTo": "techCategory"
-                },
-                "optional": true
+                }
               },
               "_type": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string",
-                  "value": "technologyOrTool"
+                  "value": "reference"
                 }
+              },
+              "_weak": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "boolean"
+                },
+                "optional": true
               }
             },
+            "dereferencesTo": "technologyOrTool",
+            "rest": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "optional": true
+      },
+      "contributionLink": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "detailedDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "union",
+            "of": [
+              {
+                "type": "object",
+                "attributes": {
+                  "children": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "array",
+                      "of": {
+                        "type": "object",
+                        "attributes": {
+                          "marks": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "array",
+                              "of": {
+                                "type": "string"
+                              }
+                            },
+                            "optional": true
+                          },
+                          "text": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string"
+                            },
+                            "optional": true
+                          },
+                          "_type": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string",
+                              "value": "span"
+                            }
+                          }
+                        },
+                        "rest": {
+                          "type": "object",
+                          "attributes": {
+                            "_key": {
+                              "type": "objectAttribute",
+                              "value": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "optional": true
+                  },
+                  "style": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "union",
+                      "of": [
+                        {
+                          "type": "string",
+                          "value": "normal"
+                        },
+                        {
+                          "type": "string",
+                          "value": "h2"
+                        }
+                      ]
+                    },
+                    "optional": true
+                  },
+                  "listItem": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "union",
+                      "of": [
+                        {
+                          "type": "string",
+                          "value": "bullet"
+                        },
+                        {
+                          "type": "string",
+                          "value": "number"
+                        }
+                      ]
+                    },
+                    "optional": true
+                  },
+                  "markDefs": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "array",
+                      "of": {
+                        "type": "object",
+                        "attributes": {
+                          "href": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string"
+                            },
+                            "optional": true
+                          },
+                          "_type": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string",
+                              "value": "link"
+                            }
+                          }
+                        },
+                        "rest": {
+                          "type": "object",
+                          "attributes": {
+                            "_key": {
+                              "type": "objectAttribute",
+                              "value": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "optional": true
+                  },
+                  "level": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "number"
+                    },
+                    "optional": true
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "block"
+                    }
+                  }
+                },
+                "rest": {
+                  "type": "object",
+                  "attributes": {
+                    "_key": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "attributes": {
+                  "asset": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "object",
+                      "attributes": {
+                        "_ref": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "_type": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string",
+                            "value": "reference"
+                          }
+                        },
+                        "_weak": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "boolean"
+                          },
+                          "optional": true
+                        }
+                      },
+                      "dereferencesTo": "sanity.imageAsset"
+                    },
+                    "optional": true
+                  },
+                  "media": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "unknown"
+                    },
+                    "optional": true
+                  },
+                  "hotspot": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "sanity.imageHotspot"
+                    },
+                    "optional": true
+                  },
+                  "crop": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "inline",
+                      "name": "sanity.imageCrop"
+                    },
+                    "optional": true
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "image"
+                    }
+                  }
+                },
+                "rest": {
+                  "type": "object",
+                  "attributes": {
+                    "_key": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "optional": true
+      },
+      "date": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      }
+    }
+  },
+  {
+    "name": "project",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "project"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "slug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
+        },
+        "optional": true
+      },
+      "thumbnail": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "asset": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "_ref": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "reference"
+                    }
+                  },
+                  "_weak": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "boolean"
+                    },
+                    "optional": true
+                  }
+                },
+                "dereferencesTo": "sanity.imageAsset"
+              },
+              "optional": true
+            },
+            "media": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "unknown"
+              },
+              "optional": true
+            },
+            "hotspot": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageHotspot"
+              },
+              "optional": true
+            },
+            "crop": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageCrop"
+              },
+              "optional": true
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "image"
+              }
+            }
+          }
+        },
+        "optional": true
+      },
+      "description": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "technologiesUsed": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_ref": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "reference"
+                }
+              },
+              "_weak": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "boolean"
+                },
+                "optional": true
+              }
+            },
+            "dereferencesTo": "technologyOrTool",
             "rest": {
               "type": "object",
               "attributes": {
@@ -1049,6 +1940,35 @@
         },
         "optional": true
       },
+      "developmentStatus": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "concept"
+            },
+            {
+              "type": "string",
+              "value": "inProgress"
+            },
+            {
+              "type": "string",
+              "value": "completed"
+            },
+            {
+              "type": "string",
+              "value": "onHold"
+            },
+            {
+              "type": "string",
+              "value": "archived"
+            }
+          ]
+        },
+        "optional": true
+      },
       "date": {
         "type": "objectAttribute",
         "value": {
@@ -1137,10 +2057,40 @@
                       },
                       "optional": true
                     },
-                    "screenshotDescription": {
+                    "primaryDisplay": {
                       "type": "objectAttribute",
                       "value": {
-                        "type": "string"
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    },
+                    "screenshotViewItem": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "object",
+                        "attributes": {
+                          "_ref": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "_type": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string",
+                              "value": "reference"
+                            }
+                          },
+                          "_weak": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "boolean"
+                            },
+                            "optional": true
+                          }
+                        },
+                        "dereferencesTo": "screenshotViewItemDesc"
                       },
                       "optional": true
                     },
@@ -1253,10 +2203,40 @@
                       },
                       "optional": true
                     },
-                    "screenshotDescription": {
+                    "primaryDisplay": {
                       "type": "objectAttribute",
                       "value": {
-                        "type": "string"
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    },
+                    "screenshotViewItem": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "object",
+                        "attributes": {
+                          "_ref": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "_type": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string",
+                              "value": "reference"
+                            }
+                          },
+                          "_weak": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "boolean"
+                            },
+                            "optional": true
+                          }
+                        },
+                        "dereferencesTo": "screenshotViewItemDesc"
                       },
                       "optional": true
                     },
@@ -1268,10 +2248,6 @@
                           {
                             "type": "string",
                             "value": "standard"
-                          },
-                          {
-                            "type": "string",
-                            "value": "ultraWide"
                           }
                         ]
                       },
@@ -1369,10 +2345,40 @@
                       },
                       "optional": true
                     },
-                    "screenshotDescription": {
+                    "primaryDisplay": {
                       "type": "objectAttribute",
                       "value": {
-                        "type": "string"
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    },
+                    "screenshotViewItem": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "object",
+                        "attributes": {
+                          "_ref": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "_type": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string",
+                              "value": "reference"
+                            }
+                          },
+                          "_weak": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "boolean"
+                            },
+                            "optional": true
+                          }
+                        },
+                        "dereferencesTo": "screenshotViewItemDesc"
                       },
                       "optional": true
                     },
@@ -1406,6 +2412,58 @@
               "optional": true
             }
           }
+        },
+        "optional": true
+      }
+    }
+  },
+  {
+    "name": "screenshotViewItemDesc",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "screenshotViewItemDesc"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "value": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
         },
         "optional": true
       }
@@ -1453,6 +2511,13 @@
         },
         "optional": true
       },
+      "techDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "techLogo": {
         "type": "objectAttribute",
         "value": {
@@ -1486,7 +2551,7 @@
                 },
                 "dereferencesTo": "sanity.imageAsset"
               },
-              "optional": true
+              "optional": false
             },
             "media": {
               "type": "objectAttribute",
@@ -1544,6 +2609,13 @@
               "value": "Expert"
             }
           ]
+        },
+        "optional": true
+      },
+      "websiteUrl": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },
@@ -1618,6 +2690,14 @@
         "type": "objectAttribute",
         "value": {
           "type": "string"
+        },
+        "optional": true
+      },
+      "categorySlug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
         },
         "optional": true
       },
@@ -1718,7 +2798,112 @@
             "greeting": {
               "type": "objectAttribute",
               "value": {
-                "type": "string"
+                "type": "array",
+                "of": {
+                  "type": "object",
+                  "attributes": {
+                    "children": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "array",
+                        "of": {
+                          "type": "object",
+                          "attributes": {
+                            "marks": {
+                              "type": "objectAttribute",
+                              "value": {
+                                "type": "array",
+                                "of": {
+                                  "type": "string"
+                                }
+                              },
+                              "optional": true
+                            },
+                            "text": {
+                              "type": "objectAttribute",
+                              "value": {
+                                "type": "string"
+                              },
+                              "optional": true
+                            },
+                            "_type": {
+                              "type": "objectAttribute",
+                              "value": {
+                                "type": "string",
+                                "value": "span"
+                              }
+                            }
+                          },
+                          "rest": {
+                            "type": "object",
+                            "attributes": {
+                              "_key": {
+                                "type": "objectAttribute",
+                                "value": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "optional": true
+                    },
+                    "style": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "union",
+                        "of": [
+                          {
+                            "type": "string",
+                            "value": "normal"
+                          }
+                        ]
+                      },
+                      "optional": true
+                    },
+                    "listItem": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "union",
+                        "of": []
+                      },
+                      "optional": true
+                    },
+                    "markDefs": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "null"
+                      },
+                      "optional": true
+                    },
+                    "level": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "number"
+                      },
+                      "optional": true
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "block"
+                      }
+                    }
+                  },
+                  "rest": {
+                    "type": "object",
+                    "attributes": {
+                      "_key": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
               },
               "optional": true
             },
@@ -1742,6 +2927,39 @@
                 "type": "string"
               },
               "optional": true
+            },
+            "ctaButtonLink": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "union",
+                "of": [
+                  {
+                    "type": "string",
+                    "value": "#home"
+                  },
+                  {
+                    "type": "string",
+                    "value": "#about-me"
+                  },
+                  {
+                    "type": "string",
+                    "value": "#skills"
+                  },
+                  {
+                    "type": "string",
+                    "value": "#works"
+                  },
+                  {
+                    "type": "string",
+                    "value": "#testimonials"
+                  },
+                  {
+                    "type": "string",
+                    "value": "#contact"
+                  }
+                ]
+              },
+              "optional": true
             }
           }
         },
@@ -1752,7 +2970,14 @@
         "value": {
           "type": "object",
           "attributes": {
-            "intro": {
+            "shortIntro": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "longIntro": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
@@ -1828,6 +3053,18 @@
                               {
                                 "type": "string",
                                 "value": "h2"
+                              },
+                              {
+                                "type": "string",
+                                "value": "h3"
+                              },
+                              {
+                                "type": "string",
+                                "value": "h4"
+                              },
+                              {
+                                "type": "string",
+                                "value": "blockquote"
                               }
                             ]
                           },
@@ -1861,6 +3098,13 @@
                                   "type": "objectAttribute",
                                   "value": {
                                     "type": "string"
+                                  },
+                                  "optional": true
+                                },
+                                "blank": {
+                                  "type": "objectAttribute",
+                                  "value": {
+                                    "type": "boolean"
                                   },
                                   "optional": true
                                 },
@@ -1970,6 +3214,20 @@
                           },
                           "optional": true
                         },
+                        "alt": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          },
+                          "optional": true
+                        },
+                        "caption": {
+                          "type": "objectAttribute",
+                          "value": {
+                            "type": "string"
+                          },
+                          "optional": true
+                        },
                         "_type": {
                           "type": "objectAttribute",
                           "value": {
@@ -2004,14 +3262,21 @@
         "value": {
           "type": "object",
           "attributes": {
-            "intro": {
+            "shortIntro": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
               },
               "optional": true
             },
-            "technologiesAndTools": {
+            "longIntro": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "featuredTechnologiesAndTools": {
               "type": "objectAttribute",
               "value": {
                 "type": "array",
@@ -2064,7 +3329,14 @@
         "value": {
           "type": "object",
           "attributes": {
-            "intro": {
+            "shortIntro": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "longIntro": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
@@ -2114,6 +3386,50 @@
                 }
               },
               "optional": true
+            },
+            "otherWorks": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "array",
+                "of": {
+                  "type": "object",
+                  "attributes": {
+                    "_ref": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "reference"
+                      }
+                    },
+                    "_weak": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    }
+                  },
+                  "dereferencesTo": "otherWork",
+                  "rest": {
+                    "type": "object",
+                    "attributes": {
+                      "_key": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "optional": true
             }
           }
         },
@@ -2124,7 +3440,14 @@
         "value": {
           "type": "object",
           "attributes": {
-            "intro": {
+            "shortIntro": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "longIntro": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
@@ -2184,7 +3507,14 @@
         "value": {
           "type": "object",
           "attributes": {
-            "intro": {
+            "shortIntro": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "longIntro": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
@@ -2244,28 +3574,97 @@
         "value": {
           "type": "object",
           "attributes": {
-            "_ref": {
+            "email": {
               "type": "objectAttribute",
               "value": {
-                "type": "string"
-              }
+                "type": "object",
+                "attributes": {
+                  "_ref": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "reference"
+                    }
+                  },
+                  "_weak": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "boolean"
+                    },
+                    "optional": true
+                  }
+                },
+                "dereferencesTo": "contactEmail"
+              },
+              "optional": true
             },
-            "_type": {
+            "phoneNumber": {
               "type": "objectAttribute",
               "value": {
-                "type": "string",
-                "value": "reference"
-              }
+                "type": "object",
+                "attributes": {
+                  "_ref": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "reference"
+                    }
+                  },
+                  "_weak": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "boolean"
+                    },
+                    "optional": true
+                  }
+                },
+                "dereferencesTo": "phoneNumber"
+              },
+              "optional": true
             },
-            "_weak": {
+            "socialMediaLinks": {
               "type": "objectAttribute",
               "value": {
-                "type": "boolean"
+                "type": "object",
+                "attributes": {
+                  "_ref": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "reference"
+                    }
+                  },
+                  "_weak": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "boolean"
+                    },
+                    "optional": true
+                  }
+                },
+                "dereferencesTo": "socialMediaLinks"
               },
               "optional": true
             }
-          },
-          "dereferencesTo": "contact"
+          }
         },
         "optional": true
       },
@@ -2323,7 +3722,41 @@
               "value": {
                 "type": "array",
                 "of": {
-                  "type": "string"
+                  "type": "object",
+                  "attributes": {
+                    "_ref": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "reference"
+                      }
+                    },
+                    "_weak": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    }
+                  },
+                  "dereferencesTo": "metaKeyword",
+                  "rest": {
+                    "type": "object",
+                    "attributes": {
+                      "_key": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
                 }
               },
               "optional": true
@@ -2331,69 +3764,61 @@
             "metaImage": {
               "type": "objectAttribute",
               "value": {
-                "type": "object",
-                "attributes": {
-                  "asset": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "object",
-                      "attributes": {
-                        "_ref": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string"
-                          }
-                        },
-                        "_type": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "string",
-                            "value": "reference"
-                          }
-                        },
-                        "_weak": {
-                          "type": "objectAttribute",
-                          "value": {
-                            "type": "boolean"
-                          },
-                          "optional": true
+                "type": "union",
+                "of": [
+                  {
+                    "type": "object",
+                    "attributes": {
+                      "_ref": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
                         }
                       },
-                      "dereferencesTo": "sanity.imageAsset"
+                      "_type": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string",
+                          "value": "reference"
+                        }
+                      },
+                      "_weak": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "optional": true
+                      }
                     },
-                    "optional": true
+                    "dereferencesTo": "metaImage"
                   },
-                  "media": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "unknown"
+                  {
+                    "type": "object",
+                    "attributes": {
+                      "_ref": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "_type": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "string",
+                          "value": "reference"
+                        }
+                      },
+                      "_weak": {
+                        "type": "objectAttribute",
+                        "value": {
+                          "type": "boolean"
+                        },
+                        "optional": true
+                      }
                     },
-                    "optional": true
-                  },
-                  "hotspot": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "inline",
-                      "name": "sanity.imageHotspot"
-                    },
-                    "optional": true
-                  },
-                  "crop": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "inline",
-                      "name": "sanity.imageCrop"
-                    },
-                    "optional": true
-                  },
-                  "_type": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string",
-                      "value": "image"
-                    }
+                    "dereferencesTo": "brandingImage"
                   }
-                }
+                ]
               },
               "optional": true
             },
@@ -2426,6 +3851,119 @@
               "optional": true
             }
           }
+        },
+        "optional": true
+      }
+    }
+  },
+  {
+    "name": "metaImage",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "metaImage"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "image": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "asset": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "_ref": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "reference"
+                    }
+                  },
+                  "_weak": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "boolean"
+                    },
+                    "optional": true
+                  }
+                },
+                "dereferencesTo": "sanity.imageAsset"
+              },
+              "optional": true
+            },
+            "media": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "unknown"
+              },
+              "optional": true
+            },
+            "hotspot": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageHotspot"
+              },
+              "optional": true
+            },
+            "crop": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageCrop"
+              },
+              "optional": true
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "image"
+              }
+            }
+          }
+        },
+        "optional": true
+      },
+      "altText": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       }
@@ -2466,7 +4004,14 @@
           "type": "string"
         }
       },
-      "resume": {
+      "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "pdfFile": {
         "type": "objectAttribute",
         "value": {
           "type": "object",
@@ -2499,7 +4044,7 @@
                 },
                 "dereferencesTo": "sanity.fileAsset"
               },
-              "optional": true
+              "optional": false
             },
             "media": {
               "type": "objectAttribute",
@@ -2522,7 +4067,7 @@
     }
   },
   {
-    "name": "contact",
+    "name": "socialMediaLinks",
     "type": "document",
     "attributes": {
       "_id": {
@@ -2535,7 +4080,7 @@
         "type": "objectAttribute",
         "value": {
           "type": "string",
-          "value": "contact"
+          "value": "socialMediaLinks"
         }
       },
       "_createdAt": {
@@ -2556,375 +4101,14 @@
           "type": "string"
         }
       },
-      "email": {
+      "title": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
         "optional": true
       },
-      "phoneNumber": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "object",
-          "attributes": {
-            "countryCode": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "union",
-                "of": [
-                  {
-                    "type": "string",
-                    "value": "1"
-                  },
-                  {
-                    "type": "string",
-                    "value": "20"
-                  },
-                  {
-                    "type": "string",
-                    "value": "211"
-                  },
-                  {
-                    "type": "string",
-                    "value": "212"
-                  },
-                  {
-                    "type": "string",
-                    "value": "213"
-                  },
-                  {
-                    "type": "string",
-                    "value": "216"
-                  },
-                  {
-                    "type": "string",
-                    "value": "218"
-                  },
-                  {
-                    "type": "string",
-                    "value": "220"
-                  },
-                  {
-                    "type": "string",
-                    "value": "221"
-                  },
-                  {
-                    "type": "string",
-                    "value": "222"
-                  },
-                  {
-                    "type": "string",
-                    "value": "223"
-                  },
-                  {
-                    "type": "string",
-                    "value": "224"
-                  },
-                  {
-                    "type": "string",
-                    "value": "225"
-                  },
-                  {
-                    "type": "string",
-                    "value": "226"
-                  },
-                  {
-                    "type": "string",
-                    "value": "227"
-                  },
-                  {
-                    "type": "string",
-                    "value": "228"
-                  },
-                  {
-                    "type": "string",
-                    "value": "229"
-                  },
-                  {
-                    "type": "string",
-                    "value": "230"
-                  },
-                  {
-                    "type": "string",
-                    "value": "231"
-                  },
-                  {
-                    "type": "string",
-                    "value": "232"
-                  },
-                  {
-                    "type": "string",
-                    "value": "233"
-                  },
-                  {
-                    "type": "string",
-                    "value": "234"
-                  },
-                  {
-                    "type": "string",
-                    "value": "235"
-                  },
-                  {
-                    "type": "string",
-                    "value": "236"
-                  },
-                  {
-                    "type": "string",
-                    "value": "237"
-                  },
-                  {
-                    "type": "string",
-                    "value": "238"
-                  },
-                  {
-                    "type": "string",
-                    "value": "239"
-                  },
-                  {
-                    "type": "string",
-                    "value": "240"
-                  },
-                  {
-                    "type": "string",
-                    "value": "241"
-                  },
-                  {
-                    "type": "string",
-                    "value": "242"
-                  },
-                  {
-                    "type": "string",
-                    "value": "243"
-                  },
-                  {
-                    "type": "string",
-                    "value": "244"
-                  },
-                  {
-                    "type": "string",
-                    "value": "245"
-                  },
-                  {
-                    "type": "string",
-                    "value": "246"
-                  },
-                  {
-                    "type": "string",
-                    "value": "247"
-                  },
-                  {
-                    "type": "string",
-                    "value": "248"
-                  },
-                  {
-                    "type": "string",
-                    "value": "249"
-                  },
-                  {
-                    "type": "string",
-                    "value": "250"
-                  },
-                  {
-                    "type": "string",
-                    "value": "251"
-                  },
-                  {
-                    "type": "string",
-                    "value": "252"
-                  },
-                  {
-                    "type": "string",
-                    "value": "253"
-                  },
-                  {
-                    "type": "string",
-                    "value": "254"
-                  },
-                  {
-                    "type": "string",
-                    "value": "255"
-                  },
-                  {
-                    "type": "string",
-                    "value": "256"
-                  },
-                  {
-                    "type": "string",
-                    "value": "257"
-                  },
-                  {
-                    "type": "string",
-                    "value": "258"
-                  },
-                  {
-                    "type": "string",
-                    "value": "260"
-                  },
-                  {
-                    "type": "string",
-                    "value": "261"
-                  },
-                  {
-                    "type": "string",
-                    "value": "262"
-                  },
-                  {
-                    "type": "string",
-                    "value": "263"
-                  },
-                  {
-                    "type": "string",
-                    "value": "264"
-                  },
-                  {
-                    "type": "string",
-                    "value": "265"
-                  },
-                  {
-                    "type": "string",
-                    "value": "266"
-                  },
-                  {
-                    "type": "string",
-                    "value": "267"
-                  },
-                  {
-                    "type": "string",
-                    "value": "268"
-                  },
-                  {
-                    "type": "string",
-                    "value": "269"
-                  },
-                  {
-                    "type": "string",
-                    "value": "27"
-                  },
-                  {
-                    "type": "string",
-                    "value": "290"
-                  },
-                  {
-                    "type": "string",
-                    "value": "291"
-                  },
-                  {
-                    "type": "string",
-                    "value": "297"
-                  },
-                  {
-                    "type": "string",
-                    "value": "298"
-                  },
-                  {
-                    "type": "string",
-                    "value": "299"
-                  },
-                  {
-                    "type": "string",
-                    "value": "30"
-                  },
-                  {
-                    "type": "string",
-                    "value": "31"
-                  },
-                  {
-                    "type": "string",
-                    "value": "32"
-                  },
-                  {
-                    "type": "string",
-                    "value": "33"
-                  },
-                  {
-                    "type": "string",
-                    "value": "34"
-                  },
-                  {
-                    "type": "string",
-                    "value": "36"
-                  },
-                  {
-                    "type": "string",
-                    "value": "39"
-                  },
-                  {
-                    "type": "string",
-                    "value": "40"
-                  },
-                  {
-                    "type": "string",
-                    "value": "41"
-                  },
-                  {
-                    "type": "string",
-                    "value": "43"
-                  },
-                  {
-                    "type": "string",
-                    "value": "44"
-                  },
-                  {
-                    "type": "string",
-                    "value": "45"
-                  },
-                  {
-                    "type": "string",
-                    "value": "46"
-                  },
-                  {
-                    "type": "string",
-                    "value": "47"
-                  },
-                  {
-                    "type": "string",
-                    "value": "48"
-                  },
-                  {
-                    "type": "string",
-                    "value": "49"
-                  },
-                  {
-                    "type": "string",
-                    "value": "51"
-                  },
-                  {
-                    "type": "string",
-                    "value": "52"
-                  },
-                  {
-                    "type": "string",
-                    "value": "53"
-                  },
-                  {
-                    "type": "string",
-                    "value": "54"
-                  },
-                  {
-                    "type": "string",
-                    "value": "55"
-                  },
-                  {
-                    "type": "string",
-                    "value": "56"
-                  }
-                ]
-              },
-              "optional": true
-            },
-            "phoneNumberValue": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            }
-          }
-        },
-        "optional": true
-      },
-      "socialLinks": {
+      "links": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -3036,6 +4220,1098 @@
               }
             }
           }
+        },
+        "optional": true
+      }
+    }
+  },
+  {
+    "name": "phoneNumber",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "phoneNumber"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "numberDetails": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "dialCode": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "union",
+                "of": [
+                  {
+                    "type": "string",
+                    "value": "+93"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+358"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+355"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+213"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+376"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+244"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+54"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+374"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+297"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+61"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+43"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+994"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+973"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+880"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+375"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+32"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+501"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+229"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+975"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+591"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+599"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+387"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+267"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+55"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+246"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+673"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+359"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+226"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+257"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+855"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+237"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+238"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+236"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+235"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+56"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+61"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+61"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+57"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+269"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+682"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+506"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+225"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+385"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+53"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+599"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+357"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+420"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+243"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+45"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+253"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+593"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+20"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+503"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+240"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+291"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+372"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+268"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+251"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+500"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+298"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+679"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+358"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+33"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+594"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+689"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+241"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+995"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+49"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+233"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+350"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+30"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+299"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+590"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+502"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+44"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+224"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+245"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+592"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+509"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+39"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+504"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+852"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+36"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+354"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+91"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+62"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+964"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+353"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+98"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+44"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+972"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+39"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+81"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+44"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+962"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+7"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+254"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+686"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+383"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+965"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+996"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+856"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+371"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+961"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+266"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+231"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+218"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+423"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+370"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+352"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+853"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+261"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+265"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+60"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+960"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+223"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+356"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+692"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+596"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+222"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+230"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+262"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+52"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+691"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+373"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+377"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+976"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+382"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+212"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+258"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+95"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+264"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+674"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+977"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+31"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+687"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+64"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+505"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+227"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+234"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+683"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+672"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+850"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+47"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+968"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+92"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+680"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+507"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+675"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+595"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+86"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+51"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+63"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+48"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+351"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+974"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+242"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+220"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+262"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+40"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+7"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+250"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+590"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+290"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+590"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+508"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+685"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+378"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+239"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+966"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+221"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+381"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+248"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+232"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+65"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+421"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+386"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+677"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+252"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+27"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+82"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+211"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+34"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+94"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+970"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+249"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+597"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+47"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+46"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+41"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+963"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+886"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+992"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+66"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+389"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+670"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+228"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+690"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+676"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+216"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+90"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+993"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+688"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+256"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+380"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+971"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+44"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+255"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+598"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+998"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+678"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+58"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+84"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+1"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+681"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+212"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+967"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+260"
+                  },
+                  {
+                    "type": "string",
+                    "value": "+263"
+                  }
+                ]
+              },
+              "optional": true
+            },
+            "phoneNumberValue": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            }
+          }
+        },
+        "optional": true
+      }
+    }
+  },
+  {
+    "name": "contactEmail",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "contactEmail"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "address": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       }

@@ -2,8 +2,11 @@ import { navByName } from "@/config/site";
 import SectionInnerContent from "@/components/section-inner-content";
 import { HeroContent, HeroSkeleton } from "./hero-content";
 import { PlatformLinksMobile } from "@/components/platform-links";
+import { ProfileType } from "@/types";
 
-export default async function Home() {
+export type HeroType = ProfileType["hero"];
+
+export default async function Home({ hero }: { hero: HeroType }) {
   const {
     name,
     label: heading,
@@ -18,8 +21,7 @@ export default async function Home() {
       aria-describedby={`${name}-desc`}
     >
       <SectionInnerContent className="flex h-full flex-1 flex-col justify-between">
-        <HeroContent />
-        {/* <HeroSkeleton /> */}
+        {hero ? <HeroContent hero={hero} /> : <HeroSkeleton />}
         <PlatformLinksMobile className="mt-5" />
       </SectionInnerContent>
     </section>

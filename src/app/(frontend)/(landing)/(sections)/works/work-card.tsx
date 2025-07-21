@@ -11,9 +11,12 @@ import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 import { Project } from "./works-constants";
 import { Skeleton } from "@/components/ui/skeleton";
+import { SingleFeaturedProject } from ".";
+import { urlFor } from "@/sanity/lib/image";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 interface WorkCardProps {
-  project: Project;
+  project: SingleFeaturedProject;
   index: number;
 }
 
@@ -22,10 +25,19 @@ export function WorkCard({ project, index }: WorkCardProps) {
     <WorkCardTemplate>
       <ImageWithFallback
         className="w-full object-cover object-center"
-        src={`https://picsum.photos/id/7${index + 15}/400/225`}
-        alt={project.title}
+        // src={`https://picsum.photos/id/7${index + 15}/400/225`}
+        src={urlFor(project.thumbnail as SanityImageSource)
+          .width(400)
+          .height(225)
+          .quality(80)
+          .auto("format")
+          .url()}
+        alt={`Thumbnail for ${project.title}`}
         width={400}
         height={225}
+        fallbackMsg="No Preview Available"
+        blurHash={project.thumbnail?.asset?.metadata?.blurHash ?? undefined}
+        blurDataURL={project.thumbnail?.asset?.metadata?.lqip ?? undefined}
       />
 
       <CardContent>

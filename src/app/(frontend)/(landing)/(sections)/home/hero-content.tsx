@@ -5,23 +5,21 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
-export function HeroContent() {
+import { PortableText } from "next-sanity";
+import { HeroType } from ".";
+
+export function HeroContent({ hero }: { hero: HeroType }) {
   return (
     <div className="flex h-full max-w-2xl flex-1 flex-col justify-center">
-      <Paragraph className="text-primary uppercase">
-        Let&apos;s build something together
-      </Paragraph>
+      <Paragraph className="text-primary uppercase">{hero?.tagline}</Paragraph>
       <Heading1 className="mt-2">
-        Hi, I&apos;m Edwin Madeda <br /> A Software Developer
+        <PortableText value={hero?.greeting ?? []} />
       </Heading1>
-      <Paragraph className="mt-5 max-w-xl">
-        I love tinkering, building interfaces & web applications, thus
-        transforming ideas into great products.
-      </Paragraph>
+      <Paragraph className="mt-5 max-w-xl">{hero?.subHeadline}</Paragraph>
       <div className="my-10">
         <Button className="group" asChild>
-          <Link href="#works">
-            View Work
+          <Link href={hero?.ctaButtonLink ?? "#works"}>
+            {hero?.ctaButtonText ?? "View Work"}
             <BsFillArrowRightCircleFill className="size-6 transition-transform duration-300 ease-in-out group-hover:rotate-90" />
           </Link>
         </Button>

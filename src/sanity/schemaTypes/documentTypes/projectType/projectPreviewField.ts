@@ -76,7 +76,11 @@ export const projectPreviewImageField = defineField({
               fields: [
                 defineField({
                   type: "image",
+                  options: {
+                    metadata: ["blurhash", "lqip", "image"],
+                  },
                   name: "image",
+
                   title: "Screenshot Image",
                   description: `
                     Upload the ${capitalizedDeviceName} screenshot asset here.

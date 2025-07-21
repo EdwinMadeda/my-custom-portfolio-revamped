@@ -1,10 +1,16 @@
 import { ProseContent } from "@/components/typography";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PortableText } from "next-sanity";
+import { SINGLE_PROJECT_QUERYResult } from "../../../../../../sanity.types";
 
-export function TechArticle() {
+type SingleProjectDetails = NonNullable<SINGLE_PROJECT_QUERYResult>;
+
+type TechArticleProps = Pick<SingleProjectDetails, "detailedDescription">;
+
+export function TechArticle({ detailedDescription }: TechArticleProps) {
   return (
     <ProseContent maxWidth="prose" asChild>
-      <article className="pt-8">
+      {/* <article className="pt-8">
         <h1>Technologies Behind Our Project</h1>
         <p>
           Building a modern web application requires a robust set of tools and
@@ -72,6 +78,10 @@ export function TechArticle() {
           technologies ensures a seamless development experience while
           delivering excellent performance and user experience.
         </p>
+      </article> */}
+
+      <article className="pt-8">
+        {detailedDescription && <PortableText value={detailedDescription} />}
       </article>
     </ProseContent>
   );

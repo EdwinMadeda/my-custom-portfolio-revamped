@@ -7,14 +7,27 @@ import { navByName } from "@/config/site";
 import useResponsive from "@/hooks/useResponsive";
 import { chunkArray } from "@/lib/utils";
 import clsx from "clsx";
-import React, { useMemo } from "react";
+import React, { Fragment, useMemo } from "react";
 import { EmblaOptionsType } from "embla-carousel";
 import MyCustomCarousel from "@/components/my-custom-carousel";
-import { skills_and_tools } from "./skills_and_tools-constants";
 import { SkillOrToolCard, SkillOrToolCardSkeleton } from "./skill-or-tool-card";
 import { carouselBreakpoints } from "@/components/my-custom-carousel/carousel-breakpoints";
+import { ProfileType } from "@/types";
+import { ExternalLink } from "react-external-link";
 
-export default function SkillsAndTools() {
+export type SkillsAndToolsType = ProfileType["technologiesAndTools"];
+
+export type FeaturedTechnologiesAndTools =
+  NonNullable<SkillsAndToolsType>["featuredTechnologiesAndTools"];
+
+export type SingleFeaturedTechnologiesAndTools =
+  NonNullable<FeaturedTechnologiesAndTools>[number];
+
+export default function SkillsAndTools({
+  skillsAndTools,
+}: {
+  skillsAndTools: SkillsAndToolsType;
+}) {
   const {
     name,
     label: heading,
@@ -49,10 +62,13 @@ export default function SkillsAndTools() {
 
   const itemsPerSlide = getItemsPerSlide();
 
-  const CHUNKED_SKILLS_AND_TOOLS = useMemo(
-    () => chunkArray(skills_and_tools.slice(0, 8), itemsPerSlide),
-    [itemsPerSlide],
-  );
+  const CHUNKED_SKILLS_AND_TOOLS = useMemo(() => {
+    const featuredTechnologiesAndTools =
+      skillsAndTools?.featuredTechnologiesAndTools;
+    return featuredTechnologiesAndTools
+      ? chunkArray(featuredTechnologiesAndTools.slice(0, 8), itemsPerSlide)
+      : [];
+  }, [itemsPerSlide]);
 
   const OPTIONS: EmblaOptionsType = {
     axis: isSmallDevice ? "y" : "x",
@@ -63,8 +79,16 @@ export default function SkillsAndTools() {
 
   const SLIDES = CHUNKED_SKILLS_AND_TOOLS.map((chunk, chunkIndex) => (
     <WorkSlide key={chunkIndex}>
-      {chunk.map((skillOrTool, index) => (
-        <SkillOrToolCard key={index} skillOrTool={skillOrTool} />
+      {chunk.map((skillOrTool) => (
+        <Fragment key={skillOrTool._id}>
+          {skillOrTool.websiteUrl ? (
+            <ExternalLink href={skillOrTool.websiteUrl}>
+              <SkillOrToolCard skillOrTool={skillOrTool} />
+            </ExternalLink>
+          ) : (
+            <SkillOrToolCard skillOrTool={skillOrTool} />
+          )}
+        </Fragment>
       ))}
     </WorkSlide>
   ));

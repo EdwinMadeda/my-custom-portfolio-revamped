@@ -33,6 +33,9 @@ export const technologyOrToolType = defineType({
       name: "techLogo",
       title: "Tech Logo",
       type: "image",
+      options: {
+        metadata: ["blurhash", "lqip", "image"],
+      },
       description:
         "Logo or icon representing the technology (must be provided).",
       validation: (Rule) =>

@@ -39,7 +39,9 @@ export const projectType = defineType({
       type: "image",
       options: {
         hotspot: true,
+        metadata: ["blurhash", "lqip", "image"],
       },
+
       description: `
          Upload an image to represent the project in cards, listings, and previews.
 
@@ -123,7 +125,10 @@ export const projectType = defineType({
         },
         {
           type: "image",
-          options: { hotspot: true },
+          options: {
+            hotspot: true,
+            metadata: ["blurhash", "lqip", "image"],
+          },
         },
       ],
       validation: (Rule) =>

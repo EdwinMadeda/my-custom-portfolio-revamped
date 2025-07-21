@@ -1,5 +1,13 @@
-import { PROFILE_QUERY, PROFILE_SLUGS } from "@/sanity/lib/queries";
-import { PROFILE_QUERYResult, PROFILE_SLUGSResult } from "../../sanity.types";
+import {
+  PROFILE_QUERY,
+  PROFILE_SLUGS,
+  SINGLE_PROJECT_QUERY,
+} from "@/sanity/lib/queries";
+import {
+  PROFILE_QUERYResult,
+  PROFILE_SLUGSResult,
+  SINGLE_PROJECT_QUERYResult,
+} from "../../sanity.types";
 import { client } from "@/sanity/lib/client";
 
 const options = { next: { revalidate: 60 } };
@@ -18,6 +26,14 @@ export async function getDefaultProfile(): Promise<PROFILE_QUERYResult> {
     { slug: defaultProfileSlug },
     options,
   );
+
+  return profile;
+}
+
+export async function getSingleProject(
+  slug: string,
+): Promise<SINGLE_PROJECT_QUERYResult> {
+  const profile = await client.fetch(SINGLE_PROJECT_QUERY, { slug }, options);
 
   return profile;
 }

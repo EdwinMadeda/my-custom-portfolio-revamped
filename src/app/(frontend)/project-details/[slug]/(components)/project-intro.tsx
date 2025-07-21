@@ -1,10 +1,16 @@
 import { Heading1, Paragraph } from "@/components/typography";
 import { Skeleton } from "@/components/ui/skeleton";
+import { SINGLE_PROJECT_QUERYResult } from "../../../../../../sanity.types";
 
-export function ProjectIntro() {
+type ProjectIntroProps = Pick<
+  NonNullable<SINGLE_PROJECT_QUERYResult>,
+  "title" | "description"
+>;
+
+export function ProjectIntro({ title, description }: ProjectIntroProps) {
   return (
     <>
-      <Paragraph className="text-primary mt-11 uppercase">
+      {/* <Paragraph className="text-primary mt-11 uppercase">
         Where passion meets purpose
       </Paragraph>
       <Heading1 className="mt-2">Personal Portfolio</Heading1>
@@ -12,7 +18,13 @@ export function ProjectIntro() {
         This platform serves as a personal reflection of my growth as a
         developer. Here, you’ll find a collection of projects that highlight my
         skills, challenges overcome, and the creative process behind each piece.
+      </Paragraph> */}
+
+      <Paragraph className="text-primary mt-11 uppercase">
+        Where passion meets purpose
       </Paragraph>
+      <Heading1 className="mt-2">{title}</Heading1>
+      <Paragraph className="mt-5 max-w-xl">{description}</Paragraph>
     </>
   );
 }

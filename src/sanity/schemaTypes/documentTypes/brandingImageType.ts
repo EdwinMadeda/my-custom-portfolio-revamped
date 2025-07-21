@@ -13,6 +13,7 @@ export const brandingImageType = defineType({
       type: "image",
       options: {
         hotspot: true,
+        metadata: ["blurhash", "lqip", "image"],
       },
       description: `
         **Purpose:** This is your primary brand image (e.g., your logo or signature image). It is used across the website and serves as a default fallback for social sharing images if a specific Meta Image isn't provided.

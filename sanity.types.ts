@@ -13,6 +13,16 @@
  */
 
 // Source: schema.json
+export type MetaKeyword = {
+  _id: string;
+  _type: "metaKeyword";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  keywordName?: string;
+  keywordSlug?: Slug;
+};
+
 export type Testimonial = {
   _id: string;
   _type: "testimonial";
@@ -20,7 +30,25 @@ export type Testimonial = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  feedback?: string;
+  feedback?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "blockquote";
+    listItem?: never;
+    markDefs?: Array<{
+      href?: string;
+      blank?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
   position?: {
     positionTitle?:
       | "Software Engineer"
@@ -58,22 +86,18 @@ export type Testimonial = {
       | "Instructor"
       | "Mentor"
       | "Volunteer"
-      | "Advocate";
+      | "Advocate"
+      | "Other";
     customPositionTitle?: string;
-    affiliationName?: string;
-    affiliationType?:
-      | "company"
-      | "nonprofit"
-      | "community"
-      | "openSource"
-      | "government"
-      | "freelance"
-      | "personalBrand"
-      | "other";
-    affiliationLink?: string;
+    affiliation?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "affiliation";
+    };
   };
   photo?: {
-    asset?: {
+    asset: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
@@ -88,14 +112,45 @@ export type Testimonial = {
   category?: "mostPopular" | "clientsFavorite" | "topRated" | "other";
 };
 
+export type Affiliation = {
+  _id: string;
+  _type: "affiliation";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  type?:
+    | "company"
+    | "nonprofit"
+    | "community"
+    | "openSource"
+    | "government"
+    | "freelance"
+    | "personalBrand"
+    | "other";
+  link?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: string;
+  location?: string;
+};
+
 export type Service = {
   _id: string;
   _type: "service";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  serviceName?: string;
-  serviceDescription?: string;
   serviceIcon?: {
     asset?: {
       _ref: string;
@@ -108,17 +163,52 @@ export type Service = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  serviceName?: string;
+  shortDescription?: string;
+  longDescription?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          blank?: boolean;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
 };
 
-export type Project = {
+export type OtherWork = {
   _id: string;
-  _type: "project";
+  _type: "otherWork";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title?: string;
   slug?: Slug;
-  status?: "draft" | "published";
   thumbnail?: {
     asset?: {
       _ref: string;
@@ -133,28 +223,76 @@ export type Project = {
   };
   description?: string;
   technologiesUsed?: Array<{
-    techName?: string;
-    techLogo?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    proficiencyLevel?: "Beginner" | "Intermediate" | "Advanced" | "Expert";
-    techCategory?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "technologyOrTool";
+  }>;
+  contributionLink?: string;
+  detailedDescription?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  date?: string;
+};
+
+export type Project = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  thumbnail?: {
+    asset?: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "techCategory";
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
     };
-    _type: "technologyOrTool";
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: string;
+  technologiesUsed?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
     _key: string;
+    [internalGroqTypeReferenceTo]?: "technologyOrTool";
   }>;
   liveDemoLink?: string;
   repoLink?: string;
@@ -191,6 +329,12 @@ export type Project = {
         _key: string;
       }
   >;
+  developmentStatus?:
+    | "concept"
+    | "inProgress"
+    | "completed"
+    | "onHold"
+    | "archived";
   date?: string;
   projectPreviewImages?: {
     desktopView?: Array<{
@@ -206,7 +350,13 @@ export type Project = {
         crop?: SanityImageCrop;
         _type: "image";
       };
-      screenshotDescription?: string;
+      primaryDisplay?: boolean;
+      screenshotViewItem?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "screenshotViewItemDesc";
+      };
       variant?: "standard" | "ultraWide";
       _key: string;
     }>;
@@ -223,8 +373,14 @@ export type Project = {
         crop?: SanityImageCrop;
         _type: "image";
       };
-      screenshotDescription?: string;
-      variant?: "standard" | "ultraWide";
+      primaryDisplay?: boolean;
+      screenshotViewItem?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "screenshotViewItemDesc";
+      };
+      variant?: "standard";
       _key: string;
     }>;
     mobileView?: Array<{
@@ -240,11 +396,27 @@ export type Project = {
         crop?: SanityImageCrop;
         _type: "image";
       };
-      screenshotDescription?: string;
+      primaryDisplay?: boolean;
+      screenshotViewItem?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "screenshotViewItemDesc";
+      };
       variant?: "standard";
       _key: string;
     }>;
   };
+};
+
+export type ScreenshotViewItemDesc = {
+  _id: string;
+  _type: "screenshotViewItemDesc";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  value?: Slug;
 };
 
 export type TechnologyOrTool = {
@@ -254,8 +426,9 @@ export type TechnologyOrTool = {
   _updatedAt: string;
   _rev: string;
   techName?: string;
+  techDescription?: string;
   techLogo?: {
-    asset?: {
+    asset: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
@@ -267,6 +440,7 @@ export type TechnologyOrTool = {
     _type: "image";
   };
   proficiencyLevel?: "Beginner" | "Intermediate" | "Advanced" | "Expert";
+  websiteUrl?: string;
   techCategory?: {
     _ref: string;
     _type: "reference";
@@ -282,6 +456,7 @@ export type TechCategory = {
   _updatedAt: string;
   _rev: string;
   categoryName?: string;
+  categorySlug?: Slug;
   categoryDescription?: string;
 };
 
@@ -300,13 +475,34 @@ export type Profile = {
     [internalGroqTypeReferenceTo]?: "brandingImage";
   };
   hero?: {
-    greeting?: string;
+    greeting?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal";
+      listItem?: never;
+      markDefs?: null;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
     tagline?: string;
     subHeadline?: string;
     ctaButtonText?: string;
+    ctaButtonLink?:
+      | "#home"
+      | "#about-me"
+      | "#skills"
+      | "#works"
+      | "#testimonials"
+      | "#contact";
   };
   about?: {
-    intro?: string;
+    shortIntro?: string;
+    longIntro?: string;
     personalStory?: Array<
       | {
           children?: Array<{
@@ -315,10 +511,11 @@ export type Profile = {
             _type: "span";
             _key: string;
           }>;
-          style?: "normal" | "h2";
+          style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
           listItem?: "bullet" | "number";
           markDefs?: Array<{
             href?: string;
+            blank?: boolean;
             _type: "link";
             _key: string;
           }>;
@@ -336,14 +533,17 @@ export type Profile = {
           media?: unknown;
           hotspot?: SanityImageHotspot;
           crop?: SanityImageCrop;
+          alt?: string;
+          caption?: string;
           _type: "image";
           _key: string;
         }
     >;
   };
   technologiesAndTools?: {
-    intro?: string;
-    technologiesAndTools?: Array<{
+    shortIntro?: string;
+    longIntro?: string;
+    featuredTechnologiesAndTools?: Array<{
       _ref: string;
       _type: "reference";
       _weak?: boolean;
@@ -352,7 +552,8 @@ export type Profile = {
     }>;
   };
   works?: {
-    intro?: string;
+    shortIntro?: string;
+    longIntro?: string;
     featuredProjects?: Array<{
       _ref: string;
       _type: "reference";
@@ -360,9 +561,17 @@ export type Profile = {
       _key: string;
       [internalGroqTypeReferenceTo]?: "project";
     }>;
+    otherWorks?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "otherWork";
+    }>;
   };
   services?: {
-    intro?: string;
+    shortIntro?: string;
+    longIntro?: string;
     featuredServices?: Array<{
       _ref: string;
       _type: "reference";
@@ -372,7 +581,8 @@ export type Profile = {
     }>;
   };
   testimonials?: {
-    intro?: string;
+    shortIntro?: string;
+    longIntro?: string;
     featuredTestimonials?: Array<{
       _ref: string;
       _type: "reference";
@@ -382,10 +592,24 @@ export type Profile = {
     }>;
   };
   contact?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "contact";
+    email?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "contactEmail";
+    };
+    phoneNumber?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "phoneNumber";
+    };
+    socialMediaLinks?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "socialMediaLinks";
+    };
   };
   resume?: {
     _ref: string;
@@ -396,22 +620,50 @@ export type Profile = {
   metadata?: {
     metaTitle?: string;
     metaDescription?: string;
-    metaKeywords?: Array<string>;
-    metaImage?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
+    metaKeywords?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "metaKeyword";
+    }>;
+    metaImage?:
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "metaImage";
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "brandingImage";
+        };
     metaURL?: string;
     metaType?: "website" | "profile" | "portfolio";
   };
+};
+
+export type MetaImage = {
+  _id: string;
+  _type: "metaImage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  altText?: string;
 };
 
 export type Resume = {
@@ -420,8 +672,9 @@ export type Resume = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  resume?: {
-    asset?: {
+  title?: string;
+  pdfFile?: {
+    asset: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
@@ -432,102 +685,14 @@ export type Resume = {
   };
 };
 
-export type Contact = {
+export type SocialMediaLinks = {
   _id: string;
-  _type: "contact";
+  _type: "socialMediaLinks";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  email?: string;
-  phoneNumber?: {
-    countryCode?:
-      | "1"
-      | "20"
-      | "211"
-      | "212"
-      | "213"
-      | "216"
-      | "218"
-      | "220"
-      | "221"
-      | "222"
-      | "223"
-      | "224"
-      | "225"
-      | "226"
-      | "227"
-      | "228"
-      | "229"
-      | "230"
-      | "231"
-      | "232"
-      | "233"
-      | "234"
-      | "235"
-      | "236"
-      | "237"
-      | "238"
-      | "239"
-      | "240"
-      | "241"
-      | "242"
-      | "243"
-      | "244"
-      | "245"
-      | "246"
-      | "247"
-      | "248"
-      | "249"
-      | "250"
-      | "251"
-      | "252"
-      | "253"
-      | "254"
-      | "255"
-      | "256"
-      | "257"
-      | "258"
-      | "260"
-      | "261"
-      | "262"
-      | "263"
-      | "264"
-      | "265"
-      | "266"
-      | "267"
-      | "268"
-      | "269"
-      | "27"
-      | "290"
-      | "291"
-      | "297"
-      | "298"
-      | "299"
-      | "30"
-      | "31"
-      | "32"
-      | "33"
-      | "34"
-      | "36"
-      | "39"
-      | "40"
-      | "41"
-      | "43"
-      | "44"
-      | "45"
-      | "46"
-      | "47"
-      | "48"
-      | "49"
-      | "51"
-      | "52"
-      | "53"
-      | "54"
-      | "55"
-      | "56";
-    phoneNumberValue?: string;
-  };
-  socialLinks?: Array<{
+  title?: string;
+  links?: Array<{
     platform?:
       | "linkedin"
       | "github"
@@ -551,6 +716,272 @@ export type Contact = {
     link?: string;
     _key: string;
   }>;
+};
+
+export type PhoneNumber = {
+  _id: string;
+  _type: "phoneNumber";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  numberDetails?: {
+    dialCode?:
+      | "+93"
+      | "+358"
+      | "+355"
+      | "+213"
+      | "+1"
+      | "+376"
+      | "+244"
+      | "+1"
+      | "+1"
+      | "+54"
+      | "+374"
+      | "+297"
+      | "+61"
+      | "+43"
+      | "+994"
+      | "+1"
+      | "+973"
+      | "+880"
+      | "+1"
+      | "+375"
+      | "+32"
+      | "+501"
+      | "+229"
+      | "+1"
+      | "+975"
+      | "+591"
+      | "+599"
+      | "+387"
+      | "+267"
+      | "+55"
+      | "+246"
+      | "+673"
+      | "+359"
+      | "+226"
+      | "+257"
+      | "+855"
+      | "+237"
+      | "+1"
+      | "+238"
+      | "+1"
+      | "+236"
+      | "+235"
+      | "+56"
+      | "+61"
+      | "+61"
+      | "+57"
+      | "+269"
+      | "+682"
+      | "+506"
+      | "+225"
+      | "+385"
+      | "+53"
+      | "+599"
+      | "+357"
+      | "+420"
+      | "+243"
+      | "+45"
+      | "+253"
+      | "+1"
+      | "+1"
+      | "+593"
+      | "+20"
+      | "+503"
+      | "+240"
+      | "+291"
+      | "+372"
+      | "+268"
+      | "+251"
+      | "+500"
+      | "+298"
+      | "+679"
+      | "+358"
+      | "+33"
+      | "+594"
+      | "+689"
+      | "+241"
+      | "+995"
+      | "+49"
+      | "+233"
+      | "+350"
+      | "+30"
+      | "+299"
+      | "+1"
+      | "+590"
+      | "+1"
+      | "+502"
+      | "+44"
+      | "+224"
+      | "+245"
+      | "+592"
+      | "+509"
+      | "+39"
+      | "+504"
+      | "+852"
+      | "+36"
+      | "+354"
+      | "+91"
+      | "+62"
+      | "+964"
+      | "+353"
+      | "+98"
+      | "+44"
+      | "+972"
+      | "+39"
+      | "+1"
+      | "+81"
+      | "+44"
+      | "+962"
+      | "+7"
+      | "+254"
+      | "+686"
+      | "+383"
+      | "+965"
+      | "+996"
+      | "+856"
+      | "+371"
+      | "+961"
+      | "+266"
+      | "+231"
+      | "+218"
+      | "+423"
+      | "+370"
+      | "+352"
+      | "+853"
+      | "+261"
+      | "+265"
+      | "+60"
+      | "+960"
+      | "+223"
+      | "+356"
+      | "+692"
+      | "+596"
+      | "+222"
+      | "+230"
+      | "+262"
+      | "+52"
+      | "+691"
+      | "+373"
+      | "+377"
+      | "+976"
+      | "+382"
+      | "+1"
+      | "+212"
+      | "+258"
+      | "+95"
+      | "+264"
+      | "+674"
+      | "+977"
+      | "+31"
+      | "+687"
+      | "+64"
+      | "+505"
+      | "+227"
+      | "+234"
+      | "+683"
+      | "+672"
+      | "+850"
+      | "+1"
+      | "+47"
+      | "+968"
+      | "+92"
+      | "+680"
+      | "+507"
+      | "+675"
+      | "+595"
+      | "+86"
+      | "+51"
+      | "+63"
+      | "+48"
+      | "+351"
+      | "+1"
+      | "+974"
+      | "+242"
+      | "+220"
+      | "+262"
+      | "+40"
+      | "+7"
+      | "+250"
+      | "+590"
+      | "+290"
+      | "+1"
+      | "+1"
+      | "+590"
+      | "+508"
+      | "+1"
+      | "+685"
+      | "+378"
+      | "+239"
+      | "+966"
+      | "+221"
+      | "+381"
+      | "+248"
+      | "+232"
+      | "+65"
+      | "+1"
+      | "+421"
+      | "+386"
+      | "+677"
+      | "+252"
+      | "+27"
+      | "+82"
+      | "+211"
+      | "+34"
+      | "+94"
+      | "+970"
+      | "+249"
+      | "+597"
+      | "+47"
+      | "+46"
+      | "+41"
+      | "+963"
+      | "+886"
+      | "+992"
+      | "+66"
+      | "+389"
+      | "+670"
+      | "+228"
+      | "+690"
+      | "+676"
+      | "+1"
+      | "+216"
+      | "+90"
+      | "+993"
+      | "+1"
+      | "+688"
+      | "+256"
+      | "+380"
+      | "+971"
+      | "+44"
+      | "+255"
+      | "+1"
+      | "+598"
+      | "+998"
+      | "+678"
+      | "+58"
+      | "+84"
+      | "+1"
+      | "+1"
+      | "+681"
+      | "+212"
+      | "+967"
+      | "+260"
+      | "+263";
+    phoneNumberValue?: string;
+  };
+};
+
+export type ContactEmail = {
+  _id: string;
+  _type: "contactEmail";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  address?: string;
 };
 
 export type BrandingImage = {
@@ -693,14 +1124,21 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
+  | MetaKeyword
   | Testimonial
+  | Affiliation
   | Service
+  | OtherWork
   | Project
+  | ScreenshotViewItemDesc
   | TechnologyOrTool
   | TechCategory
   | Profile
+  | MetaImage
   | Resume
-  | Contact
+  | SocialMediaLinks
+  | PhoneNumber
+  | ContactEmail
   | BrandingImage
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -715,149 +1153,39 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
-// Variable: PROFILES_QUERY
-// Query: *[_type == "profile" && defined(slug.current)]
-export type PROFILES_QUERYResult = Array<{
-  _id: string;
-  _type: "profile";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  profileName?: string;
-  slug?: Slug;
-  brandingImage?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "brandingImage";
-  };
-  hero?: {
-    greeting?: string;
-    tagline?: string;
-    subHeadline?: string;
-    ctaButtonText?: string;
-  };
-  about?: {
-    intro?: string;
-    personalStory?: Array<
-      | {
-          children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-          }>;
-          style?: "h2" | "normal";
-          listItem?: "bullet" | "number";
-          markDefs?: Array<{
-            href?: string;
-            _type: "link";
-            _key: string;
-          }>;
-          level?: number;
-          _type: "block";
-          _key: string;
-        }
-      | {
-          asset?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-          };
-          media?: unknown;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          _type: "image";
-          _key: string;
-        }
-    >;
-  };
-  technologiesAndTools?: {
-    intro?: string;
-    technologiesAndTools?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "technologyOrTool";
-    }>;
-  };
-  works?: {
-    intro?: string;
-    featuredProjects?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "project";
-    }>;
-  };
-  services?: {
-    intro?: string;
-    featuredServices?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "service";
-    }>;
-  };
-  testimonials?: {
-    intro?: string;
-    featuredTestimonials?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "testimonial";
-    }>;
-  };
-  contact?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "contact";
-  };
-  resume?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "resume";
-  };
-  metadata?: {
-    metaTitle?: string;
-    metaDescription?: string;
-    metaKeywords?: Array<string>;
-    metaImage?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    metaURL?: string;
-    metaType?: "portfolio" | "profile" | "website";
-  };
-}>;
 // Variable: PROFILE_QUERY
-// Query: *[_type == "profile" && slug.current == $slug][0]{      hero {    greeting,    tagline,    subHeadline,    ctaButtonText,    ctaButtonLink  },      about {    shortIntro,    longIntro,    personalStory  },      technologiesAndTools {    shortIntro,    longIntro,    featuredTechnologiesAndTools[]->{      _id,      techName,      techDescription,      proficiencyLevel,      techLogo {        asset->{          _id,          url,          ...         }      },      websiteUrl,      techCategory->{         _id,        categoryName,        categoryDescription,        "categorySlug": categorySlug.current      }    }  },      works {    shortIntro,    longIntro,    "featuredProjects": featuredProjects[]->{      _id,      title,      description,      "slug": slug.current,      thumbnail {        asset->{          _id,          url,          ... // Includes all other asset fields        }      },      technologiesUsed[]->{        _id,        techName,        techDescription,        proficiencyLevel,        techLogo {           asset->{            _id,            url,            ...          }        },        websiteUrl,        techCategory->{           _id,          categoryName,          categoryDescription,          "categorySlug":categorySlug.current,        }      },      liveDemoLink,      repoLink,      detailedDescription,      developmentStatus,      date    },    "otherWorks": otherWorks[]->{      _id,      title,      "slug" : slug.current,      thumbnail{        asset->{          _id,          url,          ... // Includes all other asset fields        }      },      description,      technologiesUsed[]->{        _id,        techName,        techDescription,        proficiencyLevel,        techLogo {           asset->{            _id,            url,            ...          }        },        websiteUrl,        techCategory->{           _id,          categoryName,          categoryDescription,          "categorySlug": categorySlug.current        }      },      contributionLink,      detailedDescription,      date    }  },      services {    shortIntro,    longIntro,    featuredServices[]->{       _id,      serviceIcon{        asset->{          _id,          url,          ... // All other asset fields        }      },      serviceName,      shortDescription,      longDescription    }  },      testimonials {    shortIntro,    longIntro,    featuredTestimonials[]->{       _id,      name,      feedback,      position{        "title": select(           positionTitle == "Other" => customPositionTitle,          positionTitle        ),        affiliation->{          _id,          name,          type,          link,          logo{            asset->{              _id,              url,              ...             }          },          description,          location,          ...,         }      },      photo {        asset->{          _id,          url,          ...,         }      },      isPinned,      category          }  },      contact {    email->{      title,      "value": address     },    phoneNumber->{      title,      "value": numberDetails.dialCode + numberDetails.phoneNumberValue     },    "socialMedia": socialMediaLinks->{      title,      links[]{        platform,        link      }    }  },      metadata {    metaTitle,    metaDescription,    metaKeywords[]->{      _id,      keywordName,     "keywordSlug" : keywordSlug.current    },    metaImage->{       "asset": image.asset->,      altText     },    metaURL,    metaType  },  }
+// Query: *[_type == "profile" && slug.current == $slug][0]{      hero {    greeting,    tagline,    subHeadline,    ctaButtonText,    ctaButtonLink  },      about {    shortIntro,    longIntro,    personalStory  },      technologiesAndTools {    shortIntro,    longIntro,    featuredTechnologiesAndTools[]->{      _id,      techName,      techDescription,      proficiencyLevel,      techLogo {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      },      websiteUrl,      techCategory->{         _id,        categoryName,        categoryDescription,        "categorySlug": categorySlug.current      }    }  },      works {    shortIntro,    longIntro,    "featuredProjects": featuredProjects[]->{      _id,      title,      description,      "slug": slug.current,      thumbnail {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      }    },    "otherWorks": otherWorks[]->{      _id,      title,      "slug": slug.current,      description,      thumbnail {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      }    }  },      services {    shortIntro,    longIntro,    featuredServices[]->{       _id,      serviceIcon{        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      },      serviceName,      shortDescription,      longDescription    }  },      testimonials {    shortIntro,    longIntro,    featuredTestimonials[]->{       _id,      name,      feedback,      position{        "title": select(           positionTitle == "Other" => customPositionTitle,          positionTitle        ),        affiliation->{          _id,          name,          type,          link,          logo{            asset->{              _id,              url,              metadata {                blurHash,                lqip,                dimensions              }            }          },          description,          location        }      },      photo {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      },      isPinned,      category    }  },      contact {    email->{      title,      "value": address     },    phoneNumber->{      title,      "value": numberDetails.dialCode + numberDetails.phoneNumberValue     },    "socialMedia": socialMediaLinks->{      title,      links[]{        platform,        link      }    }  },      metadata {    metaTitle,    metaDescription,    metaKeywords[]->{      _id,      keywordName,     "keywordSlug" : keywordSlug.current    },    metaImage->{       "asset": image.asset->{        _id,        url,        metadata {          blurHash,          lqip,          dimensions        }      },      altText     },    metaURL,    metaType  },  }
 export type PROFILE_QUERYResult = {
   hero: {
-    greeting: string | null;
+    greeting: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal";
+      listItem?: never;
+      markDefs?: null;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
     tagline: string | null;
     subHeadline: string | null;
     ctaButtonText: string | null;
-    ctaButtonLink: null;
+    ctaButtonLink:
+      | "#about-me"
+      | "#contact"
+      | "#home"
+      | "#skills"
+      | "#testimonials"
+      | "#works"
+      | null;
   } | null;
   about: {
-    shortIntro: null;
-    longIntro: null;
+    shortIntro: string | null;
+    longIntro: string | null;
     personalStory: Array<
       | {
           children?: Array<{
@@ -866,10 +1194,11 @@ export type PROFILE_QUERYResult = {
             _type: "span";
             _key: string;
           }>;
-          style?: "h2" | "normal";
+          style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
           listItem?: "bullet" | "number";
           markDefs?: Array<{
             href?: string;
+            blank?: boolean;
             _type: "link";
             _key: string;
           }>;
@@ -887,19 +1216,49 @@ export type PROFILE_QUERYResult = {
           media?: unknown;
           hotspot?: SanityImageHotspot;
           crop?: SanityImageCrop;
+          alt?: string;
+          caption?: string;
           _type: "image";
           _key: string;
         }
     > | null;
   } | null;
   technologiesAndTools: {
-    shortIntro: null;
-    longIntro: null;
-    featuredTechnologiesAndTools: null;
+    shortIntro: string | null;
+    longIntro: string | null;
+    featuredTechnologiesAndTools: Array<{
+      _id: string;
+      techName: string | null;
+      techDescription: string | null;
+      proficiencyLevel:
+        | "Advanced"
+        | "Beginner"
+        | "Expert"
+        | "Intermediate"
+        | null;
+      techLogo: {
+        asset: {
+          _id: string;
+          url: string | null;
+          metadata: {
+            blurHash: string | null;
+            lqip: string | null;
+            dimensions: SanityImageDimensions | null;
+          } | null;
+        };
+      } | null;
+      websiteUrl: string | null;
+      techCategory: {
+        _id: string;
+        categoryName: string | null;
+        categoryDescription: string | null;
+        categorySlug: string | null;
+      } | null;
+    }> | null;
   } | null;
   works: {
-    shortIntro: null;
-    longIntro: null;
+    shortIntro: string | null;
+    longIntro: string | null;
     featuredProjects: Array<{
       _id: string;
       title: string | null;
@@ -908,31 +1267,52 @@ export type PROFILE_QUERYResult = {
       thumbnail: {
         asset: {
           _id: string;
-          url?: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
+          url: string | null;
+          metadata: {
+            blurHash: string | null;
+            lqip: string | null;
+            dimensions: SanityImageDimensions | null;
+          } | null;
         } | null;
       } | null;
-      technologiesUsed: Array<null> | null;
-      liveDemoLink: string | null;
-      repoLink: string | null;
-      detailedDescription: Array<
+    }> | null;
+    otherWorks: Array<{
+      _id: string;
+      title: string | null;
+      slug: string | null;
+      description: string | null;
+      thumbnail: {
+        asset: {
+          _id: string;
+          url: string | null;
+          metadata: {
+            blurHash: string | null;
+            lqip: string | null;
+            dimensions: SanityImageDimensions | null;
+          } | null;
+        } | null;
+      } | null;
+    }> | null;
+  } | null;
+  services: {
+    shortIntro: string | null;
+    longIntro: string | null;
+    featuredServices: Array<{
+      _id: string;
+      serviceIcon: {
+        asset: {
+          _id: string;
+          url: string | null;
+          metadata: {
+            blurHash: string | null;
+            lqip: string | null;
+            dimensions: SanityImageDimensions | null;
+          } | null;
+        } | null;
+      } | null;
+      serviceName: string | null;
+      shortDescription: string | null;
+      longDescription: Array<
         | {
             children?: Array<{
               marks?: Array<string>;
@@ -940,10 +1320,11 @@ export type PROFILE_QUERYResult = {
               _type: "span";
               _key: string;
             }>;
-            style?: "h2" | "normal";
+            style?: "h2" | "h3" | "h4" | "normal";
             listItem?: "bullet" | "number";
             markDefs?: Array<{
               href?: string;
+              blank?: boolean;
               _type: "link";
               _key: string;
             }>;
@@ -965,54 +1346,37 @@ export type PROFILE_QUERYResult = {
             _key: string;
           }
       > | null;
-      developmentStatus: null;
-      date: string | null;
-    }> | null;
-    otherWorks: null;
-  } | null;
-  services: {
-    shortIntro: null;
-    longIntro: null;
-    featuredServices: Array<{
-      _id: string;
-      serviceIcon: {
-        asset: {
-          _id: string;
-          url?: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
-        } | null;
-      } | null;
-      serviceName: string | null;
-      shortDescription: null;
-      longDescription: null;
     }> | null;
   } | null;
   testimonials: {
-    shortIntro: null;
-    longIntro: null;
+    shortIntro: string | null;
+    longIntro: string | null;
     featuredTestimonials: Array<{
       _id: string;
       name: string | null;
-      feedback: string | null;
+      feedback: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "normal";
+        listItem?: never;
+        markDefs?: Array<{
+          href?: string;
+          blank?: boolean;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }> | null;
       position: {
         title:
+          | string
+          | null
           | "Advocate"
           | "Backend Developer"
           | "CEO"
@@ -1039,6 +1403,7 @@ export type PROFILE_QUERYResult = {
           | "Mentor"
           | "Mobile Developer"
           | "Open Source Contributor"
+          | "Other"
           | "Product Designer"
           | "Product Manager"
           | "Product Owner"
@@ -1048,51 +1413,242 @@ export type PROFILE_QUERYResult = {
           | "Tech Lead"
           | "UI Designer"
           | "UX Designer"
-          | "Volunteer"
-          | null;
-        affiliation: null;
+          | "Volunteer";
+        affiliation: {
+          _id: string;
+          name: string | null;
+          type:
+            | "community"
+            | "company"
+            | "freelance"
+            | "government"
+            | "nonprofit"
+            | "openSource"
+            | "other"
+            | "personalBrand"
+            | null;
+          link: string | null;
+          logo: {
+            asset: {
+              _id: string;
+              url: string | null;
+              metadata: {
+                blurHash: string | null;
+                lqip: string | null;
+                dimensions: SanityImageDimensions | null;
+              } | null;
+            } | null;
+          } | null;
+          description: string | null;
+          location: string | null;
+        } | null;
       } | null;
       photo: {
         asset: {
           _id: string;
-          url?: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
-        } | null;
+          url: string | null;
+          metadata: {
+            blurHash: string | null;
+            lqip: string | null;
+            dimensions: SanityImageDimensions | null;
+          } | null;
+        };
       } | null;
       isPinned: boolean | null;
       category: "clientsFavorite" | "mostPopular" | "other" | "topRated" | null;
     }> | null;
   } | null;
   contact: {
-    email: null;
-    phoneNumber: null;
-    socialMedia: null;
+    email: {
+      title: string | null;
+      value: string | null;
+    } | null;
+    phoneNumber: {
+      title: string | null;
+      value: string | null;
+    } | null;
+    socialMedia: {
+      title: string | null;
+      links: Array<{
+        platform:
+          | "angelist"
+          | "behance"
+          | "discord"
+          | "dribbble"
+          | "fiverr"
+          | "github"
+          | "gitlab"
+          | "instagram"
+          | "linkedin"
+          | "medium"
+          | "pinterest"
+          | "reddit"
+          | "stackoverflow"
+          | "tiktok"
+          | "twitch"
+          | "twitter"
+          | "upwork"
+          | "vimeo"
+          | "youtube"
+          | null;
+        link: string | null;
+      }> | null;
+    } | null;
   } | null;
   metadata: {
     metaTitle: string | null;
     metaDescription: string | null;
-    metaKeywords: Array<null> | null;
-    metaImage: null;
+    metaKeywords: Array<{
+      _id: string;
+      keywordName: string | null;
+      keywordSlug: string | null;
+    }> | null;
+    metaImage: {
+      asset: {
+        _id: string;
+        url: string | null;
+        metadata: {
+          blurHash: string | null;
+          lqip: string | null;
+          dimensions: SanityImageDimensions | null;
+        } | null;
+      } | null;
+      altText: string | null;
+    } | null;
     metaURL: string | null;
     metaType: "portfolio" | "profile" | "website" | null;
   } | null;
+} | null;
+// Variable: SINGLE_PROJECT_QUERY
+// Query: *[_type == "project" && slug.current == $slug][0]{    _id,    title,    description,    "slug": slug.current,    technologiesUsed[]->{      _id,      techName,      techDescription,      proficiencyLevel,      websiteUrl,      techCategory->{        _id,        categoryName,        categoryDescription,        "categorySlug": categorySlug.current      }    },    projectPreviewImages {      mobileView[] {        image {          asset->{            _id,            url,            metadata {              blurHash,              lqip,              dimensions            }          }        },        primaryDisplay,        variant,        screenshotViewItem->{          _id,          title,          "slug": value.current        }      },      tabletView[] {        image {          asset->{            _id,            url,            metadata {              blurHash,              lqip,              dimensions            }          }        },        primaryDisplay,        variant,        screenshotViewItem->{          _id,          title,          "slug": value.current        }      },      desktopView[] {        image {          asset->{            _id,            url,            metadata {              blurHash,              lqip,              dimensions            }          }        },        primaryDisplay,        variant,        screenshotViewItem->{          _id,          title,          "slug": value.current        }      }    },    liveDemoLink,    repoLink,    detailedDescription,    developmentStatus,    date  }
+export type SINGLE_PROJECT_QUERYResult = {
+  _id: string;
+  title: string | null;
+  description: string | null;
+  slug: string | null;
+  technologiesUsed: Array<{
+    _id: string;
+    techName: string | null;
+    techDescription: string | null;
+    proficiencyLevel:
+      | "Advanced"
+      | "Beginner"
+      | "Expert"
+      | "Intermediate"
+      | null;
+    websiteUrl: string | null;
+    techCategory: {
+      _id: string;
+      categoryName: string | null;
+      categoryDescription: string | null;
+      categorySlug: string | null;
+    } | null;
+  }> | null;
+  projectPreviewImages: {
+    mobileView: Array<{
+      image: {
+        asset: {
+          _id: string;
+          url: string | null;
+          metadata: {
+            blurHash: string | null;
+            lqip: string | null;
+            dimensions: SanityImageDimensions | null;
+          } | null;
+        } | null;
+      } | null;
+      primaryDisplay: boolean | null;
+      variant: "standard" | null;
+      screenshotViewItem: {
+        _id: string;
+        title: string | null;
+        slug: string | null;
+      } | null;
+    }> | null;
+    tabletView: Array<{
+      image: {
+        asset: {
+          _id: string;
+          url: string | null;
+          metadata: {
+            blurHash: string | null;
+            lqip: string | null;
+            dimensions: SanityImageDimensions | null;
+          } | null;
+        } | null;
+      } | null;
+      primaryDisplay: boolean | null;
+      variant: "standard" | null;
+      screenshotViewItem: {
+        _id: string;
+        title: string | null;
+        slug: string | null;
+      } | null;
+    }> | null;
+    desktopView: Array<{
+      image: {
+        asset: {
+          _id: string;
+          url: string | null;
+          metadata: {
+            blurHash: string | null;
+            lqip: string | null;
+            dimensions: SanityImageDimensions | null;
+          } | null;
+        } | null;
+      } | null;
+      primaryDisplay: boolean | null;
+      variant: "standard" | "ultraWide" | null;
+      screenshotViewItem: {
+        _id: string;
+        title: string | null;
+        slug: string | null;
+      } | null;
+    }> | null;
+  } | null;
+  liveDemoLink: string | null;
+  repoLink: string | null;
+  detailedDescription: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "h2" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
+  developmentStatus:
+    | "archived"
+    | "completed"
+    | "concept"
+    | "inProgress"
+    | "onHold"
+    | null;
+  date: string | null;
 } | null;
 // Variable: PROFILE_SLUGS
 // Query: *[_type == "profile"]{    "slug": slug.current  }
@@ -1104,8 +1660,8 @@ export type PROFILE_SLUGSResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "profile" && defined(slug.current)]': PROFILES_QUERYResult;
-    '*[_type == "profile" && slug.current == $slug][0]{\n    \n  hero {\n    greeting,\n    tagline,\n    subHeadline,\n    ctaButtonText,\n    ctaButtonLink\n  }\n,\n    \n  about {\n    shortIntro,\n    longIntro,\n    personalStory\n  }\n,\n    \n  technologiesAndTools {\n    shortIntro,\n    longIntro,\n    featuredTechnologiesAndTools[]->{\n      _id,\n      techName,\n      techDescription,\n      proficiencyLevel,\n      techLogo {\n        asset->{\n          _id,\n          url,\n          ... \n        }\n      },\n      websiteUrl,\n      techCategory->{ \n        _id,\n        categoryName,\n        categoryDescription,\n        "categorySlug": categorySlug.current\n      }\n    }\n  }\n,\n    \n  works {\n    shortIntro,\n    longIntro,\n    "featuredProjects": featuredProjects[]->{\n      _id,\n      title,\n      description,\n      "slug": slug.current,\n      thumbnail {\n        asset->{\n          _id,\n          url,\n          ... // Includes all other asset fields\n        }\n      },\n      technologiesUsed[]->{\n        _id,\n        techName,\n        techDescription,\n        proficiencyLevel,\n        techLogo { \n          asset->{\n            _id,\n            url,\n            ...\n          }\n        },\n        websiteUrl,\n        techCategory->{\n           _id,\n          categoryName,\n          categoryDescription,\n          "categorySlug":categorySlug.current,\n        }\n      },\n      liveDemoLink,\n      repoLink,\n      detailedDescription,\n      developmentStatus,\n      date\n    },\n    "otherWorks": otherWorks[]->{\n      _id,\n      title,\n      "slug" : slug.current,\n      thumbnail{\n        asset->{\n          _id,\n          url,\n          ... // Includes all other asset fields\n        }\n      },\n      description,\n      technologiesUsed[]->{\n        _id,\n        techName,\n        techDescription,\n        proficiencyLevel,\n        techLogo { \n          asset->{\n            _id,\n            url,\n            ...\n          }\n        },\n        websiteUrl,\n        techCategory->{\n           _id,\n          categoryName,\n          categoryDescription,\n          "categorySlug": categorySlug.current\n        }\n      },\n      contributionLink,\n      detailedDescription,\n      date\n    }\n  }\n,\n    \n  services {\n    shortIntro,\n    longIntro,\n    featuredServices[]->{ \n      _id,\n      serviceIcon{\n        asset->{\n          _id,\n          url,\n          ... // All other asset fields\n        }\n      },\n      serviceName,\n      shortDescription,\n      longDescription\n    }\n  }\n,\n    \n  testimonials {\n    shortIntro,\n    longIntro,\n    featuredTestimonials[]->{ \n      _id,\n      name,\n      feedback,\n      position{\n        "title": select( \n          positionTitle == "Other" => customPositionTitle,\n          positionTitle\n        ),\n        affiliation->{\n          _id,\n          name,\n          type,\n          link,\n          logo{\n            asset->{\n              _id,\n              url,\n              ... \n            }\n          },\n          description,\n          location,\n          ..., \n        }\n      },\n      photo {\n        asset->{\n          _id,\n          url,\n          ..., \n        }\n      },\n      isPinned,\n      category\n      \n    }\n  }\n,\n    \n  contact {\n    email->{\n      title,\n      "value": address \n    },\n    phoneNumber->{\n      title,\n      "value": numberDetails.dialCode + numberDetails.phoneNumberValue \n    },\n    "socialMedia": socialMediaLinks->{\n      title,\n      links[]{\n        platform,\n        link\n      }\n    }\n  }\n,\n    \n  metadata {\n    metaTitle,\n    metaDescription,\n    metaKeywords[]->{\n      _id,\n      keywordName,\n     "keywordSlug" : keywordSlug.current\n    },\n    metaImage->{ \n      "asset": image.asset->,\n      altText \n    },\n    metaURL,\n    metaType\n  }\n,\n  }': PROFILE_QUERYResult;
+    '*[_type == "profile" && slug.current == $slug][0]{\n    \n  hero {\n    greeting,\n    tagline,\n    subHeadline,\n    ctaButtonText,\n    ctaButtonLink\n  }\n,\n    \n  about {\n    shortIntro,\n    longIntro,\n    personalStory\n  }\n,\n    \n  technologiesAndTools {\n    shortIntro,\n    longIntro,\n    featuredTechnologiesAndTools[]->{\n      _id,\n      techName,\n      techDescription,\n      proficiencyLevel,\n      techLogo {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      },\n      websiteUrl,\n      techCategory->{ \n        _id,\n        categoryName,\n        categoryDescription,\n        "categorySlug": categorySlug.current\n      }\n    }\n  }\n,\n    \n  works {\n    shortIntro,\n    longIntro,\n    "featuredProjects": featuredProjects[]->{\n      _id,\n      title,\n      description,\n      "slug": slug.current,\n      thumbnail {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      }\n    },\n    "otherWorks": otherWorks[]->{\n      _id,\n      title,\n      "slug": slug.current,\n      description,\n      thumbnail {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      }\n    }\n  }\n,\n    \n  services {\n    shortIntro,\n    longIntro,\n    featuredServices[]->{ \n      _id,\n      serviceIcon{\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      },\n      serviceName,\n      shortDescription,\n      longDescription\n    }\n  }\n,\n    \n  testimonials {\n    shortIntro,\n    longIntro,\n    featuredTestimonials[]->{ \n      _id,\n      name,\n      feedback,\n      position{\n        "title": select( \n          positionTitle == "Other" => customPositionTitle,\n          positionTitle\n        ),\n        affiliation->{\n          _id,\n          name,\n          type,\n          link,\n          logo{\n            asset->{\n              _id,\n              url,\n              metadata {\n                blurHash,\n                lqip,\n                dimensions\n              }\n            }\n          },\n          description,\n          location\n        }\n      },\n      photo {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      },\n      isPinned,\n      category\n    }\n  }\n,\n    \n  contact {\n    email->{\n      title,\n      "value": address \n    },\n    phoneNumber->{\n      title,\n      "value": numberDetails.dialCode + numberDetails.phoneNumberValue \n    },\n    "socialMedia": socialMediaLinks->{\n      title,\n      links[]{\n        platform,\n        link\n      }\n    }\n  }\n,\n    \n  metadata {\n    metaTitle,\n    metaDescription,\n    metaKeywords[]->{\n      _id,\n      keywordName,\n     "keywordSlug" : keywordSlug.current\n    },\n    metaImage->{ \n      "asset": image.asset->{\n        _id,\n        url,\n        metadata {\n          blurHash,\n          lqip,\n          dimensions\n        }\n      },\n      altText \n    },\n    metaURL,\n    metaType\n  }\n,\n  }': PROFILE_QUERYResult;
+    '*[_type == "project" && slug.current == $slug][0]{\n    _id,\n    title,\n    description,\n    "slug": slug.current,\n    technologiesUsed[]->{\n      _id,\n      techName,\n      techDescription,\n      proficiencyLevel,\n      websiteUrl,\n      techCategory->{\n        _id,\n        categoryName,\n        categoryDescription,\n        "categorySlug": categorySlug.current\n      }\n    },\n    projectPreviewImages {\n      mobileView[] {\n        image {\n          asset->{\n            _id,\n            url,\n            metadata {\n              blurHash,\n              lqip,\n              dimensions\n            }\n          }\n        },\n        primaryDisplay,\n        variant,\n        screenshotViewItem->{\n          _id,\n          title,\n          "slug": value.current\n        }\n      },\n      tabletView[] {\n        image {\n          asset->{\n            _id,\n            url,\n            metadata {\n              blurHash,\n              lqip,\n              dimensions\n            }\n          }\n        },\n        primaryDisplay,\n        variant,\n        screenshotViewItem->{\n          _id,\n          title,\n          "slug": value.current\n        }\n      },\n      desktopView[] {\n        image {\n          asset->{\n            _id,\n            url,\n            metadata {\n              blurHash,\n              lqip,\n              dimensions\n            }\n          }\n        },\n        primaryDisplay,\n        variant,\n        screenshotViewItem->{\n          _id,\n          title,\n          "slug": value.current\n        }\n      }\n    },\n    liveDemoLink,\n    repoLink,\n    detailedDescription,\n    developmentStatus,\n    date\n  }': SINGLE_PROJECT_QUERYResult;
     ' *[_type == "profile"]{\n    "slug": slug.current\n  }': PROFILE_SLUGSResult;
   }
 }

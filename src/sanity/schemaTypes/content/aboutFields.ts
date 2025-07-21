@@ -52,7 +52,12 @@ export const aboutFields = [
       },
       {
         type: "image",
-        options: { hotspot: true, storeOriginalFilename: false },
+        options: {
+          hotspot: true,
+          storeOriginalFilename: false,
+          metadata: ["blurhash", "lqip", "image"],
+        },
+
         fields: [
           defineField({
             name: "alt",

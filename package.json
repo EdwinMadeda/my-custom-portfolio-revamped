@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typegen": "sanity schema extract --path=src/sanity/extract.json && sanity typegen generate",
+    "typegen": "rm -f sanity.types.ts schema.json src/sanity/extract.json && sanity schema extract && sanity schema extract --path=src/sanity/extract.json && sanity typegen generate",
     "reset": "pnpm prune && pnpm cache delete &&  rm -rf node_modules && rm pnpm-lock.yaml && rm -rf .next && pnpm install",
     "generate:countries": "node scripts/extract-country-info.mjs"
   },
