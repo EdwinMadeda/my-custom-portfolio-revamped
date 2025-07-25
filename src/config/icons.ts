@@ -13,6 +13,7 @@ import {
   FaDiscord,
   FaTwitch,
   FaVimeo,
+  FaPhone,
 } from "react-icons/fa";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { SiUpwork, SiFiverr, SiReddit, SiGitlab } from "react-icons/si";
@@ -44,6 +45,7 @@ export const socialPlatformNames = [
   "fiverr",
   "freelancer",
   "angellist",
+  "phone",
 ] as const;
 
 export type SocialPlatform = (typeof socialPlatformNames)[number];
@@ -72,4 +74,5 @@ export const icons: Record<SocialPlatform | "resume" | "email", IconType> = {
   leetcode: LeetCodeSvg,
   slack: SiSlack,
   freelancer: SiFreelancer,
+  phone: FaPhone,
 };

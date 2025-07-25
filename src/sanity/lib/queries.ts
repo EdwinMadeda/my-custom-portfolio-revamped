@@ -191,6 +191,17 @@ export const contactQueryFragment = `
   }
 `;
 
+// GROQ Fragment for Contact Section
+export const resumeQueryFragment = `
+ resume->{
+   _id,
+   title,
+   "asset": pdfFile.asset->{
+       url
+     }
+ }
+`;
+
 // GROQ Fragment for Metadata Section
 export const metadataQueryFragment = `
   metadata {
@@ -231,32 +242,10 @@ export const PROFILE_QUERY = defineQuery(
     ${servicesQueryFragment},
     ${testimonialsQueryFragment},
     ${contactQueryFragment},
+    ${resumeQueryFragment},
     ${metadataQueryFragment},
   }`,
 );
-
-const projectPreviewImageFragment = `
-   mobileView[]{
-        image{
-          asset->{
-            _id,
-            url,
-            metadata{
-              blurHash,
-              lqip,
-              dimensions
-            }
-          }
-        },
-        primaryDisplay,
-        variant,
-      screenshotViewItem->{
-        _id,
-        title,
-        "slug": value.current
-      }
-  },
-`;
 
 export const SINGLE_PROJECT_QUERY = defineQuery(
   `*[_type == "project" && slug.current == $slug][0]{

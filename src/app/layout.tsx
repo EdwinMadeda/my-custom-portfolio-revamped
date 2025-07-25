@@ -11,8 +11,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
-import { PlatformLinksDesktop } from "@/components/platform-links";
+import { PersonalLinksDesktop } from "@/components/personal-links";
 import { Toaster } from "@/components/ui/sonner";
+import { getDefaultProfile } from "@/lib/sanity";
 
 const otherMetadata = {
   applicationName: siteConfig.name,
@@ -57,11 +58,13 @@ export const metadata: Metadata = {
   ...otherMetadata,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const profile = await getDefaultProfile();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -79,7 +82,13 @@ export default function RootLayout({
         >
           {children}
           <Toaster position="top-center" richColors />
-          <PlatformLinksDesktop />
+
+          {profile && (
+            <PersonalLinksDesktop
+              contact={profile.contact}
+              resume={profile.resume}
+            />
+          )}
         </ThemeProvider>
       </body>
     </html>

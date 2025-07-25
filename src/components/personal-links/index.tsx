@@ -1,21 +1,30 @@
 import React from "react";
-import { platformByLabel } from "./all-platform-links";
+
 import { Button } from "../ui/custom-button";
 import { ExternalLink } from "react-external-link";
 import clsx from "clsx";
 import { cn, generateTextColorFromHex } from "@/lib/utils";
+import { PROFILE_QUERYResult } from "../../../sanity.types";
+import {
+  PersonalLink,
+  personalLinkByLabel,
+  PersonalLinkLabel,
+} from "@/lib/all-personal-links";
 
-export function PlatformLinksDesktop() {
-  const platforms = [
-    platformByLabel["LinkedIn"],
-    platformByLabel["GitHub"],
-    platformByLabel["Email"],
-    platformByLabel["Resume"],
-  ];
+type PersonalLinksProps = Pick<
+  NonNullable<PROFILE_QUERYResult>,
+  "contact" | "resume"
+> & {
+  className?: string;
+};
 
+export function PersonalLinksDesktop(props: PersonalLinksProps) {
+  const personalLinks = getPersonalLinks(props);
   return (
     <div className="my-nav-height fixed right-0 bottom-0 mr-4 hidden flex-col items-end space-y-5 xl:flex">
-      {platforms.map(({ label, bgColor, Icon, url }) => {
+      {personalLinks.map((personalLink) => {
+        if (!personalLink) return null;
+        const { label, bgColor, Icon, url } = personalLink;
         const textColor = generateTextColorFromHex(bgColor);
         return (
           <Button
@@ -29,7 +38,7 @@ export function PlatformLinksDesktop() {
             }}
             key={label}
           >
-            <ExternalLink href={url}>
+            <ExternalLink href={url} download={label === "Resume"}>
               <Icon /> <span className="hidden group-hover:block">{label}</span>
             </ExternalLink>
           </Button>
@@ -39,13 +48,11 @@ export function PlatformLinksDesktop() {
   );
 }
 
-export function PlatformLinksMobile({ className }: { className?: string }) {
-  const platforms = [
-    platformByLabel["LinkedIn"],
-    platformByLabel["GitHub"],
-    platformByLabel["Email"],
-    platformByLabel["Resume"],
-  ];
+export function PersonalLinksMobile({
+  className,
+  ...props
+}: PersonalLinksProps) {
+  const personalLinks = getPersonalLinks(props);
 
   return (
     <div
@@ -54,7 +61,9 @@ export function PlatformLinksMobile({ className }: { className?: string }) {
         className,
       )}
     >
-      {platforms.map(({ label, bgColor, Icon, url }) => {
+      {personalLinks.map((personalLink) => {
+        if (!personalLink) return null;
+        const { label, bgColor, Icon, url } = personalLink;
         const textColor = generateTextColorFromHex(bgColor);
         return (
           <Button
@@ -78,4 +87,31 @@ export function PlatformLinksMobile({ className }: { className?: string }) {
       })}
     </div>
   );
+}
+
+function getPersonalLinks({ contact, resume }: PersonalLinksProps) {
+  const rawPlatformLinks = contact?.socialMedia?.links ?? [];
+  const rawEmail = contact?.email?.value;
+  const rawPhone = contact?.phoneNumber?.value;
+  const rawPersonalLinks: {
+    platform: (typeof rawPlatformLinks)[number]["platform"] | PersonalLinkLabel;
+    link: string | null;
+  }[] = [
+    ...rawPlatformLinks,
+    { platform: "Email", link: rawEmail ? `mailto:${rawEmail}` : null },
+    { platform: "Phone", link: rawPhone ? `tel:${rawPhone}` : null },
+    { platform: "Resume", link: resume?.asset?.url ?? null },
+  ];
+  const personalLinks = rawPersonalLinks
+    .map(({ platform, link }) =>
+      platform && link && platform in personalLinkByLabel
+        ? {
+            ...personalLinkByLabel[platform as PersonalLinkLabel],
+            url: link,
+          }
+        : null,
+    )
+    .filter(Boolean);
+
+  return personalLinks;
 }

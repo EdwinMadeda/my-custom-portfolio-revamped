@@ -12,7 +12,11 @@ export default async function Landing() {
     <>
       {profile && (
         <>
-          <Home hero={profile.hero} />
+          <Home
+            hero={profile.hero}
+            contact={profile.contact}
+            resume={profile.resume}
+          />
           <AboutMe about={profile?.about} />
           <SkillsAndTools skillsAndTools={profile?.technologiesAndTools} />
           <Works works={profile?.works} />

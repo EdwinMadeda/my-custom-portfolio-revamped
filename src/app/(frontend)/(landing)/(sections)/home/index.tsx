@@ -1,12 +1,12 @@
 import { navByName } from "@/config/site";
 import SectionInnerContent from "@/components/section-inner-content";
 import { HeroContent, HeroSkeleton } from "./hero-content";
-import { PlatformLinksMobile } from "@/components/platform-links";
+import { PersonalLinksMobile } from "@/components/personal-links";
 import { ProfileType } from "@/types";
 
-export type HeroType = ProfileType["hero"];
+export type HomeProps = Pick<ProfileType, "hero" | "contact" | "resume">;
 
-export default async function Home({ hero }: { hero: HeroType }) {
+export default async function Home({ hero, contact, resume }: HomeProps) {
   const {
     name,
     label: heading,
@@ -22,7 +22,11 @@ export default async function Home({ hero }: { hero: HeroType }) {
     >
       <SectionInnerContent className="flex h-full flex-1 flex-col justify-between">
         {hero ? <HeroContent hero={hero} /> : <HeroSkeleton />}
-        <PlatformLinksMobile className="mt-5" />
+        <PersonalLinksMobile
+          className="mt-5"
+          contact={contact}
+          resume={resume}
+        />
       </SectionInnerContent>
     </section>
   );

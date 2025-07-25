@@ -1,7 +1,7 @@
 import { icons, SocialPlatform } from "@/config/icons";
 import { defineField, defineType } from "sanity";
-import { socialPlatforms } from "../content/socialMediaPlatforms";
 import { Link } from "lucide-react";
+import { platformLinks } from "@/lib/all-personal-links";
 
 export const socialMediaLinksType = defineType({
   name: "socialMediaLinks",
@@ -32,10 +32,10 @@ export const socialMediaLinksType = defineType({
               title: "Social Platform",
               type: "string",
               options: {
-                list: socialPlatforms.map(({ title, value }) => ({
-                  title,
-                  value,
-                  icon: icons[value as SocialPlatform],
+                list: platformLinks.map(({ label, Icon }) => ({
+                  title: label,
+                  value: label,
+                  icon: Icon,
                 })),
               },
               validation: (Rule) =>
@@ -57,14 +57,17 @@ export const socialMediaLinksType = defineType({
             select: {
               title: "platform",
               subtitle: "link",
-              media: "platform",
             },
-            prepare(selection) {
-              const { title, link, media } = selection;
+            prepare({ title, link }) {
+              const iconComponent =
+                icons[
+                  platformLinks.find((item) => item.label === title)
+                    ?.value as SocialPlatform
+                ];
               return {
                 title: title,
                 subtitle: link,
-                media: icons[media as SocialPlatform],
+                media: iconComponent,
               };
             },
           },

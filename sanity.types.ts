@@ -694,25 +694,27 @@ export type SocialMediaLinks = {
   title?: string;
   links?: Array<{
     platform?:
-      | "linkedin"
-      | "github"
-      | "twitter"
-      | "instagram"
-      | "youtube"
-      | "behance"
-      | "dribbble"
-      | "medium"
-      | "pinterest"
-      | "upwork"
-      | "fiverr"
-      | "angelist"
-      | "stackoverflow"
-      | "gitlab"
-      | "reddit"
-      | "discord"
-      | "twitch"
-      | "tiktok"
-      | "vimeo";
+      | "LinkedIn"
+      | "GitHub"
+      | "GitLab"
+      | "Bitbucket"
+      | "Stack Overflow"
+      | "Dev.to"
+      | "LeetCode"
+      | "Medium"
+      | "YouTube"
+      | "Twitter"
+      | "Twitch"
+      | "Vimeo"
+      | "Behance"
+      | "Dribbble"
+      | "Reddit"
+      | "Discord"
+      | "Slack"
+      | "Upwork"
+      | "Fiverr"
+      | "Freelancer"
+      | "AngelList";
     link?: string;
     _key: string;
   }>;
@@ -1154,7 +1156,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PROFILE_QUERY
-// Query: *[_type == "profile" && slug.current == $slug][0]{      hero {    greeting,    tagline,    subHeadline,    ctaButtonText,    ctaButtonLink  },      about {    shortIntro,    longIntro,    personalStory  },      technologiesAndTools {    shortIntro,    longIntro,    featuredTechnologiesAndTools[]->{      _id,      techName,      techDescription,      proficiencyLevel,      techLogo {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      },      websiteUrl,      techCategory->{         _id,        categoryName,        categoryDescription,        "categorySlug": categorySlug.current      }    }  },      works {    shortIntro,    longIntro,    "featuredProjects": featuredProjects[]->{      _id,      title,      description,      "slug": slug.current,      thumbnail {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      }    },    "otherWorks": otherWorks[]->{      _id,      title,      "slug": slug.current,      description,      thumbnail {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      }    }  },      services {    shortIntro,    longIntro,    featuredServices[]->{       _id,      serviceIcon{        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      },      serviceName,      shortDescription,      longDescription    }  },      testimonials {    shortIntro,    longIntro,    featuredTestimonials[]->{       _id,      name,      feedback,      position{        "title": select(           positionTitle == "Other" => customPositionTitle,          positionTitle        ),        affiliation->{          _id,          name,          type,          link,          logo{            asset->{              _id,              url,              metadata {                blurHash,                lqip,                dimensions              }            }          },          description,          location        }      },      photo {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      },      isPinned,      category    }  },      contact {    email->{      title,      "value": address     },    phoneNumber->{      title,      "value": numberDetails.dialCode + numberDetails.phoneNumberValue     },    "socialMedia": socialMediaLinks->{      title,      links[]{        platform,        link      }    }  },      metadata {    metaTitle,    metaDescription,    metaKeywords[]->{      _id,      keywordName,     "keywordSlug" : keywordSlug.current    },    metaImage->{       "asset": image.asset->{        _id,        url,        metadata {          blurHash,          lqip,          dimensions        }      },      altText     },    metaURL,    metaType  },  }
+// Query: *[_type == "profile" && slug.current == $slug][0]{      hero {    greeting,    tagline,    subHeadline,    ctaButtonText,    ctaButtonLink  },      about {    shortIntro,    longIntro,    personalStory  },      technologiesAndTools {    shortIntro,    longIntro,    featuredTechnologiesAndTools[]->{      _id,      techName,      techDescription,      proficiencyLevel,      techLogo {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      },      websiteUrl,      techCategory->{         _id,        categoryName,        categoryDescription,        "categorySlug": categorySlug.current      }    }  },      works {    shortIntro,    longIntro,    "featuredProjects": featuredProjects[]->{      _id,      title,      description,      "slug": slug.current,      thumbnail {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      }    },    "otherWorks": otherWorks[]->{      _id,      title,      "slug": slug.current,      description,      thumbnail {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      }    }  },      services {    shortIntro,    longIntro,    featuredServices[]->{       _id,      serviceIcon{        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      },      serviceName,      shortDescription,      longDescription    }  },      testimonials {    shortIntro,    longIntro,    featuredTestimonials[]->{       _id,      name,      feedback,      position{        "title": select(           positionTitle == "Other" => customPositionTitle,          positionTitle        ),        affiliation->{          _id,          name,          type,          link,          logo{            asset->{              _id,              url,              metadata {                blurHash,                lqip,                dimensions              }            }          },          description,          location        }      },      photo {        asset->{          _id,          url,          metadata {            blurHash,            lqip,            dimensions          }        }      },      isPinned,      category    }  },      contact {    email->{      title,      "value": address     },    phoneNumber->{      title,      "value": numberDetails.dialCode + numberDetails.phoneNumberValue     },    "socialMedia": socialMediaLinks->{      title,      links[]{        platform,        link      }    }  },     resume->{   _id,   title,   "asset": pdfFile.asset->{       url     } },      metadata {    metaTitle,    metaDescription,    metaKeywords[]->{      _id,      keywordName,     "keywordSlug" : keywordSlug.current    },    metaImage->{       "asset": image.asset->{        _id,        url,        metadata {          blurHash,          lqip,          dimensions        }      },      altText     },    metaURL,    metaType  },  }
 export type PROFILE_QUERYResult = {
   hero: {
     greeting: Array<{
@@ -1471,28 +1473,37 @@ export type PROFILE_QUERYResult = {
       title: string | null;
       links: Array<{
         platform:
-          | "angelist"
-          | "behance"
-          | "discord"
-          | "dribbble"
-          | "fiverr"
-          | "github"
-          | "gitlab"
-          | "instagram"
-          | "linkedin"
-          | "medium"
-          | "pinterest"
-          | "reddit"
-          | "stackoverflow"
-          | "tiktok"
-          | "twitch"
-          | "twitter"
-          | "upwork"
-          | "vimeo"
-          | "youtube"
+          | "AngelList"
+          | "Behance"
+          | "Bitbucket"
+          | "Dev.to"
+          | "Discord"
+          | "Dribbble"
+          | "Fiverr"
+          | "Freelancer"
+          | "GitHub"
+          | "GitLab"
+          | "LeetCode"
+          | "LinkedIn"
+          | "Medium"
+          | "Reddit"
+          | "Slack"
+          | "Stack Overflow"
+          | "Twitch"
+          | "Twitter"
+          | "Upwork"
+          | "Vimeo"
+          | "YouTube"
           | null;
         link: string | null;
       }> | null;
+    } | null;
+  } | null;
+  resume: {
+    _id: string;
+    title: string | null;
+    asset: {
+      url: string | null;
     } | null;
   } | null;
   metadata: {
@@ -1660,7 +1671,7 @@ export type PROFILE_SLUGSResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "profile" && slug.current == $slug][0]{\n    \n  hero {\n    greeting,\n    tagline,\n    subHeadline,\n    ctaButtonText,\n    ctaButtonLink\n  }\n,\n    \n  about {\n    shortIntro,\n    longIntro,\n    personalStory\n  }\n,\n    \n  technologiesAndTools {\n    shortIntro,\n    longIntro,\n    featuredTechnologiesAndTools[]->{\n      _id,\n      techName,\n      techDescription,\n      proficiencyLevel,\n      techLogo {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      },\n      websiteUrl,\n      techCategory->{ \n        _id,\n        categoryName,\n        categoryDescription,\n        "categorySlug": categorySlug.current\n      }\n    }\n  }\n,\n    \n  works {\n    shortIntro,\n    longIntro,\n    "featuredProjects": featuredProjects[]->{\n      _id,\n      title,\n      description,\n      "slug": slug.current,\n      thumbnail {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      }\n    },\n    "otherWorks": otherWorks[]->{\n      _id,\n      title,\n      "slug": slug.current,\n      description,\n      thumbnail {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      }\n    }\n  }\n,\n    \n  services {\n    shortIntro,\n    longIntro,\n    featuredServices[]->{ \n      _id,\n      serviceIcon{\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      },\n      serviceName,\n      shortDescription,\n      longDescription\n    }\n  }\n,\n    \n  testimonials {\n    shortIntro,\n    longIntro,\n    featuredTestimonials[]->{ \n      _id,\n      name,\n      feedback,\n      position{\n        "title": select( \n          positionTitle == "Other" => customPositionTitle,\n          positionTitle\n        ),\n        affiliation->{\n          _id,\n          name,\n          type,\n          link,\n          logo{\n            asset->{\n              _id,\n              url,\n              metadata {\n                blurHash,\n                lqip,\n                dimensions\n              }\n            }\n          },\n          description,\n          location\n        }\n      },\n      photo {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      },\n      isPinned,\n      category\n    }\n  }\n,\n    \n  contact {\n    email->{\n      title,\n      "value": address \n    },\n    phoneNumber->{\n      title,\n      "value": numberDetails.dialCode + numberDetails.phoneNumberValue \n    },\n    "socialMedia": socialMediaLinks->{\n      title,\n      links[]{\n        platform,\n        link\n      }\n    }\n  }\n,\n    \n  metadata {\n    metaTitle,\n    metaDescription,\n    metaKeywords[]->{\n      _id,\n      keywordName,\n     "keywordSlug" : keywordSlug.current\n    },\n    metaImage->{ \n      "asset": image.asset->{\n        _id,\n        url,\n        metadata {\n          blurHash,\n          lqip,\n          dimensions\n        }\n      },\n      altText \n    },\n    metaURL,\n    metaType\n  }\n,\n  }': PROFILE_QUERYResult;
+    '*[_type == "profile" && slug.current == $slug][0]{\n    \n  hero {\n    greeting,\n    tagline,\n    subHeadline,\n    ctaButtonText,\n    ctaButtonLink\n  }\n,\n    \n  about {\n    shortIntro,\n    longIntro,\n    personalStory\n  }\n,\n    \n  technologiesAndTools {\n    shortIntro,\n    longIntro,\n    featuredTechnologiesAndTools[]->{\n      _id,\n      techName,\n      techDescription,\n      proficiencyLevel,\n      techLogo {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      },\n      websiteUrl,\n      techCategory->{ \n        _id,\n        categoryName,\n        categoryDescription,\n        "categorySlug": categorySlug.current\n      }\n    }\n  }\n,\n    \n  works {\n    shortIntro,\n    longIntro,\n    "featuredProjects": featuredProjects[]->{\n      _id,\n      title,\n      description,\n      "slug": slug.current,\n      thumbnail {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      }\n    },\n    "otherWorks": otherWorks[]->{\n      _id,\n      title,\n      "slug": slug.current,\n      description,\n      thumbnail {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      }\n    }\n  }\n,\n    \n  services {\n    shortIntro,\n    longIntro,\n    featuredServices[]->{ \n      _id,\n      serviceIcon{\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      },\n      serviceName,\n      shortDescription,\n      longDescription\n    }\n  }\n,\n    \n  testimonials {\n    shortIntro,\n    longIntro,\n    featuredTestimonials[]->{ \n      _id,\n      name,\n      feedback,\n      position{\n        "title": select( \n          positionTitle == "Other" => customPositionTitle,\n          positionTitle\n        ),\n        affiliation->{\n          _id,\n          name,\n          type,\n          link,\n          logo{\n            asset->{\n              _id,\n              url,\n              metadata {\n                blurHash,\n                lqip,\n                dimensions\n              }\n            }\n          },\n          description,\n          location\n        }\n      },\n      photo {\n        asset->{\n          _id,\n          url,\n          metadata {\n            blurHash,\n            lqip,\n            dimensions\n          }\n        }\n      },\n      isPinned,\n      category\n    }\n  }\n,\n    \n  contact {\n    email->{\n      title,\n      "value": address \n    },\n    phoneNumber->{\n      title,\n      "value": numberDetails.dialCode + numberDetails.phoneNumberValue \n    },\n    "socialMedia": socialMediaLinks->{\n      title,\n      links[]{\n        platform,\n        link\n      }\n    }\n  }\n,\n    \n resume->{\n   _id,\n   title,\n   "asset": pdfFile.asset->{\n       url\n     }\n }\n,\n    \n  metadata {\n    metaTitle,\n    metaDescription,\n    metaKeywords[]->{\n      _id,\n      keywordName,\n     "keywordSlug" : keywordSlug.current\n    },\n    metaImage->{ \n      "asset": image.asset->{\n        _id,\n        url,\n        metadata {\n          blurHash,\n          lqip,\n          dimensions\n        }\n      },\n      altText \n    },\n    metaURL,\n    metaType\n  }\n,\n  }': PROFILE_QUERYResult;
     '*[_type == "project" && slug.current == $slug][0]{\n    _id,\n    title,\n    description,\n    "slug": slug.current,\n    technologiesUsed[]->{\n      _id,\n      techName,\n      techDescription,\n      proficiencyLevel,\n      websiteUrl,\n      techCategory->{\n        _id,\n        categoryName,\n        categoryDescription,\n        "categorySlug": categorySlug.current\n      }\n    },\n    projectPreviewImages {\n      mobileView[] {\n        image {\n          asset->{\n            _id,\n            url,\n            metadata {\n              blurHash,\n              lqip,\n              dimensions\n            }\n          }\n        },\n        primaryDisplay,\n        variant,\n        screenshotViewItem->{\n          _id,\n          title,\n          "slug": value.current\n        }\n      },\n      tabletView[] {\n        image {\n          asset->{\n            _id,\n            url,\n            metadata {\n              blurHash,\n              lqip,\n              dimensions\n            }\n          }\n        },\n        primaryDisplay,\n        variant,\n        screenshotViewItem->{\n          _id,\n          title,\n          "slug": value.current\n        }\n      },\n      desktopView[] {\n        image {\n          asset->{\n            _id,\n            url,\n            metadata {\n              blurHash,\n              lqip,\n              dimensions\n            }\n          }\n        },\n        primaryDisplay,\n        variant,\n        screenshotViewItem->{\n          _id,\n          title,\n          "slug": value.current\n        }\n      }\n    },\n    liveDemoLink,\n    repoLink,\n    detailedDescription,\n    developmentStatus,\n    date\n  }': SINGLE_PROJECT_QUERYResult;
     ' *[_type == "profile"]{\n    "slug": slug.current\n  }': PROFILE_SLUGSResult;
   }

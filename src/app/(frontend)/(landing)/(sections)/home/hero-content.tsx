@@ -1,4 +1,3 @@
-import { PlatformLinksMobile } from "@/components/platform-links";
 import { Heading1, Paragraph } from "@/components/typography";
 import { Button } from "@/components/ui/custom-button";
 import { Skeleton } from "@/components/ui/skeleton";

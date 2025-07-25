@@ -4122,79 +4122,87 @@
                   "of": [
                     {
                       "type": "string",
-                      "value": "linkedin"
+                      "value": "LinkedIn"
                     },
                     {
                       "type": "string",
-                      "value": "github"
+                      "value": "GitHub"
                     },
                     {
                       "type": "string",
-                      "value": "twitter"
+                      "value": "GitLab"
                     },
                     {
                       "type": "string",
-                      "value": "instagram"
+                      "value": "Bitbucket"
                     },
                     {
                       "type": "string",
-                      "value": "youtube"
+                      "value": "Stack Overflow"
                     },
                     {
                       "type": "string",
-                      "value": "behance"
+                      "value": "Dev.to"
                     },
                     {
                       "type": "string",
-                      "value": "dribbble"
+                      "value": "LeetCode"
                     },
                     {
                       "type": "string",
-                      "value": "medium"
+                      "value": "Medium"
                     },
                     {
                       "type": "string",
-                      "value": "pinterest"
+                      "value": "YouTube"
                     },
                     {
                       "type": "string",
-                      "value": "upwork"
+                      "value": "Twitter"
                     },
                     {
                       "type": "string",
-                      "value": "fiverr"
+                      "value": "Twitch"
                     },
                     {
                       "type": "string",
-                      "value": "angelist"
+                      "value": "Vimeo"
                     },
                     {
                       "type": "string",
-                      "value": "stackoverflow"
+                      "value": "Behance"
                     },
                     {
                       "type": "string",
-                      "value": "gitlab"
+                      "value": "Dribbble"
                     },
                     {
                       "type": "string",
-                      "value": "reddit"
+                      "value": "Reddit"
                     },
                     {
                       "type": "string",
-                      "value": "discord"
+                      "value": "Discord"
                     },
                     {
                       "type": "string",
-                      "value": "twitch"
+                      "value": "Slack"
                     },
                     {
                       "type": "string",
-                      "value": "tiktok"
+                      "value": "Upwork"
                     },
                     {
                       "type": "string",
-                      "value": "vimeo"
+                      "value": "Fiverr"
+                    },
+                    {
+                      "type": "string",
+                      "value": "Freelancer"
+                    },
+                    {
+                      "type": "string",
+                      "value": "AngelList"
                     }
                   ]
                 },
