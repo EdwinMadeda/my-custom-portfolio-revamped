@@ -3,7 +3,6 @@ import { GradientHeading, SubHeading } from "@/components/typography";
 
 import { navByName } from "@/config/site";
 
-import { projects } from "./works-constants";
 import { WorkCard, WorkCardSkeleton } from "./work-card";
 import { ProfileType } from "@/types";
 
@@ -34,7 +33,7 @@ export default function Works({ works }: { works: WorksType }) {
           {works?.featuredProjects ? (
             <>
               {works.featuredProjects.map((project, index) => (
-                <WorkCard key={index} project={project} index={index} />
+                <WorkCard key={project._id} project={project} index={index} />
               ))}
             </>
           ) : (

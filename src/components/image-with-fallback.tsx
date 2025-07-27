@@ -8,12 +8,14 @@ import { Skeleton } from "./ui/skeleton";
 import { ImageOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SpinnerCircularFixed } from "spinners-react/lib/esm/SpinnerCircularFixed";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 
 interface ImageWithFallbackProps
   extends Omit<ImageProps, "placeholder" | "blurDataURL"> {
+  aspectRatio?: number;
   fallbackMsg?: React.ReactNode;
-  blurHash?: string;
-  blurDataURL?: string;
+  blurHash?: string | null;
+  blurDataURL?: string | null;
 }
 
 export default function ImageWithFallback({
@@ -21,6 +23,7 @@ export default function ImageWithFallback({
   alt,
   width,
   height,
+  aspectRatio,
   // fallbackMsg = <>No preview available</>,
   fallbackMsg,
   blurHash,
@@ -30,6 +33,8 @@ export default function ImageWithFallback({
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const calculatedAspectRatio =
+    aspectRatio ?? (width && height ? Number(width) / Number(height) : 1);
 
   useEffect(() => {
     setHasError(false);
@@ -53,6 +58,7 @@ export default function ImageWithFallback({
       <ImageFallbackSkeleton
         width={width}
         height={height}
+        aspectRatio={calculatedAspectRatio}
         className="animate-none"
       >
         <ImageOff className="text-muted-foreground mb-2 h-6 w-6" />
@@ -66,15 +72,20 @@ export default function ImageWithFallback({
   }
 
   return (
-    <div
+    <AspectRatio
+      ratio={calculatedAspectRatio}
       style={{
         position: "relative",
-        aspectRatio: width && height ? `${width}/${height}` : "1/1",
+        // aspectRatio: width && height ? `${width}/${height}` : "1/1",
       }}
       className="h-full w-full"
     >
       {!isLoaded && (
-        <ImageFallbackSkeleton width={width} height={height}>
+        <ImageFallbackSkeleton
+          width={width}
+          height={height}
+          aspectRatio={calculatedAspectRatio}
+        >
           {blurHash ? (
             <canvas
               ref={canvasRef}
@@ -107,42 +118,47 @@ export default function ImageWithFallback({
         alt={alt}
         width={width}
         height={height}
+        // fill
         onError={() => setHasError(true)}
         onLoad={() => setIsLoaded(true)}
         placeholder={blurDataURL ? "blur" : undefined}
-        blurDataURL={blurDataURL}
+        blurDataURL={blurDataURL ? blurDataURL : undefined}
         style={{
           opacity: isLoaded ? 1 : 0,
           transition: "opacity 0.3s ease",
           position: "absolute",
+          objectFit: "cover",
           top: 0,
           left: 0,
           ...props.style,
         }}
       />
-    </div>
+    </AspectRatio>
   );
 }
 
 function ImageFallbackSkeleton({
-  width,
-  height,
+  aspectRatio,
   children,
   className,
-}: Pick<ImageProps, "width" | "height" | "children"> & { className?: string }) {
+}: Pick<ImageProps, "width" | "height" | "children"> & {
+  aspectRatio: number;
+  className?: string;
+}) {
   return (
-    <div
+    <AspectRatio
+      ratio={aspectRatio}
       role="img"
       aria-live="assertive"
       className="relative w-full"
-      style={{
-        aspectRatio: width && height ? `${width}/${height}` : "1/1",
-      }}
+      // style={{
+      //   aspectRatio: width && height ? `${width}/${height}` : "1/1",
+      // }}
     >
       <Skeleton
         className={cn(
           "flex h-full w-full items-center justify-center gap-3 rounded",
-          { "flex-col": width && height && Number(width) / Number(height) < 1 },
+          { "flex-col": aspectRatio < 1 },
           className,
         )}
       >
@@ -150,6 +166,6 @@ function ImageFallbackSkeleton({
           {children}
         </div>
       </Skeleton>
-    </div>
+    </AspectRatio>
   );
 }

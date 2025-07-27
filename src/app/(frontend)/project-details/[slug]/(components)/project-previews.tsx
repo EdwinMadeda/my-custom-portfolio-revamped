@@ -14,7 +14,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -103,6 +102,10 @@ export default function ProjectPreviews({
                             available
                           </>
                         }
+                        aspectRatio={
+                          mobileView.image.asset.metadata.dimensions
+                            ?.aspectRatio
+                        }
                         blurHash={mobileView.image.asset.metadata.blurHash}
                         blurDataURL={mobileView.image.asset.metadata.lqip}
                       />
@@ -136,6 +139,10 @@ export default function ProjectPreviews({
                         alt="Tablet Mockup"
                         width={330} // Matches max display width
                         height={248} // Derived from 330px width to maintain 4:3 aspect ratio
+                        aspectRatio={
+                          tabletView.image.asset.metadata.dimensions
+                            ?.aspectRatio
+                        }
                         blurHash={tabletView.image.asset.metadata.blurHash}
                         blurDataURL={tabletView.image.asset.metadata.lqip}
                       />
@@ -170,6 +177,10 @@ export default function ProjectPreviews({
                             alt="Standard Desktop Mockup"
                             width={576} // Matches max display width
                             height={324} // Derived from 576px width to maintain 16:9 aspect ratio
+                            aspectRatio={
+                              desktopView.image.asset.metadata.dimensions
+                                ?.aspectRatio
+                            }
                             blurHash={desktopView.image.asset.metadata.blurHash}
                             blurDataURL={desktopView.image.asset.metadata.lqip}
                           />
@@ -200,6 +211,10 @@ export default function ProjectPreviews({
                             alt="Ultrawide Desktop Mockup"
                             width={756} // Matches max display width
                             height={324} // Derived from 756px width to maintain 21:9 aspect ratio
+                            aspectRatio={
+                              desktopView.image.asset.metadata.dimensions
+                                ?.aspectRatio
+                            }
                             blurHash={desktopView.image.asset.metadata.blurHash}
                             blurDataURL={desktopView.image.asset.metadata.lqip}
                           />

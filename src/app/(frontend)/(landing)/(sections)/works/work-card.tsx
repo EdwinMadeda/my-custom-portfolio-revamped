@@ -33,11 +33,14 @@ export function WorkCard({ project, index }: WorkCardProps) {
           .auto("format")
           .url()}
         alt={`Thumbnail for ${project.title}`}
+        aspectRatio={
+          project.thumbnail?.asset?.metadata?.dimensions?.aspectRatio
+        }
         width={400}
         height={225}
         fallbackMsg="No Preview Available"
-        blurHash={project.thumbnail?.asset?.metadata?.blurHash ?? undefined}
-        blurDataURL={project.thumbnail?.asset?.metadata?.lqip ?? undefined}
+        blurHash={project.thumbnail?.asset?.metadata?.blurHash}
+        blurDataURL={project.thumbnail?.asset?.metadata?.lqip}
       />
 
       <CardContent>

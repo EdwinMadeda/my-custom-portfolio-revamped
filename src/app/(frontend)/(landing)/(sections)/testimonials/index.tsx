@@ -10,16 +10,30 @@ import { TestimonialCard, TestimonialSkeleton } from "./testimonial";
 import MyCustomCarousel from "@/components/my-custom-carousel";
 import { EmblaOptionsType, EmblaPluginType } from "embla-carousel";
 import useResponsive from "@/hooks/useResponsive";
-import { testimonials } from "./testimonials-constants";
 import { ThumbContent, ThumbContentSkeleton } from "./thumb-nail-content";
 import { carouselBreakpoints } from "@/components/my-custom-carousel/carousel-breakpoints";
+import { ProfileType } from "@/types";
 
-export default function Testimonials() {
+export type TestimonialsType = ProfileType["testimonials"];
+
+export type FeaturedTestimonials =
+  NonNullable<TestimonialsType>["featuredTestimonials"];
+
+export type SingleFeaturedTestimonial =
+  NonNullable<FeaturedTestimonials>[number];
+
+interface TestimonialsProps {
+  testimonials: TestimonialsType;
+}
+
+export default function Testimonials({ testimonials }: TestimonialsProps) {
   const {
     name,
     label: heading,
     shortDescription: subHeading,
   } = navByName("testimonials");
+
+  const featuredTestimonials = testimonials?.featuredTestimonials;
 
   const { isSmallDevice } = useResponsive(carouselBreakpoints);
 
@@ -34,11 +48,14 @@ export default function Testimonials() {
     Autoplay({ playOnInit: false, delay: 10000 }),
   ];
 
-  const SLIDES = testimonials
-    ? testimonials.map((testimonial, index) => (
-        <TestimonialCard key={index} testimonial={testimonial} />
+  const SLIDES = testimonials?.featuredTestimonials
+    ? testimonials.featuredTestimonials.map((featuredTestimonial) => (
+        <TestimonialCard
+          key={featuredTestimonial._id}
+          featuredTestimonial={featuredTestimonial}
+        />
       ))
-    : Array.from({ length: 2 }).map((_, index) => (
+    : Array.from({ length: 6 }).map((_, index) => (
         <TestimonialSkeleton key={index} />
       ));
 

@@ -22,29 +22,41 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/custom-avatar";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 import { ProseContent, Quote } from "@/components/typography";
-import { TestimonialType } from "./testimonials-constants";
 import { Skeleton } from "@/components/ui/skeleton";
+import { SingleFeaturedTestimonial } from ".";
+import { urlFor } from "@/sanity/lib/image";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { PortableText } from "next-sanity";
+import { ExternalLink } from "react-external-link";
+import ImageWithFallback from "@/components/image-with-fallback";
 
-interface TestimonialProps {
-  testimonial: TestimonialType;
-}
+type TestimonialProps = {
+  featuredTestimonial: SingleFeaturedTestimonial;
+};
 
-export function TestimonialCard({ testimonial }: TestimonialProps) {
+export function TestimonialCard({ featuredTestimonial }: TestimonialProps) {
   const blockquoteContentRef = useRef<HTMLDivElement>(null);
   const isOverflowing = useContentOverFlow({
     contentRef: blockquoteContentRef,
   });
 
+  const feedback = featuredTestimonial.feedback ? (
+    <PortableText value={featuredTestimonial.feedback} />
+  ) : (
+    <>No feedback available</>
+  );
+
   return (
     <Card className="m-1 h-full w-full">
-      <TestimonialTemplate testimonial={testimonial}>
-        <Blockquote
-          ref={blockquoteContentRef}
-          isClamped
-          feedback={testimonial.feedback}
-        />
+      <TestimonialTemplate featuredTestimonial={featuredTestimonial}>
+        <Blockquote ref={blockquoteContentRef} isClamped feedback={feedback} />
         {isOverflowing && (
           <Dialog>
             <DialogTrigger asChild>
@@ -57,8 +69,8 @@ export function TestimonialCard({ testimonial }: TestimonialProps) {
                   Read the full text of this testimonial.
                 </DialogDescription>
               </VisuallyHidden>
-              <TestimonialTemplate testimonial={testimonial}>
-                <Blockquote isClamped={false} feedback={testimonial.feedback} />
+              <TestimonialTemplate featuredTestimonial={featuredTestimonial}>
+                <Blockquote isClamped={false} feedback={feedback} />
               </TestimonialTemplate>
             </DialogContent>
           </Dialog>
@@ -69,22 +81,96 @@ export function TestimonialCard({ testimonial }: TestimonialProps) {
 }
 
 function TestimonialTemplate({
-  testimonial,
+  featuredTestimonial,
   children,
 }: { children: React.ReactNode } & TestimonialProps) {
+  const { photo, name, position } = featuredTestimonial;
+  const positionTitle = position?.title;
+  const affiliation = position?.affiliation;
+  const affiliationName = affiliation?.name;
+  const affiliationLink = affiliation?.link;
+  const affiliationLogo = affiliation?.logo;
+
+  const affiliationMetadata = affiliationLogo?.asset?.metadata;
+  const affiliationLogoAspectRatio =
+    affiliationMetadata?.dimensions?.aspectRatio;
+  const affiliationLogoWidth = affiliationMetadata?.dimensions?.width;
+  const affiliationLogoHeight = affiliationMetadata?.dimensions?.height;
+  const affiliationLogoBlurHash = affiliationMetadata?.blurHash;
+  const affiliationLogoBlurDataURL = affiliationMetadata?.lqip;
+
   return (
     <CardContent>
       <div className="mx-auto max-w-2xl lg:max-w-4xl">
         <figure>
           <figcaption className="flex items-center gap-4">
             <Avatar>
-              <AvatarImage src={testimonial.photoUrl} />
-              <AvatarFallback name={testimonial.name} />
+              <AvatarImage
+                src={urlFor(photo as SanityImageSource)
+                  .width(180)
+                  .height(180)
+                  .auto("format")
+                  .url()}
+              />
+              <AvatarFallback name={name ?? ""} />
             </Avatar>
             <div>
-              <div className="font-semibold">{testimonial.name}</div>
+              <div className="font-semibold">{name}</div>
               <div className="text-muted-foreground text-sm">
-                {testimonial.positionTitle} of {testimonial.affiliationName}
+                {positionTitle}
+                {affiliationName && (
+                  <>
+                    {` at `}
+                    <HoverCard>
+                      <HoverCardTrigger asChild>
+                        {affiliationLink ? (
+                          <Button variant="link" asChild className="px-0">
+                            <ExternalLink href={affiliationLink}>
+                              {affiliationName}
+                            </ExternalLink>
+                          </Button>
+                        ) : (
+                          affiliationName
+                        )}
+                      </HoverCardTrigger>
+                      <HoverCardContent
+                        className="w-80 text-sm leading-relaxed"
+                        side="top"
+                      >
+                        <div className="relative">
+                          <div className="float-left mr-4 mb-2 w-20">
+                            <ImageWithFallback
+                              className="w-full rounded object-cover object-center"
+                              src={urlFor(affiliationLogo as SanityImageSource)
+                                .width(200)
+                                .quality(80)
+                                .auto("format")
+                                .url()}
+                              alt={`Logo for ${affiliationName}`}
+                              width={200}
+                              height={
+                                affiliationLogoAspectRatio
+                                  ? Math.round(200 / affiliationLogoAspectRatio)
+                                  : 100
+                              }
+                              fallbackMsg="No Preview Available"
+                              aspectRatio={affiliationLogoAspectRatio}
+                              blurHash={affiliationLogoBlurHash}
+                              blurDataURL={affiliationLogoBlurDataURL}
+                            />
+                          </div>
+                          <h4 className="text-sm font-semibold">
+                            {affiliationName}
+                          </h4>
+                          <p className="text-sm">{affiliation.description}</p>
+                          <div className="text-muted-foreground text-xs">
+                            <strong>Located:</strong> {affiliation.location}
+                          </div>
+                        </div>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </>
+                )}
               </div>
             </div>
           </figcaption>
@@ -97,7 +183,7 @@ function TestimonialTemplate({
 
 const Blockquote = forwardRef<
   HTMLDivElement,
-  { feedback: string; isClamped: boolean }
+  { feedback: React.JSX.Element; isClamped: boolean }
 >(({ feedback, isClamped }, ref) => {
   return (
     <Quote
@@ -112,10 +198,12 @@ const Blockquote = forwardRef<
           "line-clamp-3 md:line-clamp-4": isClamped,
         })}
         maxWidth="prose"
-        dangerouslySetInnerHTML={{
-          __html: feedback || "No feedback provided.",
-        }}
-      />
+        // dangerouslySetInnerHTML={{
+        //   __html: feedback || "No feedback provided.",
+        // }}
+      >
+        {feedback}
+      </ProseContent>
     </Quote>
   );
 });

@@ -79,7 +79,12 @@ export function PersonalLinksMobile({
             }}
             key={label}
           >
-            <ExternalLink href={url}>
+            <ExternalLink
+              href={url}
+              title={label}
+              aria-label={label}
+              download={label === "Resume"}
+            >
               <Icon className="!h-5 !w-5" />{" "}
             </ExternalLink>
           </Button>

@@ -30,6 +30,9 @@ export function SkillOrToolCard({
                 alt={`Logo of ${skillOrTool.techName ?? ""}`}
                 width={skillOrTool.techLogo.asset.metadata?.dimensions?.width}
                 height={skillOrTool.techLogo.asset.metadata?.dimensions?.height}
+                aspectRatio={
+                  skillOrTool.techLogo.asset.metadata?.dimensions?.aspectRatio
+                }
                 blurHash={skillOrTool.techLogo.asset.metadata?.blurHash}
                 blurDataURL={skillOrTool.techLogo.asset.metadata?.lqip}
               />

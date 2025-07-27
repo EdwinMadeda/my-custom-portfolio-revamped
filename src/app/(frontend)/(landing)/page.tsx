@@ -19,8 +19,8 @@ export default async function Landing() {
           />
           <AboutMe about={profile?.about} />
           <SkillsAndTools skillsAndTools={profile?.technologiesAndTools} />
-          <Works works={profile?.works} />
-          <Testimonials />
+          <Works works={profile.works} />
+          <Testimonials testimonials={profile.testimonials} />
           <Contact />
         </>
       )}

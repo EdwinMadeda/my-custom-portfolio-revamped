@@ -5,9 +5,9 @@ import Link from "next/link";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
 import { PortableText } from "next-sanity";
-import { HeroType } from ".";
+import { ProfileType } from "@/types";
 
-export function HeroContent({ hero }: { hero: HeroType }) {
+export function HeroContent({ hero }: Pick<ProfileType, "hero">) {
   return (
     <div className="flex h-full max-w-2xl flex-1 flex-col justify-center">
       <Paragraph className="text-primary uppercase">{hero?.tagline}</Paragraph>

@@ -1,5 +1,4 @@
 import BackButton from "@/components/back-button";
-import ImageWithFallback from "@/components/image-with-fallback";
 import SectionInnerContent from "@/components/section-inner-content";
 import { Button } from "@/components/ui/custom-button";
 
@@ -14,14 +13,6 @@ import {
   ProjectIntroSkeleton,
 } from "./(components)/project-intro";
 import { getSingleProject } from "@/lib/sanity";
-import { Heading4 } from "@/components/typography";
-import { Fragment } from "react";
-import { urlFor } from "@/sanity/lib/image";
-import {
-  SanityImageMetadata,
-  SINGLE_PROJECT_QUERYResult,
-} from "../../../../../sanity.types";
-import MyCustomCarousel from "@/components/my-custom-carousel";
 import ProjectPreviews, {
   ProjectPreviewImages,
 } from "./(components)/project-previews";
