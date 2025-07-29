@@ -67,8 +67,8 @@ export default function SkillsAndTools({
       skillsAndTools?.featuredTechnologiesAndTools;
     return featuredTechnologiesAndTools
       ? chunkArray(featuredTechnologiesAndTools.slice(0, 8), itemsPerSlide)
-      : [];
-  }, [itemsPerSlide]);
+      : [skillsAndTools?.featuredTechnologiesAndTools];
+  }, [itemsPerSlide, skillsAndTools?.featuredTechnologiesAndTools]);
 
   const OPTIONS: EmblaOptionsType = {
     axis: isSmallDevice ? "y" : "x",
@@ -79,7 +79,7 @@ export default function SkillsAndTools({
 
   const SLIDES = CHUNKED_SKILLS_AND_TOOLS.map((chunk, chunkIndex) => (
     <WorkSlide key={chunkIndex}>
-      {chunk.map((skillOrTool) => (
+      {chunk?.map((skillOrTool) => (
         <Fragment key={skillOrTool._id}>
           {skillOrTool.websiteUrl ? (
             <ExternalLink href={skillOrTool.websiteUrl}>

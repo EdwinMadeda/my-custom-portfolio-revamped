@@ -9,7 +9,6 @@ import {
 
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
-import { Project } from "./works-constants";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SingleFeaturedProject } from ".";
 import { urlFor } from "@/sanity/lib/image";

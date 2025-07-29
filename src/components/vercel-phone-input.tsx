@@ -2,8 +2,7 @@ import * as React from "react";
 import { CheckIcon, ChevronsUpDown } from "lucide-react";
 import * as RPNInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
-import examples from "libphonenumber-js/examples.mobile.json";
-import { CountryCode, getExampleNumber } from "libphonenumber-js";
+import { CountryCode } from "libphonenumber-js";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -62,7 +61,7 @@ const VercelPhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
           ),
         ];
       };
-    }, [priorityCountries]);
+    }, [priorityCountries, selectedCountry]);
 
     const CountrySelectOptimized = ({
       options: countryList,

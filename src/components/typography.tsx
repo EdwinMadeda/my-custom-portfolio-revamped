@@ -203,3 +203,5 @@ export const ProseContent = forwardRef<
     />
   );
 });
+
+ProseContent.displayName = "ProseContent";

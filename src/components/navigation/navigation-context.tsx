@@ -59,11 +59,14 @@ export function useNavigation(): Navigation {
 export function WithNavigationContext<P extends object>(
   Component: ComponentType,
 ): FC<P> {
-  return function (props) {
+  function WithNavigationContextWrapper(props: P) {
     return (
       <NavigationProvider>
         <Component {...props} />
       </NavigationProvider>
     );
-  };
+  }
+
+  WithNavigationContextWrapper.displayName = `WithNavigationContext(${Component.displayName || Component.name})`;
+  return WithNavigationContextWrapper;
 }

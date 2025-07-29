@@ -5,7 +5,6 @@ import Works from "./(sections)/works";
 import Testimonials from "./(sections)/testimonials";
 import Contact from "./(sections)/contact";
 import { getDefaultProfile } from "@/lib/sanity";
-import { PersonalLinksDesktop } from "@/components/personal-links";
 
 export default async function Landing() {
   const profile = await getDefaultProfile();

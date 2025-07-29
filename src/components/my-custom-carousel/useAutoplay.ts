@@ -77,7 +77,7 @@ export default function useAutoplay(
       emblaApi.off("autoplay:play", handlePlay);
       emblaApi.off("autoplay:stop", handleStop);
     };
-  }, [emblaApi]);
+  }, [emblaApi, autoplay]);
 
   if (enableAutoplay) {
     return {

@@ -1,6 +1,11 @@
 import { MessageSquareQuoteIcon } from "lucide-react";
 import { defineField, defineType } from "sanity";
 
+interface Position {
+  positionTitle: string;
+  customPositionTitle?: string;
+}
+
 export const testimonialType = defineType({
   name: "testimonial",
   title: "Testimonial",
@@ -152,7 +157,8 @@ export const testimonialType = defineType({
           hidden: ({ parent }) => parent?.positionTitle !== "Other",
           validation: (Rule) =>
             Rule.custom((customValue, context) => {
-              const selectedPosition = (context.parent as any)?.positionTitle;
+              const selectedPosition = (context.parent as Position)
+                ?.positionTitle;
               if (selectedPosition === "Other" && !customValue) {
                 return 'Custom position title is required when "Other" is selected.';
               }

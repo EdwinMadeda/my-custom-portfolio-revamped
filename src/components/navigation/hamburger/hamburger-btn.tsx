@@ -47,4 +47,6 @@ const HamburgerBtn = forwardRef<HTMLButtonElement, HamburgerBtnProps>(
   },
 );
 
+HamburgerBtn.displayName = "HamburgerBtn";
+
 export default HamburgerBtn;

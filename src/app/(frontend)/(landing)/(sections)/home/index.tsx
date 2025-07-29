@@ -9,8 +9,8 @@ export type HomeProps = Pick<ProfileType, "hero" | "contact" | "resume">;
 export default async function Home({ hero, contact, resume }: HomeProps) {
   const {
     name,
-    label: heading,
-    longDescription: subHeading,
+    // label: heading,
+    // longDescription: subHeading,
   } = navByName("home");
 
   return (

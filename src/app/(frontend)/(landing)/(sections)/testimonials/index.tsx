@@ -33,8 +33,6 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
     shortDescription: subHeading,
   } = navByName("testimonials");
 
-  const featuredTestimonials = testimonials?.featuredTestimonials;
-
   const { isSmallDevice } = useResponsive(carouselBreakpoints);
 
   const OPTIONS: EmblaOptionsType = {

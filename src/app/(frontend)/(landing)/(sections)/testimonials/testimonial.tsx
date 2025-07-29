@@ -94,8 +94,6 @@ function TestimonialTemplate({
   const affiliationMetadata = affiliationLogo?.asset?.metadata;
   const affiliationLogoAspectRatio =
     affiliationMetadata?.dimensions?.aspectRatio;
-  const affiliationLogoWidth = affiliationMetadata?.dimensions?.width;
-  const affiliationLogoHeight = affiliationMetadata?.dimensions?.height;
   const affiliationLogoBlurHash = affiliationMetadata?.blurHash;
   const affiliationLogoBlurDataURL = affiliationMetadata?.lqip;
 
@@ -245,3 +243,5 @@ export function TestimonialSkeleton() {
     </Card>
   );
 }
+
+Blockquote.displayName = "Blockquote";

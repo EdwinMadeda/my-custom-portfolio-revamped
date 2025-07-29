@@ -112,7 +112,7 @@ export const phoneNumberType = defineType({
                 const countryName = countries.getName(countryCode, "en");
                 return `Please enter a valid phone number for ${countryName || "the selected country"}.`;
               }
-            } catch (error) {
+            } catch {
               return "An error occurred during phone number validation. Please check the format.";
             }
           }
@@ -139,7 +139,7 @@ export const phoneNumberType = defineType({
             phoneNumber?.formatInternational() ||
             `+${countryCode}${phoneNumberValue}`;
         }
-      } catch (error) {
+      } catch {
         subtitleText = `${countryCode}${phoneNumberValue}`;
       }
       return {

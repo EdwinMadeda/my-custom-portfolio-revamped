@@ -1,21 +1,17 @@
 import { Card } from "@/components/ui/card";
 import React, { Fragment } from "react";
-import { techStackInfo } from "./project-details-constants";
 import Divider from "@/components/divider";
 import clsx from "clsx";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { SINGLE_PROJECT_QUERYResult } from "../../../../../../sanity.types";
 import { ExternalLink } from "react-external-link";
-import { SiPanasonic } from "react-icons/si";
 
 type SingleProjectDetails = NonNullable<SINGLE_PROJECT_QUERYResult>;
 
 type TechnologyUsed = NonNullable<
   SingleProjectDetails["technologiesUsed"]
 >[number];
-
-type TechCategory = TechnologyUsed["techCategory"];
 
 type TechStackSidebarProps = Pick<SingleProjectDetails, "title"> & {
   technologiesUsed: TechnologyUsed[];

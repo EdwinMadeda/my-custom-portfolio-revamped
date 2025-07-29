@@ -20,11 +20,12 @@ export function CopyableText({
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
-      withToast &&
+      if (withToast)
         toast.success("Copied to clipboard", { position: "bottom-right" });
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      withToast && toast.error("Failed to copy", { position: "bottom-right" });
+      if (withToast)
+        toast.error("Failed to copy", { position: "bottom-right" });
     }
   };
 
