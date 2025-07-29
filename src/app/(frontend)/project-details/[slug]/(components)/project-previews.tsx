@@ -7,7 +7,6 @@ import {
 import ImageWithFallback from "@/components/image-with-fallback";
 import { urlFor } from "@/sanity/lib/image";
 import { Heading6 } from "@/components/typography";
-import clsx from "clsx";
 
 import {
   Select,
