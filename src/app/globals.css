@@ -67,6 +67,20 @@
   --container-carousel-lg-tablet: 1024px;
   --container-carousel-sm-desktop: 1180px;
   --container-carousel-desktop: 1280px;
+
+  /*  NEW: Semantic Colors */
+
+  --color-success: var(--success);
+  --color-sucess-foreground: var(--success-foreground);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--success-foreground);
+
+  --color-info: oklch(0.87 0.12 250);
+  --color-info-foreground: oklch(0.25 0.01 250);
+
+  --color-neutral: oklch(0.7 0 0);
+  --color-neutral-foreground: oklch(0.3 0 0);
 }
 
 :root {
