@@ -186,7 +186,7 @@ const Blockquote = forwardRef<
   return (
     <Quote
       className={clsx("mt-4 transition-all duration-300 ease-out", {
-        "h-40": isClamped,
+        "max-h-40": isClamped,
       })}
     >
       <QuoteSvg className="text-muted-foreground mb-2 block h-3 w-3" />

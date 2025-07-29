@@ -47,6 +47,7 @@
     "libphonenumber-js": "^1.12.6",
     "lucide-react": "^0.487.0",
     "next": "15.3.4",
+    "next-custom-porfolio-revamped": "link:",
     "next-sanity": "^9.12.0",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",

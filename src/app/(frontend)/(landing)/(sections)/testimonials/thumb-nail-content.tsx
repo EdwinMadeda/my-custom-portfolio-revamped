@@ -14,11 +14,11 @@ export function ThumbContent(index: number, isSelected: boolean) {
   const testimonial = testimonials.find((_, itemIdx) => itemIdx === index);
   return (
     <Avatar
-      className={cn("!size-10 border shadow-sm ring-4", {
+      className={cn("!size-10 border shadow-sm ring-4 select-none", {
         "": isSelected,
       })}
     >
-      <AvatarImage src={testimonial?.photoUrl} />
+      <AvatarImage src={testimonial?.photoUrl} className="rounded-full" />
       <AvatarFallback name={testimonial?.name} />
     </Avatar>
   );
