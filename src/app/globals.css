@@ -70,7 +70,7 @@
 
   /*  NEW: Semantic Colors */
 
-  --color-success: var(--success);
+  --color-sucess: var(--success);
   --color-sucess-foreground: var(--success-foreground);
 
   --color-warning: var(--warning);
@@ -79,8 +79,8 @@
   --color-info: oklch(0.87 0.12 250);
   --color-info-foreground: oklch(0.25 0.01 250);
 
-  --color-neutral: oklch(0.7 0 0);
-  --color-neutral-foreground: oklch(0.3 0 0);
+  --neutral: oklch(0.7 0 0);
+  --neutral-foreground: oklch(0.3 0 0);
 }
 
 :root {
@@ -260,9 +260,9 @@
     }
 
     &:not(:disabled) {
-      &:hover {
+      /* &:hover {
         @apply scale-95;
-      }
+      } */
 
       &:active {
         @apply scale-95;

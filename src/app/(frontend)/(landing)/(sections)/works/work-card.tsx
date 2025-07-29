@@ -17,15 +17,13 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 interface WorkCardProps {
   project: SingleFeaturedProject;
-  index: number;
 }
 
-export function WorkCard({ project, index }: WorkCardProps) {
+export function WorkCard({ project }: WorkCardProps) {
   return (
     <WorkCardTemplate>
       <ImageWithFallback
         className="w-full object-cover object-center"
-        // src={`https://picsum.photos/id/7${index + 15}/400/225`}
         src={urlFor(project.thumbnail as SanityImageSource)
           .width(400)
           .height(225)

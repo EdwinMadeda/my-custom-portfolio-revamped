@@ -32,8 +32,8 @@ export default function Works({ works }: { works: WorksType }) {
         <div className="-m-4 mx-auto mt-4 flex flex-wrap">
           {works?.featuredProjects ? (
             <>
-              {works.featuredProjects.map((project, index) => (
-                <WorkCard key={project._id} project={project} index={index} />
+              {works.featuredProjects.map((project) => (
+                <WorkCard key={project._id} project={project} />
               ))}
             </>
           ) : (
